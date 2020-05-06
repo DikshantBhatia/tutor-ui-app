@@ -1,0 +1,26 @@
+.hero .jumbotron {
+  border-radius: unset;
+}
+
+.info-header {
+  font-size: 3rem;
+  font-weight: 600;
+}
+
+.info-sub-header {
+  font-size: 1.25rem;
+  font-weight: 400;
+}
+
+@media screen and (min-width: 544px) {
+  .hero-info-container{
+    text-align: left;
+    margin-top: 3%;
+  }
+}
+
+@media  (min-width: 992px) {
+  .hero-info-container {
+    margin-top: 7%;
+  }
+}

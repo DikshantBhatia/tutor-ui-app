@@ -1,0 +1,56 @@
+.main-header__top {
+  font-size: 0.9375rem;
+}
+
+.navbar {
+  height: 68px;
+}
+
+.logo-text {
+  color: #ff5c51;
+  font-family: Proxima Nova,sans-serif;
+  font-weight: 600;
+  margin-left: 10px;
+}
+
+@media (min-width: 992px) {
+  .navItemContainer li {
+    line-height: 36px;
+  }
+}
+
+.navItemContainer li {
+  font-weight: 600;
+  -webkit-font-smoothing: antialiased;
+}
+
+.nav-item {
+  margin-left: 20px;
+}
+
+.nav-link {
+  color: #484848 !important;
+}
+
+.register-header-btn {
+  line-height: inherit;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,1 +1,109 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+html {
+  font-size: 70%
+}
+
+@media (min-width: 992px) {
+  html {
+    font-size:100%
+  }
+}
+
+body {
+  font-size: 100%;
+  line-height: 1.25;
+  font-family: Source Sans Pro,sans-serif;
+  color: #283740;
+  -webkit-font-smoothing: antialiased
+}
+
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+  color: #398cbf;
+}
+
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/*@media (min-width: 576px) {
+  .container {
+    max-width:576px
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width:768px
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    max-width:992px
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width:1200px
+  }
+}*/
+
+
+.fill-orange {
+  fill: #ff5c51;
+}
+
+.bg-orange {
+  background-color: #ff5c51;
+  color: #fff;
+}
+
+
+
+.btn.btn-orange {
+  border: 1px solid #ff5c51;
+  background: #ff5c51;
+  color: #fff;
+}
+
+.btn.btn-orange:hover {
+  border: 1px solid #ff4437;
+  background-color: #ff4437
+}
+
+.btn, .btn:hover {
+  text-decoration: none;
+}
+
+.btn {
+  display: inline-block;
+  -webkit-appearance: none;
+  border-radius: 3px;
+  background: #83878a;
+  color: #fff;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.btn-md {
+  font-weight: 600;
+  font-size: 16px;
+  padding: 11px 20px;
+}
+
+.btn:not(:disabled) {
+  cursor: pointer
+}
+
