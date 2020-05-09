@@ -3,7 +3,7 @@
   "version": 1, 
   "newProjectRoot": "projects",
   "projects": {
-    "tution-ui-app": {
+    "tutor-ui-app": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/tution-ui-app",
+            "outputPath": "dist/tutor-ui-app",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -70,18 +70,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "tution-ui-app:build"
+            "browserTarget": "tutor-ui-app:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "tution-ui-app:build:production"
+              "browserTarget": "tutor-ui-app:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "tution-ui-app:build"
+            "browserTarget": "tutor-ui-app:build"
           }
         },
         "test": {
@@ -118,15 +118,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "tution-ui-app:serve"
+            "devServerTarget": "tutor-ui-app:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "tution-ui-app:serve:production"
+              "devServerTarget": "tutor-ui-app:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "tution-ui-app"
+  "defaultProject": "tutor-ui-app"
 }
