@@ -1,5 +1,6 @@
 .main-header__top {
   font-size: 0.9375rem;
+  background-color: #ffffff;
 }
 
 .navbar {
@@ -38,6 +39,10 @@ a.nav-link:hover {
 
 .register-header-btn {
   line-height: inherit;
+}
+
+.register-header-btn .btn {
+  padding: 11px 15px;
 }
 
 
