@@ -115,5 +115,18 @@ a.disabled, a.disabled:hover {
   pointer-events: none;
 }
 
+.alert {
+  border-radius: 2px;
+  padding-right: 3rem;
+}
 
+.alert-danger {
+  color: #ff5c51;
+  background-color: #FFF5F5;
+  border-color: #ff5c51;
+}
+
+.alert span {
+  font-size: small;
+}
 

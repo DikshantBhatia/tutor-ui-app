@@ -2,11 +2,11 @@
   <p>Please enter OTP</p>
   <div class="input-group mb-4" formArrayName="otp">
     <ng-container *ngFor="let control of otp.controls; let i = index;">
-      <input #otpInput (keyup)="onOtpInput($event, i)" [formControlName]="i" class="form-control" maxlength="1"
+      <input #otpInput (keyup)="onOtpInput($event, i)" (focus)="onFocus($event)" [formControlName]="i" class="form-control" maxlength="1"
              pKeyFilter="int"
              required type="text">
     </ng-container>
   </div>
-  <p class="resend-otp-text">Didn't get a code?<a [class.disabled]="!isPhoneValid" class="underline orange">Resend</a>
+  <p class="resend-otp-text">Didn't get a code?<a [class.disabled]="!isPhoneValid" (click)="onResendOtp()" class="underline orange">Resend</a>
   </p>
 </div>

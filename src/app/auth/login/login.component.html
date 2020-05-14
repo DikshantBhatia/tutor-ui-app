@@ -1,0 +1,78 @@
+<app-header></app-header>
+<section class="login">
+  <div class="card">
+    <div class="form-signin">
+      <form (ngSubmit)="onSendOtp()" [formGroup]="loginForm">
+        <!-- the below login for displaying alert will be move to a common component once error showing style is finalised -->
+        <div class="alert alert-danger alert-dismissible mb-4" role="alert" *ngIf="error">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <span><strong>Sorry !</strong> {{error}}</span>
+        </div>
+        <h6 class="login-text">Log in with Phone</h6>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">+91</span>
+          </div>
+          <input aria-describedby="basic-addon1" aria-label="Username" class="form-control"
+                 formControlName="phoneNumber"
+                 maxlength="1000"  placeholder="Phone" required type="text">
+          <div class="input-group-append">
+            <button [disabled]="!loginForm.valid" class="btn  btn-orange send-otp-btn" type="submit" data-toggle="tooltip" data-placement="top" title="Tooltip on top">Send OTP</button>
+          </div>
+          <!-- the below logic for displaying inline error messages might be used later-->
+          <!--<div class="invalid-feedback" *ngIf="error">
+            Sorry,
+          </div>-->
+        </div>
+      </form>
+      <div *ngIf="showLoadingOverlay" class="text-center mb-3 mt-5">
+        <app-tf-spinner></app-tf-spinner>
+      </div>
+      <div *ngIf="otpGenerated" class="mt-5 mb-3">
+        <app-tf-otp-input (login)="onLogin($event)" (resendOtp)="onSendOtp()" [isPhoneValid]="loginForm.valid"></app-tf-otp-input>
+      </div>
+      <div class="divider">
+        <h6><span>or</span></h6>
+      </div>
+      <div class="loginProviderBtns mb-4 mt-3">
+        <button class="btn btn-md loginProviderBtn">
+									<span class="loginProviderIcon facebookLogo">
+										<i class="fa fa-facebook"></i>
+									</span>
+          <span class="loginProviderRightArrow"><i class="fa fa-angle-right"></i></span>
+          <h2 class="externalButtonExplanation">Login with Facebook</h2>
+        </button>
+        <button class="btn btn-md loginProviderBtn">
+									<span class="loginProviderIcon googleLogo">
+										<i class="fa fa-google"></i>
+									</span>
+          <span class="loginProviderRightArrow"><i class="fa fa-angle-right"></i></span>
+          <h2 class="externalButtonExplanation">Log in with Google</h2>
+        </button>
+      </div>
+      <p class="mt-5 mb-3 text-muted text-center">&copy; 2020</p>
+    </div>
+  </div>
+</section>
+
+<p-blockUI [blocked]="showLoadingOverlay"></p-blockUI>
+<!-- code to display messages in toast style -->
+<!--<p-messages></p-messages>-->
+<!--<p-toast position="bottom-center"></p-toast>-->
+
+<!--todo below code is kept for reference, will ve removed in future-->
+<!--<button class="btn btn-md btn-orange btn-block" type="submit" [disabled]="!loginForm.valid">Send OTP</button>-->
+<!--<div class="ui-inputgroup">
+    <span class="ui-inputgroup-addon">+91</span>
+    <input pInputText pKeyFilter="int" placeholder="Phone" required formControlName="phoneNumber" maxlength="10">
+    &lt;!&ndash;<p-inputMask mask="9999999999" placeholder="Phone"></p-inputMask>&ndash;&gt;
+</div>-->
+
+<!--<div class="otp-input-container ui-inputgroup">
+  <input pInputText maxlength="1" pKeyFilter="int">
+  <input pInputText maxlength="1" pKeyFilter="int">
+  <input pInputText maxlength="1" pKeyFilter="int">
+  <input pInputText maxlength="1" pKeyFilter="int">
+</div>-->

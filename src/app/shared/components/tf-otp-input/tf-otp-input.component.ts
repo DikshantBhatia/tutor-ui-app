@@ -8,10 +8,13 @@ import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class TfOtpInputComponent implements OnInit {
 
-  otpForm: FormGroup;
-  @ViewChildren('otpInput', {read: ElementRef}) otpInputs: QueryList<ElementRef>;
   @Input() isPhoneValid: boolean;
-  @Output() submitOtp: EventEmitter<number> = new EventEmitter();
+  @Output() login: EventEmitter<number> = new EventEmitter();
+  @Output() resendOtp: EventEmitter<null> = new EventEmitter();
+
+  @ViewChildren('otpInput', {read: ElementRef}) otpInputs: QueryList<ElementRef>;
+  otpForm: FormGroup;
+  resetOtp = true;
 
   constructor() {
   }
@@ -36,9 +39,19 @@ export class TfOtpInputComponent implements OnInit {
         this.otpInputs.find((item, pos) => pos === index + 1).nativeElement.focus();
       }
     } else {
-      console.log('make backend request');
-      this.submitOtp.emit(1234);
+      this.login.emit(this.otp.value.join(''));
     }
   }
 
+  onResendOtp() {
+    this.resendOtp.emit(null);
+  }
+
+  onFocus($event: FocusEvent) {
+    if (this.resetOtp) {
+        this.otpForm.reset();
+        this.otpInputs.first.nativeElement.focus();
+        this.resetOtp = false;
+    }
+  }
 }
