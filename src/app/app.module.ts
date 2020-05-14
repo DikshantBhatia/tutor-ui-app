@@ -20,7 +20,8 @@ import { TfSpinnerComponent } from './shared/components/tf-spinner/tf-spinner.co
 import { LoginComponent } from './auth/login/login.component';
 import { HomeComponent } from './home/home.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {HttpErrorInterceptor} from './core/interceptors/http-error-interceptor';
+import {HttpErrorInterceptor} from './core/interceptors/http-error.interceptor';
+
 
 @NgModule({
   declarations: [

@@ -26,11 +26,14 @@
           </li>
         </ul>
         <ul class="navbar-nav mt-2 mt-lg-0 ">
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="!isAuthenticated">
             <a class="nav-link" routerLink="/login">Log in</a>
           </li>
-          <li class="nav-item register-header-btn">
+          <li class="nav-item register-header-btn" *ngIf="!isAuthenticated">
             <a class="btn btn-md btn-orange" href="#"><span>Get Started</span></a>
+          </li>
+          <li class="nav-item" *ngIf="isAuthenticated">
+            <a class="nav-link" href="#"><span>Log Out</span></a>
           </li>
         </ul>
       </div>

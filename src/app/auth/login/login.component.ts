@@ -46,18 +46,25 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(otp: number) {
-    this.showLoadingOverlay = true;
-    this.authService.login(this.loginForm.value.phoneNumber, otp)
-      .subscribe(
-        response => {
-          this.showLoadingOverlay = false;
-          this.router.navigate(['/home']);
-        },
-        errResp => {
-          this.showLoadingOverlay = false;
-          this.error = errResp;
-          this.otpInputComponent.resetOtp = true;
-        });
+    /* below check ensure that if user manually changes phone number after
+      generating otp, request is not send to backend and message is shown to the user
+    */
+    if (this.loginForm.valid) {
+      this.showLoadingOverlay = true;
+      this.authService.login(this.loginForm.value.phoneNumber, otp)
+        .subscribe(
+          response => {
+            this.showLoadingOverlay = false;
+            this.router.navigate(['/home']);
+          },
+          errResp => {
+            this.showLoadingOverlay = false;
+            this.error = errResp;
+            this.otpInputComponent.resetOtp = true;
+          });
+    } else {
+      this.error = 'Phone number is not correct. It must have 10 digits';
+    }
 
   }
 }
