@@ -5,14 +5,22 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 
 import {HeaderComponent} from './layout/header/header.component';
-import {HomeComponent} from './features/home/home.component';
-import { LoginComponent } from './features/login/login.component';
-import {BlockUIModule, DropdownModule, InputTextModule, KeyFilterModule, TooltipModule} from 'primeng';
+
+import {
+  BlockUIModule,
+  DropdownModule,
+  InputTextModule,
+  KeyFilterModule,
+} from 'primeng';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { TfOtpInputComponent } from './shared/components/tf-otp-input/tf-otp-input.component';
 import { TfSpinnerComponent } from './shared/components/tf-spinner/tf-spinner.component';
+import { LoginComponent } from './auth/login/login.component';
+import { HomeComponent } from './home/home.component';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {HttpErrorInterceptor} from './core/interceptors/http-error-interceptor';
 
 @NgModule({
   declarations: [
@@ -33,9 +41,16 @@ import { TfSpinnerComponent } from './shared/components/tf-spinner/tf-spinner.co
     KeyFilterModule,
     ReactiveFormsModule,
     BlockUIModule,
-    TooltipModule
+    HttpClientModule,
+
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true,
+    }
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
