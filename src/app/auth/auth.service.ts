@@ -40,10 +40,20 @@ export class AuthService {
 
   }
 
+  autoLogin() {
+     const token = localStorage.getItem('tf-token');
+     if (!token) {
+       return;
+     }
+     // make a call to backend to get user details(role etc). It will also verify if token is valid or not
+     const user = new User(token, '');
+     this.user.next(user);
+  }
+
   private handleAuthentication(token: string, role: string) {
     const user = new User(token, role);
     this.user.next(user);
-    localStorage.setItem('tf-user', JSON.stringify(user));
+    localStorage.setItem('tf-token', user.token);
   }
 
 
