@@ -1,1 +1,14 @@
+/** importing font awesome**/
 $fa-font-path : '../node_modules/font-awesome/fonts';
+
+/** custom tf theme **/
+
+$tf-orange: #ff5c51;
+
+$theme-colors: (
+  "primary": $tf-orange,
+  "danger": #ff4136
+);
+
+$body-bg: #f5f5f5;
+$body-color: #484848;
