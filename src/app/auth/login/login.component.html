@@ -19,7 +19,7 @@
                  formControlName="phoneNumber"
                  maxlength="1000"  placeholder="Phone" required type="text">
           <div class="input-group-append">
-            <button [disabled]="!loginForm.valid" class="btn  btn-orange send-otp-btn" type="submit" data-toggle="tooltip" data-placement="top" title="Tooltip on top">Send OTP</button>
+            <button [disabled]="!loginForm.valid" class="btn  btn-primary send-otp-btn" type="submit" data-toggle="tooltip" data-placement="top">Send OTP</button>
           </div>
           <!-- the below logic for displaying inline error messages might be used later-->
           <!--<div class="invalid-feedback" *ngIf="error">

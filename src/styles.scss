@@ -2,6 +2,13 @@
 
 @import 'variables';
 @import '~font-awesome/scss/font-awesome';
+@import '~bootstrap/scss/bootstrap';
+
+
+:root {
+  --primary-color: #ff5c51;
+  --body-color : #484848;
+}
 
 html {
   font-size: 70%
@@ -17,10 +24,7 @@ body {
   font-size: 100%;
   line-height: 1.25;
   font-family: Source Sans Pro,sans-serif;
-  color: #283740;
   -webkit-font-smoothing: antialiased;
-  background-color: #f5f5f5;
-
 }
 
 .container {
@@ -30,13 +34,12 @@ body {
   margin-left: auto;
 }
 
-.fill-orange {
-  fill: #ff5c51;
+.bg-primary {
+  color: var(--white);
 }
 
-.bg-orange {
-  background-color: #ff5c51;
-  color: #fff;
+.fill-primary {
+  fill: var(--primary-color);
 }
 
 .btn {
@@ -51,36 +54,6 @@ body {
   user-select: none;
 }
 
-.btn-md {
-  font-weight: 600;
-  font-size: 16px;
-  padding: 11px 20px;
-}
-
-.btn:not(:disabled) {
-  cursor: pointer
-}
-
-.btn:disabled, .btn:disabled:hover{
- background-color: #777777;
-  border: 1px solid #777777;
-}
-
-
-.btn.btn-orange {
-  border: 1px solid #ff5c51;
-  background: #ff5c51;
-  color: #fff;
-}
-
-.btn.btn-orange:hover {
-  border: 1px solid #ff4437;
-  background-color: #ff4437
-}
-.btn, .btn:hover {
-  text-decoration: none;
-}
-
 .btn:focus, .btn:enabled:focus {
   box-shadow: none;
   -webkit-box-shadow: none;
@@ -93,15 +66,14 @@ a {
   outline: 0;
   -webkit-transition: all .3s ease;
   transition: all .3s ease;
-  //color: #0f0017;
 }
 
-a.orange{
-  color: #ff5c51;
+a.primary{
+  color: var(--primary-color);
 }
 
-a.orange,a.orange:hover{
-  color: #ff4437;
+a.primary,a.primary:hover{
+  color: var(--primary-color);
 }
 
 a.underline, a.underline:hover {
@@ -118,12 +90,6 @@ a.disabled, a.disabled:hover {
 .alert {
   border-radius: 2px;
   padding-right: 3rem;
-}
-
-.alert-danger {
-  color: #ff5c51;
-  background-color: #FFF5F5;
-  border-color: #ff5c51;
 }
 
 .alert span {

@@ -8,7 +8,7 @@
 }
 
 .logo-text {
-  color: #ff5c51;
+  color: var(--primary-color);
   font-family: Proxima Nova,sans-serif;
   font-weight: 600;
   margin-left: 10px;
@@ -30,7 +30,7 @@
 }
 
 .nav-link {
-  color: #484848 !important;
+  color: var(--body-color) !important;
 }
 
 a.nav-link:hover {
@@ -42,7 +42,7 @@ a.nav-link:hover {
 }
 
 .register-header-btn .btn {
-  padding: 11px 15px;
+  padding: 11px 20px;
 }
 
 

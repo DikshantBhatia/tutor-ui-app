@@ -1,7 +1,11 @@
 export class User {
   constructor(
-    private token: string,
+    private tfToken: string,
     private role: string
   ) {}
+
+  get token() {
+    return this.tfToken;
+  }
 
 }
