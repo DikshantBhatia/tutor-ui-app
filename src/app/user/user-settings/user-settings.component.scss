@@ -1,0 +1,22 @@
+.settings {
+  margin-top: 2.5rem;
+}
+
+.settings .list-group a {
+  color: var(--list-group-item-color);
+}
+
+.settings .list-group a:hover {
+  color: var(--body-color);
+}
+
+.settings .list-group a.active {
+  color: var(--body-color);
+  background-color: var(--list-group-bg) ;
+  border: var(--list-group-border);
+  border-left: 3px solid var(--primary-color);
+}
+
+
+
+

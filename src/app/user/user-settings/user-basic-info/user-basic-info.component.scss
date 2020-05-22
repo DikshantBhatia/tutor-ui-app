@@ -1,0 +1,17 @@
+
+.text-muted {
+  color: #83878A !important;
+}
+
+label {
+  font-weight: 600;
+}
+
+input:enabled:focus{
+  outline: 0 none;
+  outline-offset: 0;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  border-color: #ced4da;
+}

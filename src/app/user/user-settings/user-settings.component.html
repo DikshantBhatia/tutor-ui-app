@@ -1,0 +1,31 @@
+<section class="settings">
+  <div class="container">
+    <div class="row mb-sm-3">
+      <div class="col-2 col-sm-3">
+        <h4>Settings</h4>
+        </div>
+      </div>
+    <div class="row">
+      <div class="col-sm-3 mb-4">
+        <div class="list-group">
+          <a  class="list-group-item list-group-item-action" [ngClass]="{'active': activeItem == 1}" (click)="setActiveItem(1)">
+            Basic Info
+          </a>
+          <a  class="list-group-item list-group-item-action"  [ngClass]="{'active': activeItem == 2}" (click)="setActiveItem(2)">
+            Account
+          </a>
+          <a  class="list-group-item list-group-item-action" [ngClass]="{'active': activeItem == 3}" (click)="setActiveItem(3)">
+            Notifications
+          </a>
+        </div>
+      </div>
+      <div class="col-12 col-sm-7 offset-sm-2">
+          <app-user-basic-info [hidden]="activeItem!==1"></app-user-basic-info>
+      </div>
+
+
+
+    </div>
+
+  </div>
+</section>

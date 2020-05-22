@@ -22,6 +22,10 @@ import { HomeComponent } from './home/home.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {HttpErrorInterceptor} from './core/interceptors/http-error.interceptor';
 
+import {UserSettingsComponent} from './user/user-settings/user-settings.component';
+import { UserBasicInfoComponent } from './user/user-settings/user-basic-info/user-basic-info.component';
+
+
 
 @NgModule({
   declarations: [
@@ -30,14 +34,15 @@ import {HttpErrorInterceptor} from './core/interceptors/http-error.interceptor';
     HomeComponent,
     LoginComponent,
     TfOtpInputComponent,
-    TfSpinnerComponent
+    TfSpinnerComponent,
+    UserSettingsComponent,
+    UserBasicInfoComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     DropdownModule,
-    FormsModule,
     InputTextModule,
     KeyFilterModule,
     ReactiveFormsModule,
