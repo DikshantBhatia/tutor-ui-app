@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../auth.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {TfOtpInputComponent} from '../../shared/components/tf-otp-input/tf-otp-input.component';
 
 
@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
 
   @ViewChild(TfOtpInputComponent)  otpInputComponent;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
@@ -55,7 +55,8 @@ export class LoginComponent implements OnInit {
         .subscribe(
           response => {
             this.showLoadingOverlay = false;
-            this.router.navigate(['/home']);
+            const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
+            this.router.navigate([returnUrl]);
           },
           errResp => {
             this.showLoadingOverlay = false;
