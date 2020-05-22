@@ -8,6 +8,11 @@
 :root {
   --primary-color: #ff5c51;
   --body-color : #484848;
+  --dropdown-border-color: rgba(0, 0, 0, 0.15);
+  --dropdown-border-width: 1px solid;
+  --list-group-bg : var(--white);
+  --list-group-item-color : #83878A;
+   --list-group-border: 1px solid rgba(0,0,0,0.125);
 }
 
 html {
