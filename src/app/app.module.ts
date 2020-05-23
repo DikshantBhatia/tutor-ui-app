@@ -24,6 +24,7 @@ import {HttpErrorInterceptor} from './core/interceptors/http-error.interceptor';
 
 import {UserSettingsComponent} from './user/user-settings/user-settings.component';
 import { UserBasicInfoComponent } from './user/user-settings/user-basic-info/user-basic-info.component';
+import {HttpRequestInterceptor} from './core/interceptors/http-request.interceptor';
 
 
 
@@ -51,6 +52,11 @@ import { UserBasicInfoComponent } from './user/user-settings/user-basic-info/use
 
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpRequestInterceptor,
+      multi: true,
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptor,

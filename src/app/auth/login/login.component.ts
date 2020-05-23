@@ -54,8 +54,8 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.loginForm.value.phoneNumber, otp)
         .subscribe(
           response => {
-            this.showLoadingOverlay = false;
             const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
+            this.showLoadingOverlay = false;
             this.router.navigate([returnUrl]);
           },
           errResp => {

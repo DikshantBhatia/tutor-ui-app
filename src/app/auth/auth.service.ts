@@ -10,6 +10,7 @@ import {tap} from 'rxjs/operators';
 export class AuthService {
 
   user = new BehaviorSubject<User>(null);
+  authToken;
 
   constructor(private http: HttpClient) { }
 
@@ -28,34 +29,40 @@ export class AuthService {
       {
           phoneNumber : phone,
           password : otp
-        }, {
-        responseType : 'text'
         }
       )
       .pipe(
-        tap(responseData => {
-            this.handleAuthentication(responseData, null);
-          })
+        tap(response => {
+            this.handleAuthentication(response);
+          }),
         );
 
   }
 
   autoLogin() {
      const token = localStorage.getItem('tf-token');
-     if (!token) {
+     if (!token || token === 'undefined') {
        return;
      }
+     this.authToken = token;
      // make a call to backend to get user details(role etc). It will also verify if token is valid or not
-     const user = new User(token, '');
-     this.user.next(user);
+     this.http
+       .get<User>('/api/users')
+       .subscribe( userResponse => {
+          this.createUser(userResponse);
+       });
   }
 
-  private handleAuthentication(token: string, role: string) {
-    const user = new User(token, role);
+  private handleAuthentication(response) {
+    this.authToken = response.tft;
+    localStorage.setItem('tf-token', this.authToken);
+    this.createUser(response.user);
+  }
+
+  private createUser(userResponse) {
+    const user = new User(userResponse);
     this.user.next(user);
-    localStorage.setItem('tf-token', user.token);
   }
-
 
 
 }
