@@ -25,6 +25,8 @@ import {HttpErrorInterceptor} from './core/interceptors/http-error.interceptor';
 import {UserSettingsComponent} from './user/user-settings/user-settings.component';
 import { UserBasicInfoComponent } from './user/user-settings/user-basic-info/user-basic-info.component';
 import {HttpRequestInterceptor} from './core/interceptors/http-request.interceptor';
+import { SignupComponent } from './auth/signup/signup.component';
+
 
 
 
@@ -37,7 +39,8 @@ import {HttpRequestInterceptor} from './core/interceptors/http-request.intercept
     TfOtpInputComponent,
     TfSpinnerComponent,
     UserSettingsComponent,
-    UserBasicInfoComponent
+    UserBasicInfoComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,

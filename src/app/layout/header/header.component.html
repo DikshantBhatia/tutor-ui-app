@@ -30,7 +30,7 @@
             <a class="nav-link" routerLink="/login">Log in</a>
           </li>
           <li class="nav-item register-header-btn" *ngIf="!isAuthenticated">
-            <a class="btn btn-md btn-primary" href="#"><span>Get Started</span></a>
+            <a class="btn btn-md btn-primary" routerLink="/signup"><span>Get Started</span></a>
           </li>
           <li class="nav-item dropdown" *ngIf="isAuthenticated">
             <a class="nav-link dropdown-toggle" href="#" id="userAvatarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
