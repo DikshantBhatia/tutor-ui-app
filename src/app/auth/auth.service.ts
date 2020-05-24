@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject} from 'rxjs';
-import {User} from '../core/models/user.model';
-import {tap} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
+import { User } from '../core/models/user.model';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class AuthService {
   sendOtp(phone) {
     return this.http
       .post(
-      '/api/users/otp', phone
+        '/api/users/otp', phone
       );
   }
 
@@ -25,32 +25,32 @@ export class AuthService {
   login(phone, otp) {
     return this.http
       .post(
-      '/api/users/signin',
-      {
-          phoneNumber : phone,
-          password : otp
+        '/api/users/signin',
+        {
+          phoneNumber: phone,
+          password: otp
         }
       )
       .pipe(
         tap(response => {
-            this.handleAuthentication(response);
-          }),
-        );
+          this.handleAuthentication(response);
+        }),
+      );
 
   }
 
   autoLogin() {
-     const token = localStorage.getItem('tf-token');
-     if (!token || token === 'undefined') {
-       return;
-     }
-     this.authToken = token;
-     // make a call to backend to get user details(role etc). It will also verify if token is valid or not
-     this.http
-       .get<User>('/api/users')
-       .subscribe( userResponse => {
-          this.createUser(userResponse);
-       });
+    const token = localStorage.getItem('tf-token');
+    if (!token || token === 'undefined') {
+      return;
+    }
+    this.authToken = token;
+    // make a call to backend to get user details(role etc). It will also verify if token is valid or not
+    this.http
+      .get<User>('/api/users')
+      .subscribe(userResponse => {
+        this.createUser(userResponse);
+      });
   }
 
   private handleAuthentication(response) {
@@ -64,6 +64,18 @@ export class AuthService {
     this.user.next(user);
   }
 
+  //For Sigup
+
+  sendOtpForSignup(authDto: any) {
+    return this.http.post("/api/users/signupotp", authDto);
+
+  }
+
+  signup(userDetails: any) {
+
+    return this.http.post('/api/users/signup', userDetails)
+      .pipe(tap(responseData => this.handleAuthentication(responseData)));
+  }
 
 }
 
