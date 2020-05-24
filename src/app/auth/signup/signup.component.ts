@@ -11,12 +11,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class SignupComponent implements OnInit {
 
-  basicInfoForm: FormGroup;
+  signUpForm: FormGroup;
   submitted = false;
   otpGenerated = false;
   showLoadingOverlay = false;
   error: any;
-  requestJsonObject:any;
 
   @ViewChild(TfOtpInputComponent) otpInputComponent;
 
@@ -24,42 +23,49 @@ export class SignupComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.basicInfoForm = this.formBuilder.group({
+    this.signUpForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       zipCode: [''],
-      phoneNumber: ['', Validators.required]
+      phoneNumber: ['', Validators.required],
+      password: ['', Validators.required]
     });
   }
 
 
   // convenience getter for easy access to form fields
-  get f() { return this.basicInfoForm.controls; }
+  get f() { return this.signUpForm.controls; }
 
   onSignup(otp: string) {
-    this.showLoadingOverlay = true;
-    this.authService.signup(this.requestJsonObject).subscribe(
-      response=>{
-        this.showLoadingOverlay=false;
-        this.error='';
-        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
-        this.router.navigate([returnUrl]);
-      },errRsp=>{
-        this.showLoadingOverlay=false;
-        this.error=errRsp;
-      }
-    );
+    if (this.signUpForm.valid) {
+      this.showLoadingOverlay = true;
+      this.authService.signup(this.signUpForm.value).subscribe(
+        response => {
+          this.showLoadingOverlay = false;
+          this.error = '';
+          const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
+          this.router.navigate([returnUrl]);
+        }, errRsp => {
+          this.showLoadingOverlay = false;
+          this.error = errRsp;
+        }
+      );
+    } else {
+      return;
+    }
   }
 
-  getSignupOtp(otp:string){
-    this.requestJsonObject=this.basicInfoForm.value;
-    this.requestJsonObject["password"]=otp;
+  setPassword(otp: string) {
+    // this.f.password.setValue(otp);
+    this.signUpForm.patchValue({
+      password : otp
+    });
   }
 
   onSendOtp() {
-    this.submitted=true;
+    this.submitted = true;
     this.showLoadingOverlay = true;
-    this.authService.sendOtpForSignup({ "phoneNumber": this.basicInfoForm.controls["phoneNumber"].value })
+    this.authService.sendOtpForSignup({ phoneNumber: this.f.phoneNumber.value })
       .subscribe(
         response => {
           this.showLoadingOverlay = false;
@@ -71,7 +77,7 @@ export class SignupComponent implements OnInit {
           this.otpGenerated = false;
           this.error = errResp;
         });
-        return false;
+
   }
 
 }
