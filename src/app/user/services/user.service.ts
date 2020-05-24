@@ -7,16 +7,4 @@ import {Observable, of} from 'rxjs';
 export class UserService {
 
   constructor() { }
-
-  getBasicInfo(): Observable<any> {
-    return of({
-      firstName: 'Dikshant',
-      lastName: 'Bhatia',
-      zipCode: 248001,
-      gender: null,
-      languagePref: null,
-      locationPref: 'no-pref',
-    });
-  }
-
 }

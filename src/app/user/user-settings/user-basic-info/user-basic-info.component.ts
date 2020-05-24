@@ -2,8 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../services/user.service';
 import {AuthService} from '../../../auth/auth.service';
-import {take} from 'rxjs/operators';
+import {take, tap} from 'rxjs/operators';
 import {User} from '../../../core/models/user.model';
+import {Observable} from 'rxjs';
+
 
 
 
@@ -17,7 +19,7 @@ export class UserBasicInfoComponent implements OnInit {
 
   basicInfoForm: FormGroup;
   submitted = false;
-  user: User;
+  user: Observable<User>;
 
   constructor(private formBuilder: FormBuilder, private userService: UserService, private authService: AuthService) { }
 
@@ -38,10 +40,12 @@ export class UserBasicInfoComponent implements OnInit {
     });
 
     setTimeout(() => {
-      this.authService.user.pipe(take(1)).subscribe(user => {
-        this.user = user;
-        this.basicInfoForm.patchValue(user);
-      });
+      this.user = this.authService.user
+                      .pipe(
+                          take(1),
+                          tap(userResponse => userResponse && this.basicInfoForm.patchValue(userResponse))
+                        );
+
     }, 2000);
 
 

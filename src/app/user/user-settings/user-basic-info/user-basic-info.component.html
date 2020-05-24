@@ -1,6 +1,6 @@
 <h4 class="mb-4">Basic Info</h4>
 
-<form [formGroup]="basicInfoForm" (ngSubmit)="onSubmit()" *ngIf="user; else loading">
+<form [formGroup]="basicInfoForm" (ngSubmit)="onSubmit()" *ngIf="user | async; else loading">
   <div class="row">
     <div class="form-group col mb-4">
       <label for="firstName">First name</label>
