@@ -14,6 +14,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
+  // request to generate otp for login
   sendOtp(phone) {
     return this.http
       .post(
@@ -21,7 +22,11 @@ export class AuthService {
       );
   }
 
-  /* has response type text now as string is sent from backend*/
+  // request to generate otp for signup
+  sendOtpForSignup(authDto: any) {
+    return this.http.post('/api/users/signupotp', authDto);
+  }
+
   login(phone, otp) {
     return this.http
       .post(
@@ -36,11 +41,16 @@ export class AuthService {
           this.handleAuthentication(response);
         }),
       );
-
   }
 
+  /**
+   * This method is called when application is initialized. It gets the authToken from localstorage if present.
+   * The token is then send to be validated at the backend. If token is valid, user is logged in, else user is redirected to login page
+   * or stays on the home page.
+   */
   autoLogin() {
     const token = localStorage.getItem('tf-token');
+    // getting token from localstorage and checking if token is empty,null,undefined or string with undefined value
     if (!token || token === 'undefined') {
       return;
     }
@@ -53,28 +63,28 @@ export class AuthService {
       });
   }
 
+  signup(userDetails: any) {
+    return this.http
+              .post('/api/users/signup', userDetails)
+              .pipe(
+                tap(responseData => this.handleAuthentication(responseData))
+              );
+  }
+
+  // gets the token from response and stores it in localstorage
   private handleAuthentication(response) {
     this.authToken = response.tft;
     localStorage.setItem('tf-token', this.authToken);
     this.createUser(response.user);
   }
 
+  /**
+   * Create the user from userResponse returned from backend.
+   * It then emits user as subject through rxjs
+   */
   private createUser(userResponse) {
     const user = new User(userResponse);
     this.user.next(user);
-  }
-
-  //For Sigup
-
-  sendOtpForSignup(authDto: any) {
-    return this.http.post("/api/users/signupotp", authDto);
-
-  }
-
-  signup(userDetails: any) {
-
-    return this.http.post('/api/users/signup', userDetails)
-      .pipe(tap(responseData => this.handleAuthentication(responseData)));
   }
 
 }
