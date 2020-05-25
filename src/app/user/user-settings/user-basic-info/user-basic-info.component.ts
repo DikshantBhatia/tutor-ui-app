@@ -7,9 +7,6 @@ import {User} from '../../../core/models/user.model';
 import {Observable} from 'rxjs';
 
 
-
-
-
 @Component({
   selector: 'app-user-basic-info',
   templateUrl: './user-basic-info.component.html',
@@ -21,14 +18,15 @@ export class UserBasicInfoComponent implements OnInit {
   submitted = false;
   user: Observable<User>;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private authService: AuthService) { }
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private authService: AuthService) {
+  }
+
+  // convenience getter for easy access to form fields
+  get f() {
+    return this.basicInfoForm.controls;
+  }
 
   ngOnInit(): void {
-
-    // tslint:disable-next-line:no-unused-expression
-    // this.user = this.authService.user.pipe(take(1));
-
-
 
     this.basicInfoForm = this.formBuilder.group({
       firstName: ['', Validators.required],
@@ -39,29 +37,24 @@ export class UserBasicInfoComponent implements OnInit {
       locationPreference: [''],
     });
 
-    setTimeout(() => {
-      this.user = this.authService.user
-                      .pipe(
-                          take(1),
-                          tap(userResponse => userResponse && this.basicInfoForm.patchValue(userResponse))
-                        );
-
-    }, 2000);
-
+    this.user = this.authService.user
+      .pipe(
+        take(1),
+        tap(userResponse => userResponse && this.basicInfoForm.patchValue(userResponse))
+      );
 
   }
 
-
-  // convenience getter for easy access to form fields
-  get f() { return this.basicInfoForm.controls; }
-
-onSubmit() {
+  onSubmit() {
     this.submitted = true;
     if (this.basicInfoForm.invalid) {
       return;
     }
     // display form values on success
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.basicInfoForm.value, null, 4));
+    this.userService.updateUser(this.basicInfoForm.value).subscribe(response => {
+      alert('user saved');
+    });
+
   }
 
 }

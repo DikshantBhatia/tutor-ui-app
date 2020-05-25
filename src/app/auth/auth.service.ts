@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
-import { User } from '../core/models/user.model';
-import { tap } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {BehaviorSubject} from 'rxjs';
+import {User} from '../core/models/user.model';
+import {tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -57,7 +57,7 @@ export class AuthService {
     this.authToken = token;
     // make a call to backend to get user details(role etc). It will also verify if token is valid or not
     this.http
-      .get<User>('/api/users')
+      .get<User>('/api/users/myself')
       .subscribe(userResponse => {
         this.createUser(userResponse);
       });
@@ -82,7 +82,7 @@ export class AuthService {
    * Create the user from userResponse returned from backend.
    * It then emits user as subject through rxjs
    */
-  private createUser(userResponse) {
+    createUser(userResponse) {
     const user = new User(userResponse);
     this.user.next(user);
   }
