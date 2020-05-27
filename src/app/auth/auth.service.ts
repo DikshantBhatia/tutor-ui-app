@@ -87,6 +87,19 @@ export class AuthService {
     this.user.next(user);
   }
 
+  logout(){
+
+    return this.http.get("api/users/logout").pipe(tap(
+      res=>{
+        this.user = new BehaviorSubject<User>(null);
+        this.authToken=null;
+        localStorage.setItem('tf-token', this.authToken);
+      }
+
+    ));
+
+  }
+
 }
 
 
