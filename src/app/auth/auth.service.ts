@@ -63,6 +63,22 @@ export class AuthService {
       });
   }
 
+  /**
+   * Logouts the user from backend and delete usercontext and token from the frontend
+   *
+   */
+  logout() {
+    return this.http.get('api/users/logout')
+        .pipe(
+          tap(
+      res => {
+          this.user.next(null);
+          this.authToken = null;
+          localStorage.removeItem('tf-token');
+      }
+    ));
+  }
+
   signup(userDetails: any) {
     return this.http
               .post('/api/users/signup', userDetails)
@@ -87,18 +103,6 @@ export class AuthService {
     this.user.next(user);
   }
 
-  logout(){
-
-    return this.http.get("api/users/logout").pipe(tap(
-      res=>{
-        this.user = new BehaviorSubject<User>(null);
-        this.authToken=null;
-        localStorage.setItem('tf-token', this.authToken);
-      }
-
-    ));
-
-  }
 
 }
 
