@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { TfOtpInputComponent } from '../../shared/components/tf-otp-input/tf-otp-input.component';
 import { AuthService } from '../auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import PlaceResult = google.maps.places.PlaceResult;
 
 @Component({
   selector: 'app-signup',
@@ -26,7 +27,8 @@ export class SignupComponent implements OnInit {
     this.signUpForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      zipCode: [''],
+      address: [''],
+      googlePlaceId: [''],
       phoneNumber: ['', Validators.required],
       password: ['', Validators.required]
     });
@@ -78,6 +80,13 @@ export class SignupComponent implements OnInit {
           this.error = errResp;
         });
 
+  }
+
+  updateAddress(place: PlaceResult) {
+    this.signUpForm.patchValue({
+      address: place.formatted_address,
+      googlePlaceId: place.place_id
+    });
   }
 
 }

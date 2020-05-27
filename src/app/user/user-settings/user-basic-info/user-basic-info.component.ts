@@ -5,6 +5,7 @@ import {AuthService} from '../../../auth/auth.service';
 import {take, tap} from 'rxjs/operators';
 import {User} from '../../../core/models/user.model';
 import {Observable} from 'rxjs';
+import PlaceResult = google.maps.places.PlaceResult;
 
 
 @Component({
@@ -31,7 +32,8 @@ export class UserBasicInfoComponent implements OnInit {
     this.basicInfoForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      zipCode: ['', Validators.required],
+      address: [''],
+      googlePlaceId: [''],
       gender: [''],
       languagePreference: [''],
       locationPreference: [''],
@@ -55,6 +57,13 @@ export class UserBasicInfoComponent implements OnInit {
       alert('user saved');
     });
 
+  }
+
+  updateAddress(place: PlaceResult) {
+    this.basicInfoForm.patchValue({
+      address: place.formatted_address,
+      googlePlaceId: place.place_id
+    });
   }
 
 }

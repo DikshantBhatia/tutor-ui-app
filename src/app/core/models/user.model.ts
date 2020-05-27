@@ -16,7 +16,8 @@ export class User {
   email: string;
   firstName: string;
   lastName: string;
-  zipCode: string;
+  address: string;
+  googlePlaceId: string;
   gender: string;
   languagePreference: string;
   locationPreference: string;

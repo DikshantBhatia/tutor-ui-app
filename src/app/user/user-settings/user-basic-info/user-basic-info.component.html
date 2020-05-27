@@ -28,13 +28,15 @@
   </div>
 
   <div class="form-group mb-4">
-    <label for="zipCode">Zipcode</label>
-    <input type="text" class="form-control" id="zipCode"  aria-describedby="zipCodeHelpBlock" formControlName="zipCode" [ngClass]="{'is-invalid': submitted && f.zipCode.errors}" required>
+    <label for="address">City</label>
+    <input type="text" class="form-control" id="address"  aria-describedby="addressHelpBlock" formControlName="address"
+           [ngClass]="{'is-invalid': submitted && f.address.errors}"   appGooglePlaces [addressType]="'(cities)'" (onPlaceSelect)="updateAddress($event)"  placeholder="Search your city" required>
+
     <div class="invalid-feedback">
-      Zipcode is required
+      City is required
     </div>
     <small id="zipCodeHelpBlock" class="form-text text-muted">
-      Your zipcode helps us finding the best tutor for you in your area
+      Your city helps us finding the best tutor for you in your area
     </small>
 
   </div>

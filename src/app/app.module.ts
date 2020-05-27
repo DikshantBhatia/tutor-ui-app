@@ -26,7 +26,7 @@ import {UserSettingsComponent} from './user/user-settings/user-settings.componen
 import { UserBasicInfoComponent } from './user/user-settings/user-basic-info/user-basic-info.component';
 import {HttpRequestInterceptor} from './core/interceptors/http-request.interceptor';
 import { SignupComponent } from './auth/signup/signup.component';
-
+import { GooglePlacesDirective } from './shared/directives/google-places.directive';
 
 
 
@@ -40,7 +40,8 @@ import { SignupComponent } from './auth/signup/signup.component';
     TfSpinnerComponent,
     UserSettingsComponent,
     UserBasicInfoComponent,
-    SignupComponent
+    SignupComponent,
+    GooglePlacesDirective
   ],
   imports: [
     BrowserModule,
@@ -51,8 +52,7 @@ import { SignupComponent } from './auth/signup/signup.component';
     KeyFilterModule,
     ReactiveFormsModule,
     BlockUIModule,
-    HttpClientModule,
-
+    HttpClientModule
   ],
   providers: [
     {
