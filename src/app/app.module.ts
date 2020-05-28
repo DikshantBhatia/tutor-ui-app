@@ -27,6 +27,7 @@ import { UserBasicInfoComponent } from './user/user-settings/user-basic-info/use
 import {HttpRequestInterceptor} from './core/interceptors/http-request.interceptor';
 import { SignupComponent } from './auth/signup/signup.component';
 import { GooglePlacesDirective } from './shared/directives/google-places.directive';
+import {NgbTypeaheadModule} from "@ng-bootstrap/ng-bootstrap";
 
 
 
@@ -52,7 +53,9 @@ import { GooglePlacesDirective } from './shared/directives/google-places.directi
     KeyFilterModule,
     ReactiveFormsModule,
     BlockUIModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbTypeaheadModule,
+    FormsModule
   ],
   providers: [
     {
