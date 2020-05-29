@@ -1,25 +1,21 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject} from 'rxjs';
-import {User} from '../core/models/user.model';
-import {tap} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
+import { User } from '../core/models/user.model';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
   user = new BehaviorSubject<User>(null);
   authToken;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   // request to generate otp for login
   sendOtp(phone) {
-    return this.http
-      .post(
-        '/api/users/otp', phone
-      );
+    return this.http.post('/api/users/otp', phone);
   }
 
   // request to generate otp for signup
@@ -28,19 +24,11 @@ export class AuthService {
   }
 
   login(phone, otp) {
-    return this.http
-      .post(
-        '/api/users/signin',
-        {
-          phoneNumber: phone,
-          password: otp
-        }
-      )
-      .pipe(
-        tap(response => {
-          this.handleAuthentication(response);
-        }),
-      );
+    return this.http.post('/api/users/signin', { phoneNumber: phone, password: otp }).pipe(
+      tap((response) => {
+        this.handleAuthentication(response);
+      })
+    );
   }
 
   /**
@@ -56,11 +44,9 @@ export class AuthService {
     }
     this.authToken = token;
     // make a call to backend to get user details(role etc). It will also verify if token is valid or not
-    this.http
-      .get<User>('/api/users/myself')
-      .subscribe(userResponse => {
-        this.createUser(userResponse);
-      });
+    this.http.get<User>('/api/users/myself').subscribe((userResponse) => {
+      this.createUser(userResponse);
+    });
   }
 
   /**
@@ -68,23 +54,19 @@ export class AuthService {
    *
    */
   logout() {
-    return this.http.get('api/users/logout')
-        .pipe(
-          tap(
-      res => {
-          this.user.next(null);
-          this.authToken = null;
-          localStorage.removeItem('tf-token');
-      }
-    ));
+    return this.http.get('api/users/logout').pipe(
+      tap((res) => {
+        this.user.next(null);
+        this.authToken = null;
+        localStorage.removeItem('tf-token');
+      })
+    );
   }
 
   signup(userDetails: any) {
     return this.http
-              .post('/api/users/signup', userDetails)
-              .pipe(
-                tap(responseData => this.handleAuthentication(responseData))
-              );
+      .post('/api/users/signup', userDetails)
+      .pipe(tap((responseData) => this.handleAuthentication(responseData)));
   }
 
   // gets the token from response and stores it in localstorage
@@ -98,12 +80,8 @@ export class AuthService {
    * Create the user from userResponse returned from backend.
    * It then emits user as subject through rxjs
    */
-    createUser(userResponse) {
+  createUser(userResponse) {
     const user = new User(userResponse);
     this.user.next(user);
   }
-
-
 }
-
-

@@ -8,9 +8,8 @@ describe('TfSpinnerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TfSpinnerComponent ]
-    })
-    .compileComponents();
+      declarations: [TfSpinnerComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

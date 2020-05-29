@@ -1,16 +1,11 @@
-import {HttpErrorResponse, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {catchError} from 'rxjs/operators';
-import {throwError} from 'rxjs';
+import { HttpErrorResponse, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 export class HttpErrorInterceptor implements HttpInterceptor {
-
   intercept(request: HttpRequest<any>, next: HttpHandler) {
-    return next.handle(request)
-      .pipe(
-        catchError(this.handleError)
-      );
+    return next.handle(request).pipe(catchError(this.handleError));
   }
-
 
   private handleError(errorResponse: HttpErrorResponse) {
     // below is temp logic, permanent will be added once approach from backend is final
@@ -28,6 +23,4 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     }
     return throwError(errorMessage);
   }
-
 }
-

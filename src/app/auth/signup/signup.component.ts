@@ -8,10 +8,9 @@ import PlaceResult = google.maps.places.PlaceResult;
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss']
+  styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent implements OnInit {
-
   signUpForm: FormGroup;
   submitted = false;
   otpGenerated = false;
@@ -20,8 +19,12 @@ export class SignupComponent implements OnInit {
 
   @ViewChild(TfOtpInputComponent) otpInputComponent;
 
-
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router, private route: ActivatedRoute) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.signUpForm = this.formBuilder.group({
@@ -30,24 +33,26 @@ export class SignupComponent implements OnInit {
       address: [''],
       googlePlaceId: [''],
       phoneNumber: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
     });
   }
 
-
   // convenience getter for easy access to form fields
-  get f() { return this.signUpForm.controls; }
+  get f() {
+    return this.signUpForm.controls;
+  }
 
   onSignup(otp: string) {
     if (this.signUpForm.valid) {
       this.showLoadingOverlay = true;
       this.authService.signup(this.signUpForm.value).subscribe(
-        response => {
+        (response) => {
           this.showLoadingOverlay = false;
           this.error = '';
           const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
           this.router.navigate([returnUrl]);
-        }, errRsp => {
+        },
+        (errRsp) => {
           this.showLoadingOverlay = false;
           this.error = errRsp;
         }
@@ -60,33 +65,31 @@ export class SignupComponent implements OnInit {
   setPassword(otp: string) {
     // this.f.password.setValue(otp);
     this.signUpForm.patchValue({
-      password : otp
+      password: otp,
     });
   }
 
   onSendOtp() {
     this.submitted = true;
     this.showLoadingOverlay = true;
-    this.authService.sendOtpForSignup({ phoneNumber: this.f.phoneNumber.value })
-      .subscribe(
-        response => {
-          this.showLoadingOverlay = false;
-          this.otpGenerated = true;
-          this.error = '';
-        },
-        errResp => {
-          this.showLoadingOverlay = false;
-          this.otpGenerated = false;
-          this.error = errResp;
-        });
-
+    this.authService.sendOtpForSignup({ phoneNumber: this.f.phoneNumber.value }).subscribe(
+      (response) => {
+        this.showLoadingOverlay = false;
+        this.otpGenerated = true;
+        this.error = '';
+      },
+      (errResp) => {
+        this.showLoadingOverlay = false;
+        this.otpGenerated = false;
+        this.error = errResp;
+      }
+    );
   }
 
   updateAddress(place: PlaceResult) {
     this.signUpForm.patchValue({
       address: place.formatted_address,
-      googlePlaceId: place.place_id
+      googlePlaceId: place.place_id,
     });
   }
-
 }

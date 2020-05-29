@@ -1,23 +1,21 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren} from '@angular/core';
-import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-tf-otp-input',
   templateUrl: './tf-otp-input.component.html',
-  styleUrls: ['./tf-otp-input.component.scss']
+  styleUrls: ['./tf-otp-input.component.scss'],
 })
 export class TfOtpInputComponent implements OnInit {
-
   @Input() isPhoneValid: boolean;
   @Output() login: EventEmitter<number> = new EventEmitter();
   @Output() resendOtp: EventEmitter<null> = new EventEmitter();
 
-  @ViewChildren('otpInput', {read: ElementRef}) otpInputs: QueryList<ElementRef>;
+  @ViewChildren('otpInput', { read: ElementRef }) otpInputs: QueryList<ElementRef>;
   otpForm: FormGroup;
   resetOtp = true;
 
-  constructor() {
-  }
+  constructor() {}
 
   get otp() {
     return this.otpForm.get('otp') as FormArray;
@@ -25,11 +23,10 @@ export class TfOtpInputComponent implements OnInit {
 
   ngOnInit(): void {
     const otpFormControl: FormControl[] = [1, 2, 3, 4].map((val) => {
-      return new FormControl('',
-        [Validators.required, Validators.maxLength(1)]);
+      return new FormControl('', [Validators.required, Validators.maxLength(1)]);
     });
     this.otpForm = new FormGroup({
-      otp: new FormArray(otpFormControl)
+      otp: new FormArray(otpFormControl),
     });
   }
 
@@ -49,9 +46,9 @@ export class TfOtpInputComponent implements OnInit {
 
   onFocus($event: FocusEvent) {
     if (this.resetOtp) {
-        this.otpForm.reset();
-        this.otpInputs.first.nativeElement.focus();
-        this.resetOtp = false;
+      this.otpForm.reset();
+      this.otpInputs.first.nativeElement.focus();
+      this.resetOtp = false;
     }
   }
 }

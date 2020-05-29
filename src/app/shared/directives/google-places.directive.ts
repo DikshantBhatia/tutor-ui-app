@@ -1,10 +1,9 @@
-import {Directive, ElementRef, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
+import { Directive, ElementRef, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 
 @Directive({
-  selector: '[appGooglePlaces]'
+  selector: '[appGooglePlaces]',
 })
 export class GooglePlacesDirective implements OnInit {
-
   @Input() addressType: string;
   @Output() onPlaceSelect: EventEmitter<any> = new EventEmitter<any>();
 
@@ -15,14 +14,11 @@ export class GooglePlacesDirective implements OnInit {
   }
 
   ngOnInit() {
-
-  // @ts-ignore
-    const autocomplete = new google.maps.places.Autocomplete(this.element,
-      {
-        componentRestrictions: { country: 'IN' },
-        types: [this.addressType]  // '(cities)' / 'address' / 'geocode' / '(regions)'
-        }
-      );
+    // @ts-ignore
+    const autocomplete = new google.maps.places.Autocomplete(this.element, {
+      componentRestrictions: { country: 'IN' },
+      types: [this.addressType], // '(cities)' / 'address' / 'geocode' / '(regions)'
+    });
 
     // Event listener to monitor place changes in the input
     // @ts-ignore
@@ -31,11 +27,9 @@ export class GooglePlacesDirective implements OnInit {
       this.onPlaceSelect.emit(autocomplete.getPlace());
     });
 
-
     // @ts-ignore
-     // this.autoCompleteService = new google.maps.places.AutocompleteService();
+    // this.autoCompleteService = new google.maps.places.AutocompleteService();
   }
-
 
   /*@HostListener('input') onInput(event) {
     console.log(event);
@@ -49,6 +43,4 @@ export class GooglePlacesDirective implements OnInit {
       }
     );
   }*/
-
-
 }

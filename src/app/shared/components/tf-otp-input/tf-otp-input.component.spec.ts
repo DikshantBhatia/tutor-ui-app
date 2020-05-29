@@ -8,9 +8,8 @@ describe('TfOtpInputComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TfOtpInputComponent ]
-    })
-    .compileComponents();
+      declarations: [TfOtpInputComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

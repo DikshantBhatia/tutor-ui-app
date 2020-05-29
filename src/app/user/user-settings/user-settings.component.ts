@@ -1,14 +1,13 @@
-import {AfterContentInit, Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {NgbTypeaheadSelectItemEvent} from '@ng-bootstrap/ng-bootstrap';
+import { AfterContentInit, Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './user-settings.component.html',
-  styleUrls: ['./user-settings.component.scss']
+  styleUrls: ['./user-settings.component.scss'],
 })
-export class UserSettingsComponent implements OnInit, AfterContentInit{
-
+export class UserSettingsComponent implements OnInit, AfterContentInit {
   activeItem = 1;
   public model: any;
   /*searching = false;
@@ -18,15 +17,13 @@ export class UserSettingsComponent implements OnInit, AfterContentInit{
   locations;
   autoCompleteService = new google.maps.places.AutocompleteService();*/
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   setActiveItem(activeItem: number) {
-     this.activeItem = activeItem;
+    this.activeItem = activeItem;
   }
-
 
   updateAdd(event: NgbTypeaheadSelectItemEvent) {
     console.log(event.item);
@@ -74,5 +71,4 @@ export class UserSettingsComponent implements OnInit, AfterContentInit{
       };
     });
   }*/
-
 }
