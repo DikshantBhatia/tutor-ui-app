@@ -27,11 +27,11 @@
   margin: 0 0 20px;
 }
 
-input:enabled:hover{
+input:enabled:hover {
   border-color: #ced4da;
 }
 
-input:enabled:focus{
+input:enabled:focus {
   outline: 0 none;
   outline-offset: 0;
   -webkit-box-shadow: none;
@@ -56,13 +56,12 @@ input:enabled:focus{
   border-bottom: 1px solid #e5e7e8;
   line-height: 0.1em;
   margin: 10px 0 20px;
-
 }
 
 .divider h6 span {
-  background:#fff;
+  background: #fff;
   color: #777777;
-  padding:0 10px;
+  padding: 0 10px;
 }
 
 .loginProviderBtn {
@@ -72,7 +71,7 @@ input:enabled:focus{
   width: 100%;
   font-size: 16px;
   font-weight: normal;
-  border-bottom: 1px solid #E5E7E8;
+  border-bottom: 1px solid #e5e7e8;
 }
 
 .loginProviderBtn i {
@@ -102,7 +101,7 @@ input:enabled:focus{
   font-size: 14px;
   line-height: 45px;
   text-align: left;
-  border: 1px solid #E5E7E8;
+  border: 1px solid #e5e7e8;
   padding: 0px 54px 0 63px;
   margin: 0;
   border-top-right-radius: 2px;
@@ -145,8 +144,6 @@ input:enabled:focus{
   background: #dd4b39;
   border-color: #dd4b39;
 }
-
-
 
 //TODO Below code was done in initial development. It is kept for reference and will be removed once app becomes mature
 
@@ -199,7 +196,6 @@ input{
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
 }*/
-
 
 /*
 .form-label-group {

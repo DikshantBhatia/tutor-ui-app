@@ -4,31 +4,30 @@
 @import '~font-awesome/scss/font-awesome';
 @import '~bootstrap/scss/bootstrap';
 
-
 :root {
   --primary-color: #ff5c51;
-  --body-color : #484848;
+  --body-color: #484848;
   --dropdown-border-color: rgba(0, 0, 0, 0.15);
   --dropdown-border-width: 1px solid;
-  --list-group-bg : var(--white);
-  --list-group-item-color : #83878A;
-   --list-group-border: 1px solid rgba(0,0,0,0.125);
+  --list-group-bg: var(--white);
+  --list-group-item-color: #83878a;
+  --list-group-border: 1px solid rgba(0, 0, 0, 0.125);
 }
 
 html {
-  font-size: 70%
+  font-size: 70%;
 }
 
 @media (min-width: 992px) {
   html {
-    font-size:100%
+    font-size: 100%;
   }
 }
 
 body {
   font-size: 100%;
   line-height: 1.25;
-  font-family: Source Sans Pro,sans-serif;
+  font-family: Source Sans Pro, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -59,7 +58,8 @@ body {
   user-select: none;
 }
 
-.btn:focus, .btn:enabled:focus {
+.btn:focus,
+.btn:enabled:focus {
   box-shadow: none;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
@@ -69,23 +69,26 @@ a {
   cursor: pointer;
   text-decoration: none;
   outline: 0;
-  -webkit-transition: all .3s ease;
-  transition: all .3s ease;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-a.primary{
+a.primary {
   color: var(--primary-color);
 }
 
-a.primary,a.primary:hover{
+a.primary,
+a.primary:hover {
   color: var(--primary-color);
 }
 
-a.underline, a.underline:hover {
+a.underline,
+a.underline:hover {
   text-decoration: underline;
 }
 
-a.disabled, a.disabled:hover {
+a.disabled,
+a.disabled:hover {
   color: #777777;
   opacity: 0.5;
   cursor: not-allowed;
@@ -100,4 +103,3 @@ a.disabled, a.disabled:hover {
 .alert span {
   font-size: small;
 }
-

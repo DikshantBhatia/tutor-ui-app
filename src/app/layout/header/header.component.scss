@@ -9,7 +9,7 @@
 
 .logo-text {
   color: var(--primary-color);
-  font-family: Proxima Nova,sans-serif;
+  font-family: Proxima Nova, sans-serif;
   font-weight: 600;
   margin-left: 10px;
 }
@@ -57,52 +57,38 @@
 }*/
 
 .avatar {
- font-size: 1.5em;
+  font-size: 1.5em;
   padding-top: 15px;
 }
 
 .dropdown-menu-arrow:before {
-  content: "";
+  content: '';
   right: 1rem;
   position: absolute;
   bottom: 96%;
   z-index: -5;
   width: 15px;
   height: 15px;
-  background: #FFFFFF;
-  border-left:  var(--dropdown-border-width) var(--dropdown-border-color);
+  background: #ffffff;
+  border-left: var(--dropdown-border-width) var(--dropdown-border-color);
   border-top: var(--dropdown-border-width) var(--dropdown-border-color);
-  -moz-transform:rotate(45deg);
-  -webkit-transform:rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
 }
 
 .dropdown-menu {
   top: 88%;
   line-height: 24px;
-
 }
 
 a.dropdown-item {
-  color: #83878A;
+  color: #83878a;
 }
 
-a.dropdown-item:hover{
- background-color: whitesmoke;
- color: var(--body-color);
+a.dropdown-item:hover {
+  background-color: whitesmoke;
+  color: var(--body-color);
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
-  box-shadow: none
+  box-shadow: none;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
