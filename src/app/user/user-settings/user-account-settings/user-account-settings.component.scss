@@ -1,0 +1,39 @@
+  
+  input:enabled:focus{
+    outline: 0 none;
+    outline-offset: 0;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    border-color: #ced4da;
+  }
+
+  .phone-link{
+    flex: auto;
+
+  }
+  
+  // .separator{
+  //  background-color: var(--primary-color);
+  // }
+
+  .verifyButton{
+    margin-top: 10px;
+    
+  }
+
+  .inline-button{
+    margin-left: 10px;
+    width: 100%;
+    
+  }
+
+  .editable-label{
+    padding-top: 1%;
+    vertical-align: middle;
+  }
+
+  .icons{
+    float: right;
+    color: var(--primary-color);
+  }

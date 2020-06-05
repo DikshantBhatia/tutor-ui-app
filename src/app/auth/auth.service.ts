@@ -15,16 +15,16 @@ export class AuthService {
 
   // request to generate otp for login
   sendOtp(phone) {
-    return this.http.post('/api/users/otp', phone);
+    return this.http.post('/api/auth/otp', phone);
   }
 
   // request to generate otp for signup
   sendOtpForSignup(authDto: any) {
-    return this.http.post('/api/users/signupotp', authDto);
+    return this.http.post('/api/auth/signupotp', authDto);
   }
 
   login(phone, otp) {
-    return this.http.post('/api/users/signin', { phoneNumber: phone, password: otp }).pipe(
+    return this.http.post('/api/auth/signin', { phoneNumber: phone, password: otp }).pipe(
       tap((response) => {
         this.handleAuthentication(response);
       })
@@ -65,7 +65,7 @@ export class AuthService {
 
   signup(userDetails: any) {
     return this.http
-      .post('/api/users/signup', userDetails)
+      .post('/api/auth/signup', userDetails)
       .pipe(tap((responseData) => this.handleAuthentication(responseData)));
   }
 
@@ -83,5 +83,11 @@ export class AuthService {
   createUser(userResponse) {
     const user = new User(userResponse);
     this.user.next(user);
+  }
+
+  deleteUser(userResponse){
+    this.user.next(null);
+    this.authToken=null;
+    localStorage.removeItem('tf-token');
   }
 }
