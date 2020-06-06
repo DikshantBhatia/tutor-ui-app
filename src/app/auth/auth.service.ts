@@ -44,7 +44,7 @@ export class AuthService {
     }
     this.authToken = token;
     // make a call to backend to get user details(role etc). It will also verify if token is valid or not
-    this.http.get<User>('/api/users/myself').subscribe((userResponse) => {
+    this.http.get<User>('/api/users/me').subscribe((userResponse) => {
       this.createUser(userResponse);
     });
   }

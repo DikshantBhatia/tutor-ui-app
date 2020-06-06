@@ -13,7 +13,7 @@ export class UserService {
 
   updateUser(user): Observable<User> {
     return this.http
-      .put<User>('/api/users/myself', user)
+      .put<User>('/api/users/me', user)
       .pipe(tap((userResponse) => this.authService.createUser(userResponse)));
   }
 
