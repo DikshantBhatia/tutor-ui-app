@@ -19,16 +19,15 @@ export class UserAccountSettingsComponent implements OnInit {
   phoneNumber: string;
   email: string;
 
-  phoneEditable: boolean = false;
-  showPhoneLoadingOverlay: boolean = false;
-  phoneOtpGenerated: boolean = false;
+  phoneEditable = false;
+  showPhoneLoadingOverlay = false;
+  phoneOtpGenerated = false;
   phoneOtp: string;
 
-  //email related
-
-  emailEditable: boolean = false;
-  showEmailLoadingOverlay: boolean = false;
-  emailOtpGenerated: boolean = false;
+  // email related
+  emailEditable = false;
+  showEmailLoadingOverlay = false;
+  emailOtpGenerated = false;
   emailOtp: string;
 
   constructor(
@@ -53,9 +52,9 @@ export class UserAccountSettingsComponent implements OnInit {
     console.log('phone' + this.phoneNumber);
   }
 
-  //Separate method if submit button is needed on UI
+  // Separate method if submit button is needed on UI
   changePhone() {
-    //call userService method to change phone
+    // call userService method to change phone
     console.log('change phone called');
     this.showPhoneLoadingOverlay = true;
     this.userService.changePhone({ phoneNumber: this.phoneNumber, password: this.phoneOtp }).subscribe(
@@ -104,7 +103,7 @@ export class UserAccountSettingsComponent implements OnInit {
     );
   }
 
-  //Email related
+  // Email related
   resetEmailOtp() {
     console.log('reset phone otp called');
     this.emailOtp = null;
@@ -137,9 +136,9 @@ export class UserAccountSettingsComponent implements OnInit {
     );
   }
 
-  //Separate method if submit button is needed on UI
+  // Separate method if submit button is needed on UI
   changeEmail() {
-    //call userService method to change phone
+    // call userService method to change phone
     console.log('change phone called');
     this.showEmailLoadingOverlay = true;
     this.userService.changeEmail({ email: this.email, password: this.phoneOtp }).subscribe(
