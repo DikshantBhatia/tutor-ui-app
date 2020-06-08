@@ -1,5 +1,5 @@
 .learning-preferences {
-  border-top: 1px solid #EEEEF2;
+  border-top: 1px solid #eeeef2;
   min-height: 100%;
   margin-bottom: 40px;
 }
@@ -9,7 +9,7 @@
 }
 .btn-light {
   color: #212529;
-  border: 1px solid  #212529 ;
+  border: 1px solid #212529;
 }
 
 .btn-rounded {
@@ -42,9 +42,8 @@ button.tag-default:hover {
   color: #484848;
 }
 
-
 .wrapper-tag {
-  padding:8px;
+  padding: 8px;
   display: inline-block;
 }
 
@@ -57,18 +56,18 @@ button.tag-default:hover {
   left: 0;
   //background-color: #111;
   overflow-x: hidden;
-
 }
 
-.progress-bar{
-  background-color: #007bff
+.progress-bar {
+  background-color: #007bff;
 }
 
 .learning-preferences:after {
-  content: "";
+  content: '';
   display: block;
 }
 
-.fixed-bottom-nav, .learning-preferences:after{
+.fixed-bottom-nav,
+.learning-preferences:after {
   height: 60px;
 }
