@@ -22,8 +22,10 @@ import { UserBasicInfoComponent } from './user/user-settings/user-basic-info/use
 import { HttpRequestInterceptor } from './core/interceptors/http-request.interceptor';
 import { SignupComponent } from './auth/signup/signup.component';
 import { GooglePlacesDirective } from './shared/directives/google-places.directive';
-import {NgbTypeaheadModule} from "@ng-bootstrap/ng-bootstrap";
+import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { UserAccountSettingsComponent } from './user/user-settings/user-account-settings/user-account-settings.component';
+import { LearningPreferencesComponent } from './user/user-preferences/learning-preferences/learning-preferences.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import { UserAccountSettingsComponent } from './user/user-settings/user-account-
     UserBasicInfoComponent,
     SignupComponent,
     GooglePlacesDirective,
-    UserAccountSettingsComponent
+    UserAccountSettingsComponent,
+    LearningPreferencesComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,65 @@
+<ng-container *ngIf="!loading; else loadingSpinner">
+  <section class="learning-preferences">
+    <div class="container">
+      <div class="row mb-4 pt-4">
+        <div class="col-12">
+          <h4>Tell us your learning preferences.</h4>
+          <p>We can then find the best matches for you.</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 mb-4" *ngFor="let category of categories">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">
+                <i class="fa fa-graduation-cap" style="font-size: 1.5rem;"></i> {{ category.description }}
+              </h5>
+
+              <div class="wrapper-tag" *ngFor="let subCat of category.subcategories">
+                <button
+                  type="button"
+                  class="btn subcategory-tag mb-3"
+                  [ngClass]="{ 'tag-selected': subCat.selected, 'tag-default': !subCat.selected }"
+                  (click)="onToggleSubCategory(subCat)"
+                >
+                  <span style="float: left; padding-left: 8px; padding-right: 8px;">{{ subCat.description }}</span>
+                  <span style="float: right;">
+                    <i class="fa fa-plus" *ngIf="!subCat.selected"></i>
+                    <i class="fa fa-check" *ngIf="subCat.selected"></i>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <nav class="navbar fixed-bottom navbar-light bg-white fixed-bottom-nav">
+    <div class="container">
+      <div class="col-6">
+        <span style="color: #83878a; font-size: 0.95rem;">Step 1 of 2</span>
+        <div class="progress">
+          <div
+            class="progress-bar w-50"
+            role="progressbar"
+            aria-valuenow="50"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
+      </div>
+      <div style="float: right;">
+        <button class="btn btn-light btn-md mr-2">Exit</button>
+        <button class="btn btn-primary btn-md">Next</button>
+      </div>
+    </div>
+  </nav>
+</ng-container>
+
+<ng-template #loadingSpinner>
+  <div class="d-flex justify-content-center mt-5">
+    <app-tf-spinner></app-tf-spinner>
+  </div>
+</ng-template>
