@@ -31,7 +31,12 @@ export class UserAccountSettingsComponent implements OnInit {
   emailOtpGenerated: boolean = false;
   emailOtp: string;
 
-  constructor(private userService: UserService, private authService: AuthService, private router:Router, private route:ActivatedRoute) {}
+  constructor(
+    private userService: UserService,
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     console.log('ng on init');
@@ -151,20 +156,18 @@ export class UserAccountSettingsComponent implements OnInit {
     );
   }
 
-
-  deleteUser(){
-    console.log("delete user called");
+  deleteUser() {
+    console.log('delete user called');
     this.userService.deleteUser().subscribe(
-      (response)=>{
+      (response) => {
         console.log('user deleted successfully');
-        this.error='';
+        this.error = '';
         const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
         this.router.navigate([returnUrl]);
       },
-     (errorResponse)=>{
-       this.error=errorResponse;
-     } 
-
+      (errorResponse) => {
+        this.error = errorResponse;
+      }
     );
   }
 }

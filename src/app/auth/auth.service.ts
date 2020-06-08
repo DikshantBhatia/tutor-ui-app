@@ -85,9 +85,9 @@ export class AuthService {
     this.user.next(user);
   }
 
-  deleteUser(userResponse){
+  deleteUser(userResponse) {
     this.user.next(null);
-    this.authToken=null;
+    this.authToken = null;
     localStorage.removeItem('tf-token');
   }
 }

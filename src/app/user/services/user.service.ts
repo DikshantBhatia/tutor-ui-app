@@ -38,8 +38,10 @@ export class UserService {
   }
 
   deleteUser(): Observable<any> {
-    return this.http.delete('/api/users/').pipe(tap((response) => {
-      this.authService.deleteUser(response);
-    }));
+    return this.http.delete('/api/users/').pipe(
+      tap((response) => {
+        this.authService.deleteUser(response);
+      })
+    );
   }
 }

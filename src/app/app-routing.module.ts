@@ -6,7 +6,6 @@ import { UserSettingsComponent } from './user/user-settings/user-settings.compon
 import { SignupComponent } from './auth/signup/signup.component';
 import { LearningPreferencesComponent } from './user/user-preferences/learning-preferences/learning-preferences.component';
 
-
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
