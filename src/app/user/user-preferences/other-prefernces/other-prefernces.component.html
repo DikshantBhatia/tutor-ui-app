@@ -1,0 +1,100 @@
+<ng-container *ngIf="!loading; else loadingSpinner">
+<section class="learning-preferences">
+    <div class="container">
+
+        <div class="row mb-4 pt-4">
+            <div class="col-10 col-sm-8">
+                <h4>Other Preferences:</h4>
+            </div>
+        </div>
+
+        <form>
+            <div class="row mb-5">
+                <div class="col-10 col-sm-8">
+                    <p class="bold">Looking for tutions in</p>
+                </div>
+                <div class="col-10 col-sm-8">
+                    <input
+                            type="text"
+                            class="form-control"
+                            aria-describedby="locationHelpBlock"
+                            [ngModel]="myPreferences.location.locationDescription"
+                            name="location.locationDescription"
+                            appGooglePlaces
+                            [addressType]="'(cities)'"
+                            (onPlaceSelect)="updateLocation($event)"
+                            placeholder="Search your city"
+                    />
+                </div>
+            </div>
+
+
+
+            <div class="row mb-5">
+                <div class="col-10 col-sm-8">
+                    <p class="bold">Are you open to online learning ?</p>
+                </div>
+                <div class="col-10 col-sm-8">
+                    <label class="switch">
+                        <input type="checkbox" checked [(ngModel)]="myPreferences.interestedInOnlineClasses" name="interestedInOnlineClasses">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-10 col-sm-8">
+                    <p class="bold">Your tutor should teach in ?</p>
+                </div>
+                <div class="col-10 col-sm-8 mb-6">
+                    <div class="mb-2" *ngFor="let langPref of myPreferences.languagePreferences;">
+                        <!--<input class="form-check-input" type="checkbox" checked [(ngModel)]="langPref.selected" [ngModelOptions]="{standalone: true}">-->
+                        <div class="row">
+                        <div class="col-2 pt-2">
+                            <span class="text-muted">
+                                {{langPref.description}}
+                            </span>
+                        </div>
+                        <div class="col-5">
+                        <label class="switch">
+                            <input type="checkbox" checked [(ngModel)]="langPref.selected" [ngModelOptions]="{standalone: true}">
+                            <span class="slider round"></span>
+                        </label>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+</section>
+    <nav class="navbar fixed-bottom navbar-light bg-white fixed-bottom-nav">
+        <div class="container-fluid container-sm">
+            <div class="col-5">
+                <span style="color: #83878a; font-size: 0.95rem;">Step 2 of 2</span>
+                <div class="progress">
+                    <div
+                            class="progress-bar w-100"
+                            role="progressbar"
+                            aria-valuenow="100"
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                    ></div>
+                </div>
+            </div>
+            <div style="float: right">
+                    <a class="btn btn-light btn-md mr-2" routerLink="/me/preferences/subjects">Previous</a>
+                    <button class="btn btn-primary btn-md" (click)="savePreferences()">Finish</button>
+            </div>
+
+        </div>
+    </nav>
+</ng-container>
+
+<ng-template #loadingSpinner>
+    <div class="d-flex justify-content-center mt-5">
+        <app-tf-spinner></app-tf-spinner>
+    </div>
+</ng-template>

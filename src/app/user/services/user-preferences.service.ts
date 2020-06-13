@@ -7,8 +7,12 @@ import { HttpClient } from '@angular/common/http';
 export class UserPreferencesService {
   constructor(private http: HttpClient) {}
 
-  getMyPreferences() {
-    return this.http.get('/api/users/me/preferences');
+  getMySubjects() {
+    return this.http.get('/api/users/me/preferences/subjects');
+  }
+
+  getMyOtherPreference() {
+    return this.http.get('/api/users/me/preferences/other');
   }
 
   saveSubject(subjectId) {
@@ -18,4 +22,9 @@ export class UserPreferencesService {
   unSaveSubject(subjectId) {
     this.http.put('/api/users/me/preferences/subjects/' + subjectId + '/unsave', null).subscribe();
   }
+
+  updateMyPreference(preference:any){
+    this.http.put('/api/users/me/preferences/other', preference).subscribe();
+  }
+
 }

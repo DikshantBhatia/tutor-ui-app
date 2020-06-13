@@ -1,0 +1,144 @@
+.learning-preferences {
+  border-top: 1px solid #eeeef2;
+  min-height: 100%;
+  margin-bottom: 40px;
+}
+
+.btn-md {
+  padding: 10px 25px;
+}
+.btn-light {
+  color: #212529;
+  border: 1px solid #212529;
+}
+
+.btn-rounded {
+  border-radius: 20px;
+  padding: 8px 12px;
+}
+
+.subcategory-tag {
+  border-radius: 18px;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.subcategory-tag i {
+  font-size: 0.9rem;
+}
+
+.tag-default {
+  background-color: #f8f7fa;
+  color: #83878a;
+}
+
+.tag-selected {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+button.tag-default:hover {
+  background-color: lightgray;
+  color: #484848;
+}
+
+.wrapper-tag {
+  padding: 8px;
+  display: inline-block;
+}
+
+
+.progress-bar {
+  background-color: #007bff;
+}
+
+.learning-preferences:after {
+  content: '';
+  display: block;
+}
+
+.fixed-bottom-nav,
+.learning-preferences:after {
+  height: 60px;
+}
+
+
+/** toggle switch css  **/
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.preferences-form {
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: flex;
+  -ms-flex-align: center;
+  -ms-flex-pack: center;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  padding-top: 100px;
+  padding-bottom: 40px;
+}
+
+p.bold {
+  font-weight: 600;
+}

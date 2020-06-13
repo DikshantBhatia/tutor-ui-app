@@ -2,25 +2,28 @@ import { Component, OnInit } from '@angular/core';
 import { ContentService } from '../../../core/services/content.service';
 import { forkJoin } from 'rxjs';
 import { UserPreferencesService } from '../../services/user-preferences.service';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-learning-preferences',
-  templateUrl: './learning-preferences.component.html',
-  styleUrls: ['./learning-preferences.component.scss'],
+  templateUrl: './subject-preferences.component.html',
+  styleUrls: ['./subject-preferences.component.scss'],
 })
-export class LearningPreferencesComponent implements OnInit {
+export class SubjectPreferencesComponent implements OnInit {
   categories: any = [];
   selectedSubCategories = [];
   loading;
 
-  constructor(private contentService: ContentService, private userPreferenceService: UserPreferencesService) {}
+
+  constructor(private contentService: ContentService, private userPreferenceService: UserPreferencesService, private formBuilder: FormBuilder) {
+  }
 
   ngOnInit(): void {
     this.loading = true;
-    forkJoin([this.contentService.getCategories(), this.userPreferenceService.getMyPreferences()]).subscribe(
+    forkJoin([this.contentService.getCategories(), this.userPreferenceService.getMySubjects()]).subscribe(
       (response) => {
         this.categories = response[0];
-        this.selectedSubCategories = response[1]['subjects'];
+        this.selectedSubCategories = response[1]['subjectIds'];
         this.categories.forEach((category) => {
           category.subcategories.forEach((subCategory) => {
             const index =
@@ -28,13 +31,15 @@ export class LearningPreferencesComponent implements OnInit {
               this.selectedSubCategories.findIndex((subjectId) => {
                 return subCategory.id === subjectId;
               });
-            subCategory['selected'] = index !== -1 ? true : false;
+            subCategory['selected'] = !index || index !== -1 ? true : false;
           });
         });
+        console.log(this.categories);
         this.loading = false;
       }
     );
   }
+
 
   onToggleSubCategory(subCategory) {
     subCategory['selected'] = !subCategory['selected'];
@@ -44,4 +49,5 @@ export class LearningPreferencesComponent implements OnInit {
       this.userPreferenceService.unSaveSubject(subCategory.id);
     }
   }
+
 }

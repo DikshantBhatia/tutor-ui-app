@@ -25,7 +25,11 @@ import { GooglePlacesDirective } from './shared/directives/google-places.directi
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { UserAccountSettingsComponent } from './user/user-settings/user-account-settings/user-account-settings.component';
-import { LearningPreferencesComponent } from './user/user-preferences/learning-preferences/learning-preferences.component';
+
+import { OtherPreferncesComponent } from './user/user-preferences/other-prefernces/other-prefernces.component';
+import { SubjectPreferencesComponent } from './user/user-preferences/subject-preferences/subject-preferences.component';
+import { TfVerifyAccountComponent } from './shared/components/tf-verify-email/tf-verify-account.component';
+
 
 @NgModule({
   declarations: [
@@ -40,7 +44,9 @@ import { LearningPreferencesComponent } from './user/user-preferences/learning-p
     SignupComponent,
     GooglePlacesDirective,
     UserAccountSettingsComponent,
-    LearningPreferencesComponent,
+    SubjectPreferencesComponent,
+    OtherPreferncesComponent,
+    TfVerifyAccountComponent,
   ],
   imports: [
     BrowserModule,

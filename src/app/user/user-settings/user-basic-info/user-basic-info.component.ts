@@ -4,7 +4,7 @@ import { UserService } from '../../services/user.service';
 import { AuthService } from '../../../auth/auth.service';
 import { take, tap } from 'rxjs/operators';
 import { User } from '../../../core/models/user.model';
-import { Observable } from 'rxjs';
+import { Observable, pipe } from 'rxjs';
 import PlaceResult = google.maps.places.PlaceResult;
 
 @Component({
@@ -36,7 +36,6 @@ export class UserBasicInfoComponent implements OnInit {
     });
 
     this.user = this.authService.user.pipe(
-      take(1),
       tap((userResponse) => userResponse && this.basicInfoForm.patchValue(userResponse))
     );
   }
