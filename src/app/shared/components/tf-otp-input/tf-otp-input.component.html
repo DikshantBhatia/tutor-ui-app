@@ -1,5 +1,5 @@
 <div [formGroup]="otpForm" class="otp-input-container">
-  <p>Please enter OTP</p>
+  <p>Please enter the OTP</p>
   <div class="input-group mb-4" formArrayName="otp">
     <ng-container *ngFor="let control of otp.controls; let i = index">
       <input
@@ -16,6 +16,8 @@
     </ng-container>
   </div>
   <p class="resend-otp-text">
-    Didn't get a code?<a [class.disabled]="!isPhoneValid" (click)="onResendOtp()" class="underline primary">Resend</a>
+    Didn't get a code?
+    <ng-container *ngIf="canResend"> <a [class.disabled]="!isPhoneValid" (click)="onResendOtp()" class="underline primary">Resend</a> </ng-container>
+    <ng-container *ngIf="!canResend">Try sending again</ng-container>
   </p>
 </div>

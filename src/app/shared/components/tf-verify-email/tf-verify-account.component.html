@@ -1,0 +1,42 @@
+<div class="input-group mb-3">
+    <div class="input-group-prepend" *ngIf="type == 'phone'">
+        <span class="input-group-text">+91</span>
+    </div>
+    <input *ngIf="type == 'phone'  ; else emailInput"
+            aria-describedby="basic-addon1"
+            aria-label="Username"
+            class="form-control"
+            [(ngModel)]="phoneNumber"
+            maxlength="1000"
+            placeholder="Phone"
+            required
+            type="text"
+            [readOnly]="sendingOtp"
+    />
+    <ng-template #emailInput>
+        <input aria-describedby="basic-addon1"
+               aria-label="Username"
+               class="form-control"
+               [(ngModel)]="email"
+               maxlength="1000"
+               placeholder="Email"
+               required
+               type="text"
+               [readOnly]="sendingOtp"
+        />
+    </ng-template>
+
+    <div class="input-group-append">
+        <button
+                class="btn btn-primary send-otp-btn"
+                (click)="onSendOtp()"
+                data-toggle="tooltip"
+                data-placement="top"
+                [disabled]="sendingOtp"
+        >
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="sendingOtp"></span>
+            <ng-container *ngIf="sendingOtp">....</ng-container>
+            <ng-container *ngIf="!sendingOtp">Verify</ng-container>
+        </button>
+    </div>
+</div>

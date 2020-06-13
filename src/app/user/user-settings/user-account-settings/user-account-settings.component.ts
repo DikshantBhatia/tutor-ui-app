@@ -1,34 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { User } from 'src/app/core/models/user.model';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from 'src/app/auth/auth.service';
 import { UserService } from '../../services/user.service';
-import { take, tap } from 'rxjs/operators';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { transcode } from 'buffer';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { TfOtpInputComponent } from '../../../shared/components/tf-otp-input/tf-otp-input.component';
 
 @Component({
   selector: 'app-user-account-settings',
   templateUrl: './user-account-settings.component.html',
   styleUrls: ['./user-account-settings.component.scss'],
 })
-export class UserAccountSettingsComponent implements OnInit {
+export class UserAccountSettingsComponent implements OnInit,OnDestroy {
   error: any;
-  user: Observable<User>;
   phoneNumber: string;
   email: string;
 
   phoneEditable = false;
-  showPhoneLoadingOverlay = false;
+  sendingOtpToPhone = false;
   phoneOtpGenerated = false;
-  phoneOtp: string;
 
   // email related
   emailEditable = false;
-  showEmailLoadingOverlay = false;
+  sendingOtpToEmail = false;
   emailOtpGenerated = false;
-  emailOtp: string;
+
+  @ViewChild("phoneOtpInput") phoneOtpInputComponent;
+  @ViewChild("emailOtpInput") emailOtpInputComponent;
+
+  private userSub: Subscription;
 
   constructor(
     private userService: UserService,
@@ -39,121 +38,89 @@ export class UserAccountSettingsComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('ng on init');
-    this.user = this.authService.user.pipe(
-      take(1),
-      tap((userResp) => {
+    this.userSub = this.authService.user.subscribe( userResp => {
         this.phoneNumber = userResp.phoneNumber;
         this.email = userResp.email;
-        console.log(this.phoneNumber);
-        console.log(this.user);
       })
-    );
-    this.user.subscribe((user) => console.log(user));
-    console.log('phone' + this.phoneNumber);
   }
 
-  // Separate method if submit button is needed on UI
-  changePhone() {
+  onSendPhoneOtp(phone) {
+    console.log('otp generated');
+    this.sendingOtpToPhone = true;
+
+    this.userService.phoneOtp({ phoneNumber: phone }).subscribe(
+      (response) => {
+        this.phoneNumber = phone;
+        this.sendingOtpToPhone = false;
+        this.phoneOtpGenerated = true;
+        this.error = '';
+      },
+      (errResp) => {
+        this.sendingOtpToPhone = false;
+        this.phoneOtpGenerated = false;
+        this.error = errResp;
+      }
+    );
+  }
+
+
+  // Separate method will be created if submit button is needed on UI
+  updatePhone(otp: string) {
     // call userService method to change phone
     console.log('change phone called');
-    this.showPhoneLoadingOverlay = true;
-    this.userService.changePhone({ phoneNumber: this.phoneNumber, password: this.phoneOtp }).subscribe(
+    // this.sendingOtpToPhone = true;
+    this.userService.changePhone({ phoneNumber: this.phoneNumber, password: otp }).subscribe(
       (response) => {
-        this.showPhoneLoadingOverlay = false;
         this.phoneOtpGenerated = false;
         this.phoneEditable = false;
         this.error = '';
       },
       (errorResponse) => {
-        this.showPhoneLoadingOverlay = false;
+        this.sendingOtpToPhone = false;
         this.error = errorResponse;
+        this.phoneOtpInputComponent.resetOtp = true;
       }
     );
   }
 
-  resetPhoneOtp() {
-    console.log('reset phone otp called');
-    this.phoneOtp = null;
-    this.phoneOtpGenerated = false;
-  }
 
-  getPhoneOtp(otp: string) {
-    this.phoneOtp = otp;
-    console.log('otp retrieved');
-
-    this.changePhone();
-  }
-
-  onSendPhoneOtp() {
-    console.log('otp generated');
-
-    this.showPhoneLoadingOverlay = true;
-
-    this.userService.phoneOtp({ phoneNumber: this.phoneNumber }).subscribe(
-      (response) => {
-        this.showPhoneLoadingOverlay = false;
-        this.phoneOtpGenerated = true;
-        this.error = '';
-      },
-      (errResp) => {
-        this.showPhoneLoadingOverlay = false;
-        this.phoneOtpGenerated = false;
-        this.error = errResp;
-      }
-    );
-  }
-
-  // Email related
-  resetEmailOtp() {
-    console.log('reset phone otp called');
-    this.emailOtp = null;
-    this.emailOtpGenerated = false;
-  }
-
-  getEmailOtp(otp: string) {
-    this.phoneOtp = otp;
-    console.log('otp retrieved');
-
-    this.changeEmail();
-  }
-
-  onSendEmailOtp() {
+  onSendEmailOtp(emailAddress : string) {
     console.log('email otp generated');
+    this.sendingOtpToEmail = true;
 
-    this.showEmailLoadingOverlay = true;
-
-    this.userService.emailOtp({ email: this.email }).subscribe(
+    this.userService.emailOtp({ email: emailAddress }).subscribe(
       (response) => {
-        this.showEmailLoadingOverlay = false;
+        this.email = emailAddress;
+        this.sendingOtpToEmail = false;
         this.emailOtpGenerated = true;
         this.error = '';
       },
       (errResp) => {
-        this.showEmailLoadingOverlay = false;
+        this.sendingOtpToEmail = false;
         this.emailOtpGenerated = false;
         this.error = errResp;
       }
     );
   }
 
-  // Separate method if submit button is needed on UI
-  changeEmail() {
+  // Separate method  will be create if submit button is needed on UI
+  updateEmail(otp: string) {
     // call userService method to change phone
-    console.log('change phone called');
-    this.showEmailLoadingOverlay = true;
-    this.userService.changeEmail({ email: this.email, password: this.phoneOtp }).subscribe(
+    console.log('change email called');
+    this.userService.changeEmail({ email: this.email, password: otp }).subscribe(
       (response) => {
-        this.showEmailLoadingOverlay = false;
         this.emailOtpGenerated = false;
         this.emailEditable = false;
         this.error = '';
       },
       (errorResponse) => {
-        this.showEmailLoadingOverlay = false;
         this.error = errorResponse;
+        this.emailOtpInputComponent.resetOtp = true;
       }
     );
   }
+
+
 
   deleteUser() {
     console.log('delete user called');
@@ -168,5 +135,9 @@ export class UserAccountSettingsComponent implements OnInit {
         this.error = errorResponse;
       }
     );
+  }
+
+  ngOnDestroy() {
+    this.userSub.unsubscribe();
   }
 }

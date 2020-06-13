@@ -7,162 +7,119 @@
   <span><strong>Sorry !</strong> {{ error }}</span>
 </div>
 
-<h6>Your Phone</h6>
-
 <div class="row">
-  <div class="col-lg-9 col-sm-10">
-    <label class="editable-label" *ngIf="!phoneEditable">{{ phoneNumber }}</label>
-
-    <div class="input-group mb-3" *ngIf="phoneEditable">
-      <div class="input-group-prepend">
-        <span class="input-group-text" id="basic-addon1">+91</span>
-      </div>
-      <input
-        aria-describedby="basic-addon1"
-        aria-label="Username"
-        class="form-control"
-        [(ngModel)]="phoneNumber"
-        maxlength="1000"
-        placeholder="Phone"
-        required
-        type="text"
-        [readonly]="phoneOtpGenerated"
-      />
-      <div class="input-group-append">
-        <button
-          class="btn btn-primary send-otp-btn"
-          (click)="onSendPhoneOtp()"
-          data-toggle="tooltip"
-          data-placement="top"
-          [disabled]="phoneOtpGenerated"
-        >
-          Send OTP
-        </button>
-      </div>
-    </div>
+  <div class="col-4">
+    <p class="font-weight-bold">Your Phone</p>
   </div>
-
-  <div class="col-lg-3 col-sm-2">
-    <i *ngIf="!phoneEditable" (click)="phoneEditable = !phoneEditable" class="fa fa-edit icons"></i>
+  <div class="offset-7">
     <i
-      *ngIf="phoneEditable && !phoneOtpGenerated"
-      (click)="phoneEditable = !phoneEditable"
-      class="fa fa-remove icons"
+      class="fas"
+      [ngClass]="{ 'fa-edit': !phoneEditable, 'fa-times': phoneEditable }"
+      (click)="phoneEditable = !phoneEditable; sendingOtpToPhone = false; phoneOtpGenerated = false"
     ></i>
   </div>
 </div>
-
-<!--otp Row-->
-<div class="row">
-  <div class="col-lg-9 col-sm-10">
-    <div *ngIf="showPhoneLoadingOverlay" class="text-center mb-3 mt-5">
-      <app-tf-spinner></app-tf-spinner>
-    </div>
-    <div *ngIf="phoneOtpGenerated" class="mt-5 mb-3">
-      <app-tf-otp-input (login)="getPhoneOtp($event)" (resendOtp)="onSendPhoneOtp()"></app-tf-otp-input>
-    </div>
+<div class="row" *ngIf="!phoneEditable">
+  <div class="col">
+    <span>{{ phoneNumber }}</span>
   </div>
-  <!-- end of the column -->
-  <div class="col-lg-3 col-sm-2">
-    <i *ngIf="phoneOtpGenerated" (click)="resetPhoneOtp()" class="fa fa-remove icons"></i>
-    <!-- <i *ngIf="phoneOtpGenerated" (click)="changePhone()" class="fa fa-check-square icons"></i> -->
+</div>
+<div class="row" *ngIf="phoneEditable">
+  <div class="col-10 col-sm-8">
+    <app-tf-verify-account
+      [phoneNumber]="phoneNumber"
+      [type]="'phone'"
+      [sendingOtp]="sendingOtpToPhone"
+      (sendOtp)="onSendPhoneOtp($event)"
+    ></app-tf-verify-account>
+  </div>
+</div>
+<!--otp Row-->
+<div class="row" *ngIf="phoneEditable && phoneOtpGenerated && !sendingOtpToPhone">
+  <div class="col-lg-9 col-sm-10">
+    <div>
+      <app-tf-otp-input #phoneOtpInput (login)="updatePhone($event)" [canResend]="false"></app-tf-otp-input>
+    </div>
   </div>
 </div>
 
 <hr />
 
-<h6>Your Email</h6>
 
 <div class="row">
-  <div class="col-lg-9 col-sm-10">
-    <label class="editable-label" *ngIf="!emailEditable">{{ email }}</label>
-    <div class="input-group mb-3" *ngIf="emailEditable">
-      <input
-        aria-describedby="basic-addon1"
-        aria-label="Username"
-        class="form-control"
-        [(ngModel)]="email"
-        maxlength="1000"
-        placeholder="Email"
-        required
-        type="text"
-        [readOnly]="emailOtpGenerated"
-      />
-      <div class="input-group-append">
-        <button
-          class="btn btn-primary send-otp-btn"
-          (click)="onSendEmailOtp()"
-          [disabled]="emailOtpGenerated"
-          data-toggle="tooltip"
-          data-placement="top"
-        >
-          Send OTP
-        </button>
-      </div>
-      <!-- the below logic for displaying inline error messages might be used later-->
-      <!--<div class="invalid-feedback" *ngIf="error">
-        Sorry,
-      </div>-->
-    </div>
+  <div class="col-4">
+    <p class="font-weight-bold">Your Email</p>
   </div>
-  <div class="col-lg-3 col-sm-2">
-    <i *ngIf="!emailEditable" (click)="emailEditable = !emailEditable" class="fa fa-edit icons"></i>
+  <div class="offset-7">
     <i
-      *ngIf="emailEditable && !emailOtpGenerated"
-      (click)="emailEditable = !emailEditable"
-      class="fa fa-remove icons"
+      class="fa"
+      [ngClass]="{ 'fa-edit': !emailEditable, 'fa-times': emailEditable }"
+      (click)="emailEditable = !emailEditable; sendingOtpToEmail = false; emailOtpGenerated = false"
     ></i>
   </div>
 </div>
-<!--otp Row-->
-<div class="row">
-  <div class="col-lg-9 col-sm-10">
-    <div *ngIf="showEmailLoadingOverlay" class="text-center mb-3 mt-5">
-      <app-tf-spinner></app-tf-spinner>
-    </div>
-    <div *ngIf="emailOtpGenerated" class="mt-5 mb-3">
-      <app-tf-otp-input (login)="getEmailOtp($event)" (resendOtp)="onSendEmailOtp()"></app-tf-otp-input>
-    </div>
-  </div>
-  <!-- end of the column -->
-  <div class="col-lg-3 col-sm-2">
-    <i *ngIf="emailOtpGenerated" (click)="resetEmailOtp()" class="fa fa-remove icons"></i>
-    <!-- <i *ngIf="phoneOtpGenerated" (click)="changePhone()" class="fa fa-check-square icons"></i> -->
+<div class="row" *ngIf="!emailEditable">
+  <div class="col">
+    <span>{{ email }}</span>
   </div>
 </div>
-
+<div class="row" *ngIf="emailEditable">
+  <div class="col-10 col-sm-8">
+    <app-tf-verify-account
+      [email]="email"
+      [type]="'emailAddress'"
+      [sendingOtp]="sendingOtpToEmail"
+      (sendOtp)="onSendEmailOtp($event)"
+    ></app-tf-verify-account>
+  </div>
+</div>
+<!--otp Row-->
+<div class="row" *ngIf="emailEditable && emailOtpGenerated && !sendingOtpToEmail">
+  <div class="col-lg-9 col-sm-10">
+    <div>
+      <app-tf-otp-input #emailOtpInput (login)="updateEmail($event)" [canResend]="false"></app-tf-otp-input>
+    </div>
+  </div>
+</div>
 <hr />
 
-<h6>Deactivate</h6>
-
 <div class="row">
-  <div class="col-lg-9 col-sm-10">
+  <div class="col-4">
+    <p class="font-weight-bold">Deactivate</p>
+  </div>
+  <div class="offset-7">
+    <i class="fas fa-user-minus"></i>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12 col-sm-10">
     <label class="editable-label"
-      >You would not receive any communication from us. Your interests, search history and information will be saved.
+    >You would not receive any communication from us. Your interests, search history and information will be saved.
       You can login to reactivate your account.</label
     >
   </div>
-  <div class="col-lg-3 col-sm-2">
-    <i class="fa fa-remove icons"></i>
-  </div>
 </div>
 
 <hr />
 
-<h6>Delete</h6>
-
 <div class="row">
-  <div class="col-lg-9 col-sm-10">
+  <div class="col-4">
+    <p class="font-weight-bold">Delete</p>
+  </div>
+  <div class="offset-7">
+    <i class="fas fa-user-slash" (click)="deleteUser()"></i>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12 col-sm-10">
     <label class="editable-label">
       All your personal information, interests and search history will be deleted. You would not receive any
       communication from us. You can always create the profile in future. If you want us to keep all the information,
       please deactivate option rather than delete.</label
     >
   </div>
-  <div class="col-lg-3 col-sm-2">
-    <i class="fa fa-remove icons" (click)="deleteUser()"></i>
-  </div>
 </div>
+
 
 <ng-template #loading>
   Loading User...

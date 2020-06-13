@@ -8,12 +8,14 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class TfOtpInputComponent implements OnInit {
   @Input() isPhoneValid: boolean;
+  @Input() canResend : boolean;
   @Output() login: EventEmitter<number> = new EventEmitter();
   @Output() resendOtp: EventEmitter<null> = new EventEmitter();
 
   @ViewChildren('otpInput', { read: ElementRef }) otpInputs: QueryList<ElementRef>;
   otpForm: FormGroup;
   resetOtp = true;
+
 
   constructor() {}
 
