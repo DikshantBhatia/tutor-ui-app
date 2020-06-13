@@ -31,7 +31,7 @@ export class SubjectPreferencesComponent implements OnInit {
               this.selectedSubCategories.findIndex((subjectId) => {
                 return subCategory.id === subjectId;
               });
-            subCategory['selected'] = !index || index !== -1 ? true : false;
+            subCategory['selected'] =  index >= 0 ? true : false;
           });
         });
         console.log(this.categories);
