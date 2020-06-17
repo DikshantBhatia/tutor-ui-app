@@ -29,6 +29,9 @@ import { UserAccountSettingsComponent } from './user/user-settings/user-account-
 import { OtherPreferncesComponent } from './user/user-preferences/other-prefernces/other-prefernces.component';
 import { SubjectPreferencesComponent } from './user/user-preferences/subject-preferences/subject-preferences.component';
 import { TfVerifyAccountComponent } from './shared/components/tf-verify-email/tf-verify-account.component';
+import { TfStepperComponent } from './shared/components/tf-stepper/tf-stepper.component';
+import { HomeTutorsComponent } from './home-tutors/home-tutors.component';
+
 
 
 @NgModule({
@@ -47,6 +50,8 @@ import { TfVerifyAccountComponent } from './shared/components/tf-verify-email/tf
     SubjectPreferencesComponent,
     OtherPreferncesComponent,
     TfVerifyAccountComponent,
+    TfStepperComponent,
+    HomeTutorsComponent,
   ],
   imports: [
     BrowserModule,

@@ -69,6 +69,13 @@ export class AuthService {
       .pipe(tap((responseData) => this.handleAuthentication(responseData)));
   }
 
+  signupTutor(userDetails: any) {
+    return this.http
+      .post('/api/auth/signup', userDetails)
+      .pipe(tap((responseData) => this.handleAuthentication(responseData)));
+  }
+
+
   // gets the token from response and stores it in localstorage
   private handleAuthentication(response) {
     this.authToken = response.tft;

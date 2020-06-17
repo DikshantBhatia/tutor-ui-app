@@ -7,6 +7,7 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./tf-otp-input.component.scss'],
 })
 export class TfOtpInputComponent implements OnInit {
+  @Input() source;
   @Input() isPhoneValid: boolean;
   @Input() canResend : boolean;
   @Output() login: EventEmitter<number> = new EventEmitter();

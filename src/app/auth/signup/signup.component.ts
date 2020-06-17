@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
-import { TfOtpInputComponent } from '../../shared/components/tf-otp-input/tf-otp-input.component';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs';
 import PlaceResult = google.maps.places.PlaceResult;
 
 @Component({
@@ -11,19 +12,20 @@ import PlaceResult = google.maps.places.PlaceResult;
   styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent implements OnInit {
+  @ViewChild('otpModal') otpModalTemplate;
   signUpForm: FormGroup;
   submitted = false;
-  otpGenerated = false;
-  showLoadingOverlay = false;
+  loading = false;
+  loadingOtpModal = false;
+  isTutorSingup = false;
   error: any;
-
-  @ViewChild(TfOtpInputComponent) otpInputComponent;
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
@@ -33,8 +35,12 @@ export class SignupComponent implements OnInit {
       address: [''],
       googlePlaceId: [''],
       phoneNumber: ['', Validators.required],
-      password: ['', Validators.required],
+      password: [''],
     });
+
+    if (this.route.snapshot.routeConfig.path === 'signup/tutor') {
+      this.isTutorSingup = true;
+    }
   }
 
   // convenience getter for easy access to form fields
@@ -42,48 +48,20 @@ export class SignupComponent implements OnInit {
     return this.signUpForm.controls;
   }
 
-  onSignup(otp: string) {
-    if (this.signUpForm.valid) {
-      this.showLoadingOverlay = true;
-      this.authService.signup(this.signUpForm.value).subscribe(
-        (response) => {
-          this.showLoadingOverlay = false;
-          this.error = '';
-          const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
-          this.router.navigate([returnUrl]);
-        },
-        (errRsp) => {
-          this.showLoadingOverlay = false;
-          this.error = errRsp;
-        }
-      );
+  getHeaderText() {
+    if (this.isTutorSingup) {
+      return 'Register as a Tutor';
     } else {
-      return;
+      return 'Register as a Student';
     }
   }
 
-  setPassword(otp: string) {
-    // this.f.password.setValue(otp);
-    this.signUpForm.patchValue({
-      password: otp,
-    });
-  }
-
-  onSendOtp() {
-    this.submitted = true;
-    this.showLoadingOverlay = true;
-    this.authService.sendOtpForSignup({ phoneNumber: this.f.phoneNumber.value }).subscribe(
-      (response) => {
-        this.showLoadingOverlay = false;
-        this.otpGenerated = true;
-        this.error = '';
-      },
-      (errResp) => {
-        this.showLoadingOverlay = false;
-        this.otpGenerated = false;
-        this.error = errResp;
-      }
-    );
+  getCityInfoText() {
+    if (this.isTutorSingup) {
+      return 'Your city helps students to search you by location.';
+    } else {
+      return 'Your city helps us finding the best tutor for you in your area.';
+    }
   }
 
   updateAddress(place: PlaceResult) {
@@ -92,4 +70,73 @@ export class SignupComponent implements OnInit {
       googlePlaceId: place.place_id,
     });
   }
+
+  onSendOtp() {
+    this.submitted = true;
+    if (this.signUpForm.valid) {
+      this.loading = true;
+      this.authService.sendOtpForSignup({ phoneNumber: this.f.phoneNumber.value }).subscribe(
+        (response) => {
+          this.loading = false;
+          this.modalService.open(this.otpModalTemplate, { backdrop: 'static', windowClass: 'otp-modal-signup' });
+          this.error = '';
+        },
+        (errResp) => {
+          this.loading = false;
+          this.error = errResp;
+        }
+      );
+    } else {
+      return;
+    }
+  }
+
+  // below method is called only from the tf-otp-component inside the otp modal
+  onResendOtp() {
+    this.loadingOtpModal = true;
+    this.authService.sendOtpForSignup({ phoneNumber: this.f.phoneNumber.value }).subscribe(
+      (response) => {
+        this.loadingOtpModal = false;
+        this.error = '';
+      },
+      (errResp) => {
+        this.loadingOtpModal = false;
+        this.error = errResp;
+      }
+    );
+  }
+
+  onSignup(otp: string) {
+    this.signUpForm.patchValue({
+      password: otp,
+    });
+    if (this.signUpForm.valid) {
+      this.loadingOtpModal = true;
+      let signUpObservable: Observable<any>;
+      if (this.isTutorSingup) {
+        // observable for tutor signup
+        signUpObservable = this.authService.signupTutor(this.signUpForm.value);
+      } else {
+        // observable for student signup
+        signUpObservable = this.authService.signup(this.signUpForm.value);
+      }
+
+      signUpObservable.subscribe(
+        (response) => {
+          this.loadingOtpModal = false;
+          this.error = '';
+          this.modalService.dismissAll();
+          const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
+          this.router.navigate([returnUrl]);
+        },
+        (errRsp) => {
+          this.loadingOtpModal = false;
+          this.error = errRsp;
+        }
+      );
+    } else {
+      return;
+    }
+  }
+
 }

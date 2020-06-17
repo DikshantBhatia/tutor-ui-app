@@ -106,3 +106,13 @@ a.disabled:hover {
 .alert span {
   font-size: small;
 }
+
+.btn-outline{
+  color: var(--body-color);
+  border-color: rgb(176, 176, 176) !important;
+  border: 1px solid;
+}
+
+.btn-outline:hover{
+  border-color: var(--body-color) !important;
+}
