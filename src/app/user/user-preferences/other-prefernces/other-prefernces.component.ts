@@ -5,29 +5,24 @@ import { UserPreferencesService } from '../../services/user-preferences.service'
 @Component({
   selector: 'app-other-prefernces',
   templateUrl: './other-prefernces.component.html',
-  styleUrls: ['./other-prefernces.component.scss']
+  styleUrls: ['./other-prefernces.component.scss'],
 })
 export class OtherPreferncesComponent implements OnInit {
-
   loading;
   myPreferences: any;
 
-  constructor(private userPreferencesService: UserPreferencesService) { }
+  constructor(private userPreferencesService: UserPreferencesService) {}
 
   ngOnInit(): void {
     this.loading = true;
-    this.userPreferencesService.getMyOtherPreference().subscribe(response => {
+    this.userPreferencesService.getMyOtherPreference().subscribe((response) => {
       this.myPreferences = response;
       this.loading = false;
     });
-
   }
 
-
-
   savePreferences() {
-    console.log(this.myPreferences);
-    this.userPreferencesService.updateMyPreference(this.myPreferences)
+    this.userPreferencesService.updateMyPreference(this.myPreferences);
   }
 
   updateLocation(place: PlaceResult) {
