@@ -23,7 +23,15 @@ export class AuthService {
     return this.http.post('/api/auth/signupotp', authDto);
   }
 
-  login(phone, otp) {
+  loginStudent(phone, otp) {
+    return this.http.post('/api/auth/signin', { phoneNumber: phone, password: otp }).pipe(
+      tap((response) => {
+        this.handleAuthentication(response);
+      })
+    );
+  }
+
+  loginTutor(phone, otp) {
     return this.http.post('/api/auth/signin', { phoneNumber: phone, password: otp }).pipe(
       tap((response) => {
         this.handleAuthentication(response);

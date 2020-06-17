@@ -1,53 +1,11 @@
-.login {
-  display: -ms-flexbox;
-  display: -webkit-box;
-  display: flex;
-  -ms-flex-align: center;
-  -ms-flex-pack: center;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  justify-content: center;
-  padding-top: 100px;
-  padding-bottom: 40px;
-}
-
-.form-signin {
-  width: 100%;
-  max-width: 420px;
-  padding: 15px;
-  margin: 0 auto;
-}
-
-.login-text {
-  color: var(--body-color);
-  padding: 0;
-  font-size: 14px;
-  font-weight: 600;
-  margin: 0 0 20px;
-}
-
-input:enabled:hover {
-  border-color: #ced4da;
-}
-
-input:enabled:focus {
-  outline: 0 none;
-  outline-offset: 0;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-  border-color: #ced4da;
-}
-
-.send-otp-btn {
-  border-bottom-right-radius: 0.25rem;
-  border-top-right-radius: 0.25rem;
+.google-login-btn {
+  font-size: 1.2rem;
+  font-weight: 400;
 }
 
 .divider {
-  margin-top: 28px;
-  margin-bottom: 28px;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .divider h6 {
@@ -64,86 +22,30 @@ input:enabled:focus {
   padding: 0 10px;
 }
 
-.loginProviderBtn {
-  padding: 0;
-  margin-bottom: 10px;
-  border: none;
-  width: 100%;
-  font-size: 16px;
-  font-weight: normal;
-  border-bottom: 1px solid #e5e7e8;
-}
-
-.loginProviderBtn i {
-  line-height: 45px;
-  width: 27px;
-  display: block;
-  cursor: pointer;
-  font-size: 18px;
-}
-
-.loginProviderBtn .facebookLogo {
-  background: #3b5998;
-  border-color: #3b5998;
-}
-
-.loginProviderBtn .loginProviderIcon {
-  float: left;
-  display: block;
-  padding: 0px 9px;
-  color: white;
-  border-top-left-radius: 2px;
-  border-bottom-left-radius: 2px;
-  border: 1px solid #e5e7e8;
-}
-
-.loginProviderBtn .externalButtonExplanation {
-  font-size: 14px;
-  line-height: 45px;
-  text-align: left;
-  border: 1px solid #e5e7e8;
-  padding: 0px 54px 0 63px;
-  margin: 0;
-  border-top-right-radius: 2px;
-  border-bottom-right-radius: 2px;
-  color: var(--body-color) !important;
-  display: block;
-  font-weight: 600;
-}
-
-.loginProviderBtn:hover {
-  background: #fafafa;
-}
-
-.loginProviderBtn .externalButtonExplanation .small {
-  padding: 6px 66px;
-}
-
-.loginProviderBtn .loginProviderRightArrow {
-  line-height: 36px;
-  font-size: 18px;
-  float: right;
+.login-with-phone-text {
   color: #83878a;
-  padding-right: 12px;
+  font-size: 1.1rem;
+  font-weight: 400;
 }
 
-.loginProviderBtn .loginProviderRightArrow i {
-  cursor: pointer;
-  padding-top: 2px;
+input:enabled:hover {
+  border-color: #ced4da;
 }
 
-.loginProviderBtn:hover .externalButtonExplanation {
-  color: #000;
+input:enabled:focus {
+  outline: 0 none;
+  outline-offset: 0;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  border-color: #83878a;
 }
 
-.loginProviderBtn:hover .loginProviderRightArrow {
-  color: #000;
+::ng-deep .otp-modal-login {
+  margin-top: 130px !important;
 }
 
-.loginProviderBtn .googleLogo {
-  background: #dd4b39;
-  border-color: #dd4b39;
-}
+
 
 //TODO Below code was done in initial development. It is kept for reference and will be removed once app becomes mature
 

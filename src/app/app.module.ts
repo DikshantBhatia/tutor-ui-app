@@ -22,7 +22,7 @@ import { UserBasicInfoComponent } from './user/user-settings/user-basic-info/use
 import { HttpRequestInterceptor } from './core/interceptors/http-request.interceptor';
 import { SignupComponent } from './auth/signup/signup.component';
 import { GooglePlacesDirective } from './shared/directives/google-places.directive';
-import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbNavModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { UserAccountSettingsComponent } from './user/user-settings/user-account-settings/user-account-settings.component';
 
@@ -31,6 +31,7 @@ import { SubjectPreferencesComponent } from './user/user-preferences/subject-pre
 import { TfVerifyAccountComponent } from './shared/components/tf-verify-email/tf-verify-account.component';
 import { TfStepperComponent } from './shared/components/tf-stepper/tf-stepper.component';
 import { HomeTutorsComponent } from './home-tutors/home-tutors.component';
+import { LoginContainerComponent } from './auth/login/login-container.component';
 
 
 
@@ -52,6 +53,7 @@ import { HomeTutorsComponent } from './home-tutors/home-tutors.component';
     TfVerifyAccountComponent,
     TfStepperComponent,
     HomeTutorsComponent,
+    LoginContainerComponent
   ],
   imports: [
     BrowserModule,
@@ -65,6 +67,7 @@ import { HomeTutorsComponent } from './home-tutors/home-tutors.component';
     HttpClientModule,
     NgbTypeaheadModule,
     FormsModule,
+    NgbNavModule,
   ],
   providers: [
     {

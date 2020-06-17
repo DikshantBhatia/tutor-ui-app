@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TfOtpInputComponent } from '../../shared/components/tf-otp-input/tf-otp-input.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-login',
@@ -10,14 +10,19 @@ import { TfOtpInputComponent } from '../../shared/components/tf-otp-input/tf-otp
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
+  @Input() loginType: 'student' | 'tutor';
+  @ViewChild('otpModal') otpModalTemplate;
   loginForm: FormGroup;
-  otpGenerated: boolean;
-  showLoadingOverlay = false;
   error;
+  loading = false;
+  loadingOtpModal = false;
 
-  @ViewChild(TfOtpInputComponent) otpInputComponent;
-
-  constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private modalService: NgbModal
+  ) {}
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -25,39 +30,57 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  get f() {
+    return this.loginForm.controls;
+  }
+
   onSendOtp() {
-    this.showLoadingOverlay = true;
+    this.loading = true;
     this.authService.sendOtp(this.loginForm.value).subscribe(
       (response) => {
-        this.showLoadingOverlay = false;
-        this.otpGenerated = true;
+        this.loading = false;
+        this.modalService.open(this.otpModalTemplate, { backdrop: 'static', windowClass: 'otp-modal-login' });
         this.error = '';
       },
       (errResp) => {
-        this.showLoadingOverlay = false;
-        this.otpGenerated = false;
+        this.loading = false;
         this.error = errResp;
-        // this.messageService.add({severity: 'error', detail: errResp, life : 10000});
+      }
+    );
+  }
+
+  onResendOtp() {
+    this.loadingOtpModal = true;
+    this.authService.sendOtp(this.loginForm.value).subscribe(
+      (response) => {
+        this.loadingOtpModal = false;
+        this.error = '';
+      },
+      (errResp) => {
+        this.loadingOtpModal = false;
+        this.error = errResp;
       }
     );
   }
 
   onLogin(otp: number) {
-    /* below check ensure that if user manually changes phone number after
-      generating otp, request is not send to backend and message is shown to the user
-    */
     if (this.loginForm.valid) {
-      this.showLoadingOverlay = true;
-      this.authService.login(this.loginForm.value.phoneNumber, otp).subscribe(
+
+      const loginObservable =  this.loginType === 'student' ? this.authService.loginStudent(this.loginForm.value.phoneNumber, otp)
+          : this.authService.loginTutor(this.loginForm.value.phoneNumber, otp);
+
+      this.loadingOtpModal = true;
+
+      loginObservable.subscribe(
         (response) => {
           const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
-          this.showLoadingOverlay = false;
+          this.loadingOtpModal = false;
+          this.modalService.dismissAll();
           this.router.navigate([returnUrl]);
         },
         (errResp) => {
-          this.showLoadingOverlay = false;
+          this.loadingOtpModal = false;
           this.error = errResp;
-          this.otpInputComponent.resetOtp = true;
         }
       );
     } else {

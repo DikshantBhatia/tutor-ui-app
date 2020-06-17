@@ -1,84 +1,79 @@
-<section class="login">
-  <div class="card">
-    <div class="form-signin">
-      <form (ngSubmit)="onSendOtp()" [formGroup]="loginForm">
-        <!-- the below login for displaying alert will be move to a common component once error showing style is finalised -->
-        <div class="alert alert-danger alert-dismissible mb-4" role="alert" *ngIf="error">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="error = ''">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <span><strong>Sorry !</strong> {{ error }}</span>
-        </div>
-        <h6 class="login-text">Log in with Phone</h6>
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">+91</span>
-          </div>
-          <input
-            aria-describedby="basic-addon1"
-            aria-label="Username"
-            class="form-control"
-            formControlName="phoneNumber"
-            maxlength="1000"
-            placeholder="Phone"
-            required
-            type="text"
-          />
-          <div class="input-group-append">
-            <button
-              [disabled]="!loginForm.valid"
-              class="btn btn-primary send-otp-btn"
-              type="submit"
-              data-toggle="tooltip"
-              data-placement="top"
-            >
-              Send OTP
-            </button>
-          </div>
-          <!-- the below logic for displaying inline error messages might be used later-->
-          <!--<div class="invalid-feedback" *ngIf="error">
-            Sorry,
-          </div>-->
-        </div>
-      </form>
-      <div *ngIf="showLoadingOverlay" class="text-center mb-3 mt-5">
+<div class="mt-4">
+  <div class="mb-4">
+    <button class="btn btn-outline btn-lg btn-block google-login-btn">
+      <span class="mr-3"><img src="https://img.icons8.com/color/24/000000/google-logo.png" /></span>Continue with Google
+    </button>
+  </div>
+  <div class="divider">
+    <h6><span>or</span></h6>
+  </div>
+
+  <p class="text-center mb-4 login-with-phone-text">Login with your Phone</p>
+
+  <form (ngSubmit)="onSendOtp()" [formGroup]="loginForm">
+    <div class="alert alert-danger alert-dismissible mb-4" role="alert" *ngIf="error">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="error = ''">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <span><strong>Sorry !</strong> {{ error }}</span>
+    </div>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">+91</span>
+      </div>
+      <input
+        aria-describedby="basic-addon1"
+        aria-label="Username"
+        class="form-control"
+        formControlName="phoneNumber"
+        maxlength="1000"
+        placeholder="Phone"
+        required
+        type="text"
+      />
+    </div>
+
+    <button class="btn btn-primary btn-lg btn-block" [disabled]="!loginForm.valid && loading" type="submit">
+      Continue
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="loading"></span>
+    </button>
+  </form>
+  <div class="mt-5">
+    <span style="float: right;" class="text-muted"
+      >No account yet? <a routerLink="/signup" class="primary">Sign up</a></span
+    >
+  </div>
+</div>
+<ng-template #otpModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-basic-title">Confirm your number</h5>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="alert alert-danger alert-dismissible mb-4" role="alert" *ngIf="error">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="error = ''">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <span><strong>Sorry !</strong> {{ error }}</span>
+    </div>
+    <app-tf-otp-input
+      *ngIf="!loadingOtpModal; else loadingSpinner"
+      (login)="onLogin($event)"
+      [source]="f.phoneNumber.value"
+      (resendOtp)="onResendOtp()"
+    ></app-tf-otp-input>
+    <ng-template #loadingSpinner>
+      <div class="d-flex justify-content-center">
         <app-tf-spinner></app-tf-spinner>
       </div>
-      <div *ngIf="otpGenerated" class="mt-5 mb-3">
-        <app-tf-otp-input
-          (login)="onLogin($event)"
-          (resendOtp)="onSendOtp()"
-          [isPhoneValid]="loginForm.valid"
-        ></app-tf-otp-input>
-      </div>
-      <div class="divider">
-        <h6><span>or</span></h6>
-      </div>
-      <div class="loginProviderBtns mb-4 mt-3">
-        <button class="btn btn-md loginProviderBtn">
-          <span class="loginProviderIcon facebookLogo">
-            <i class="fa fa-facebook"></i>
-          </span>
-          <span class="loginProviderRightArrow"><i class="fa fa-angle-right"></i></span>
-          <h2 class="externalButtonExplanation">Login with Facebook</h2>
-        </button>
-        <button class="btn btn-md loginProviderBtn">
-          <span class="loginProviderIcon googleLogo">
-            <i class="fa fa-google"></i>
-          </span>
-          <span class="loginProviderRightArrow"><i class="fa fa-angle-right"></i></span>
-          <h2 class="externalButtonExplanation">Log in with Google</h2>
-        </button>
-      </div>
-      <p class="mt-5 mb-3 text-muted text-center">&copy; 2020</p>
-    </div>
+    </ng-template>
   </div>
-</section>
+</ng-template>
 
-<p-blockUI [blocked]="showLoadingOverlay"></p-blockUI>
-<!-- code to display messages in toast style -->
-<!--<p-messages></p-messages>-->
-<!--<p-toast position="bottom-center"></p-toast>-->
+<p-blockUI [blocked]="loading"></p-blockUI>
 
 <!--todo below code is kept for reference, will ve removed in future-->
 <!--<button class="btn btn-md btn-orange btn-block" type="submit" [disabled]="!loginForm.valid">Send OTP</button>-->
