@@ -23,7 +23,7 @@ export class UserService {
 
   changePhone(user: any): Observable<any> {
     return this.http
-      .put('/api/users/phone', user)
+      .put('/api/auth/phone', user)
       .pipe(tap((userResponse) => this.authService.createUser(userResponse)));
   }
 
