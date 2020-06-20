@@ -62,7 +62,7 @@ export class AuthService {
    *
    */
   logout() {
-    return this.http.get('api/users/logout').pipe(
+    return this.http.get('api/auth/signout').pipe(
       tap((res) => {
         this.user.next(null);
         this.authToken = null;
