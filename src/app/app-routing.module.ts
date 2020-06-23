@@ -7,6 +7,7 @@ import { SubjectPreferencesComponent } from './user/user-preferences/subject-pre
 import { HomeTutorsComponent } from './home-tutors/home-tutors.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { LoginContainerComponent } from './auth/login/login-container.component';
+import { NotificationPreferencesComponent } from './user/user-settings/notification-preferences/notification-preferences.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,8 @@ const routes: Routes = [
   { path: 'me/settings', component: UserSettingsComponent },
   { path: 'me/preferences/subjects', component: SubjectPreferencesComponent },
   { path: 'me/preferences/other', component: OtherPreferncesComponent },
+  { path: 'me/preferences/notification',component:NotificationPreferencesComponent
+},
   { path: 'signup', component: SignupComponent },
   { path: 'signup/tutor', component: SignupComponent },
   { path: '**', redirectTo: '' },

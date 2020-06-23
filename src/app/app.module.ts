@@ -31,6 +31,7 @@ import { SubjectPreferencesComponent } from './user/user-preferences/subject-pre
 import { TfVerifyAccountComponent } from './shared/components/tf-verify-email/tf-verify-account.component';
 import { HomeTutorsComponent } from './home-tutors/home-tutors.component';
 import { LoginContainerComponent } from './auth/login/login-container.component';
+import { NotificationPreferencesComponent } from './user/user-settings/notification-preferences/notification-preferences.component';
 
 
 
@@ -51,7 +52,8 @@ import { LoginContainerComponent } from './auth/login/login-container.component'
     OtherPreferncesComponent,
     TfVerifyAccountComponent,
     HomeTutorsComponent,
-    LoginContainerComponent
+    LoginContainerComponent,
+    NotificationPreferencesComponent
   ],
   imports: [
     BrowserModule,
