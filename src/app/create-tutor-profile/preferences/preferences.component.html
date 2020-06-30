@@ -1,0 +1,134 @@
+<form #preferencesForm="ngForm">
+  <div class="container preferences-container">
+    <div class="row mb-3">
+      <div class="col-12 col-sm-6 offset-sm-3">
+        <h3>Set your preferences</h3>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <div class="col-12 col-sm-6 offset-sm-3">
+        <div class="form-group">
+          <label>Where do you want to teach ?</label>
+          <br />
+          <div class="form-check form-check-inline" *ngFor="let item of preferences.locationPreferences">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="{{ item.code }}-locationCheck"
+              [(ngModel)]="item.selected"
+              [ngModelOptions]="{ standalone: true }"
+              (change)="onChange('location-change')"
+            />
+            <label class="form-check-label" for="{{ item.code }}-locationCheck">{{ item.label }}</label>
+          </div>
+          <div class="invalid-feedback d-block" *ngIf="submitted && !isLocationSelected">
+            Select atleast one
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-sm-6 offset-sm-3">
+        <div class="form-group">
+          <label>Which language do your prefer while teaching ?</label>
+          <br />
+          <div class="form-check form-check-inline" *ngFor="let item of preferences.languagePreferences">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="{{ item.code }}-languageCheck"
+              [(ngModel)]="item.selected"
+              [ngModelOptions]="{ standalone: true }"
+            />
+            <label class="form-check-label" for="{{ item.code }}-languageCheck">{{ item.label }}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-3 mb-3">
+      <div class="col-12 col-sm-6 offset-sm-3">
+        <hr />
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <div class="col-12 col-sm-6 offset-sm-3">
+        <h3>Your Audience</h3>
+        <p class="tf-text-muted">
+          What is the level of students whom you teach ? You can select mutliple. Select 'Other' for all other
+          audiences.
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-sm-6 offset-sm-3">
+        <div class="form-group">
+          <div class="form-check" *ngFor="let item of preferences.audiences">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="{{ item.code }}-audienceCheck"
+              [(ngModel)]="item.selected"
+              [ngModelOptions]="{ standalone: true }"
+              (change)="onChange('audience-change')"
+            />
+            <label class="form-check-label" for="{{ item.code }}-audienceCheck">{{ item.label }}</label>
+          </div>
+          <div class="invalid-feedback d-block" *ngIf="submitted && !isAudienceSelected">
+            Select atleast one
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-3 mb-3">
+      <div class="col-12 col-sm-6 offset-sm-3">
+        <hr />
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <div class="col-12 col-sm-6 offset-sm-3">
+        <h3>Your Charges</h3>
+        <p class="tf-text-muted">
+          Please provide your approximate fees per hour in INR
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-sm-6 offset-sm-3">
+        <div class="form-group">
+          <input
+            class="form-control"
+            type="text"
+            id="feesInput"
+            [(ngModel)]="preferences.fees"
+            name="fees"
+            appNumberOnly
+            required
+            #fees="ngModel"
+            [ngClass]="{ 'is-invalid': submitted && fees.invalid }"
+            autocomplete="off"
+          />
+          <div class="invalid-feedback">
+            Fees is required
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-fixed-bottom-stepper
+    hasFinishBtn="true"
+    hasPreviousBtn="true"
+    currentStep="4"
+    totalSteps="4"
+    (previous)="onPrevious()"
+    (finish)="onFinish(preferencesForm)"
+  ></app-fixed-bottom-stepper>
+</form>

@@ -1,0 +1,46 @@
+.subjects-container {
+  margin-top: 2rem;
+}
+
+.btn-md {
+  padding: 10px 25px;
+}
+.btn-light {
+  color: #212529;
+  border: 1px solid #212529;
+}
+
+.btn-rounded {
+  border-radius: 20px;
+  padding: 8px 12px;
+}
+
+.subcategory-tag {
+  border-radius: 18px;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.subcategory-tag i {
+  font-size: 0.9rem;
+}
+
+.tag-default {
+  background-color: #f8f7fa;
+  color: #83878a;
+}
+
+.tag-selected {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+button.tag-default:hover {
+  background-color: lightgray;
+  color: #484848;
+}
+
+.wrapper-tag {
+  padding: 2px;
+  display: inline-block;
+}

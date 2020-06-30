@@ -1,0 +1,86 @@
+<ng-container *ngIf="!loading; else loadingSpinner">
+<form>
+  <div class="container subjects-container">
+    <div class="row mb-2">
+      <div class="col-12 col-sm-6 offset-sm-3">
+        <h3>What do you want to teach ?</h3>
+        <p class="tf-text-muted">
+          Search for your subject or select your subject from our categories below:
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-sm-6 offset-sm-3">
+        <div class="form-group input-group-lg">
+          <input
+            type="text"
+            class="form-control"
+            id="institute-name"
+            placeholder="Search for your subject"
+            [ngbTypeahead]="searchSubjects"
+            [resultFormatter]="subjectFormatter"
+            [inputFormatter]="subjectFormatter"
+            (selectItem)="onSelectSubject($event)"
+            [ngClass]="{'is-invalid' : subjectNotSelected}"
+            #searchInput
+          />
+          <div class="invalid-feedback">
+            Select atleast one subject
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <div class="col-12 col-sm-6 offset-sm-3">
+        <div class="wrapper-tag" *ngFor="let subject of mySubjects">
+          <button type="button" class="btn subcategory-tag tag-selected mb-1" (click)="onRemoveSubject(subject)">
+            <span style="float: left; padding-left: 8px; padding-right: 8px;">{{ subject.description }}</span>
+            <span style="float: right;">
+              <i class="fa fa-times"></i>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 mb-4" *ngFor="let category of categories">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">
+              <i class="fa fa-graduation-cap" style="font-size: 1.5rem;"></i> {{ category.description }}
+            </h5>
+
+            <div class="wrapper-tag" *ngFor="let subject of category.subcategories">
+              <button type="button" class="btn subcategory-tag mb-1 tag-default" (click)="onAddSubject(subject)">
+                <span style="float: left; padding-left: 8px; padding-right: 8px;">{{ subject.description }}</span>
+                <span style="float: right;">
+                  <i class="fa fa-plus"></i>
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-fixed-bottom-stepper
+    hasPreviousBtn="true"
+    hasNextBtn="true"
+    currentStep="3"
+    totalSteps="4"
+    (previous)="onPrevious()"
+    (next)="onNext()"
+  ></app-fixed-bottom-stepper>
+
+</form>
+</ng-container>
+
+<ng-template #loadingSpinner>
+  <div class="d-flex justify-content-center mt-5">
+    <app-tf-spinner></app-tf-spinner>
+  </div>
+</ng-template>

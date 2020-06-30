@@ -1,0 +1,154 @@
+<ng-container *ngIf="!loading; else loadingSpinner">
+<form [formGroup]="basicDetailsForm">
+  <div class="container basic-details">
+    <div class="row mb-4">
+      <div class="col-12 col-sm-6 offset-sm-3">
+        <h3>Hi {{ f.firstName.value }}, Your account is created.</h3>
+        <p class="tf-text-muted">
+          We need few more things to help you set up your business and find more students. Let's go !
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-sm-6 offset-sm-3">
+        <div class="row">
+          <div class="form-group col mb-4">
+            <label for="firstName">First name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="firstName"
+              formControlName="firstName"
+              required
+              [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"
+            />
+            <div class="invalid-feedback">
+              First name is required.
+            </div>
+          </div>
+          <div class="form-group col mb-4">
+            <label for="lastName">Last name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="lastName"
+              formControlName="lastName"
+              required
+              [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"
+            />
+            <div class="invalid-feedback">
+              Last name is required.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-sm-6 offset-sm-3">
+        <div class="form-group mb-4" formGroupName="address">
+          <label for="address">Where do you live ?</label>
+          <input
+            type="text"
+            class="form-control"
+            id="address"
+            aria-describedby="addressHelpBlock"
+            appGooglePlaces
+            [addressType]="'(cities)'"
+            formControlName="locationDescription"
+            (focusout)="checkPlace()"
+            (onPlaceSelect)="updateAddress($event)"
+            placeholder="Type your city"
+            [ngClass]="{
+              'is-invalid':
+                submitted && (f.address.get('locationDescription').errors || f.address.get('googlePlaceId').errors)
+            }"
+            required
+          />
+          <div class="invalid-feedback">
+            Select a valid city
+          </div>
+          <small id="addressHelpBlock" class="form-text tf-text-muted">
+            Your address will help students in your area to find you.
+          </small>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-12 col-sm-6 offset-sm-3">
+        <div class="form-group mb-4">
+          <label for="profilePic">Profile Picture</label>
+          <div class="input-group">
+            <div class="custom-file">
+              <input
+                type="file"
+                class="custom-file-input"
+                id="profilePic"
+                required
+                [ngClass]="{ 'is-invalid': submitted && f.profilePicture.errors }"
+                (change)="handleFileInput($event)"
+                accept="image/jpeg, image/png"
+              />
+              <label class="custom-file-label" for="profilePic">{{f.profilePicture.value ? f.profilePicture.value.name :  'Upload file in jpeg or png format'}}</label>
+            </div>
+          </div>
+          <div class="invalid-feedback" [ngClass]="{ 'd-block': submitted && f.profilePicture.errors }">
+            Profile picture is required.
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-12 col-sm-6 offset-sm-3">
+        <div class="form-group mb-4">
+          <label for="aboutMe">About me</label>
+          <textarea id="aboutMe" class="form-control" rows="4" formControlName="aboutMe"> </textarea>
+          <small class="form-text tf-text-muted">
+            Write a small description about yourself if you want
+          </small>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-12 col-sm-6 offset-sm-3">
+        <div class="form-group mb-4">
+          <label for="myHeadline">Write your headline</label>
+          <textarea
+            id="myHeadline"
+            class="form-control"
+            rows="2"
+            required
+            formControlName="tagline"
+            [ngClass]="{ 'is-invalid': submitted && f.tagline.errors }"
+          >
+          </textarea>
+          <small class="form-text tf-text-muted">
+            It will be shown as your profile headline to students
+          </small>
+          <div class="invalid-feedback">
+            Tagline is required.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-fixed-bottom-stepper
+    hasNextBtn="true"
+    currentStep="1"
+    totalSteps="4"
+    (next)="onNext()"
+  ></app-fixed-bottom-stepper>
+</form>
+</ng-container>
+
+<ng-template #loadingSpinner>
+  <div class="d-flex justify-content-center mt-5">
+    <app-tf-spinner></app-tf-spinner>
+  </div>
+</ng-template>
