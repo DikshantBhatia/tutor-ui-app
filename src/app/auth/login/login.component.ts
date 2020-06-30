@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,7 +9,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() loginType: 'student' | 'tutor';
   @ViewChild('otpModal') otpModalTemplate;
   loginForm: FormGroup;
@@ -86,5 +86,13 @@ export class LoginComponent implements OnInit {
     } else {
       this.error = 'Phone number is not correct. It must have 10 digits';
     }
+  }
+
+  ngAfterViewInit(): void {
+    document.querySelector('body').classList.add('bg-login');
+  }
+
+  ngOnDestroy(): void {
+    document.querySelector('body').classList.remove('bg-login');
   }
 }

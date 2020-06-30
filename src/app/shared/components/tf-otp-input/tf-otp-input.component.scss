@@ -20,16 +20,3 @@
 .resend-otp-text {
   font-size: smaller;
 }
-
-input:enabled:hover {
-  border-color: #ced4da;
-}
-
-input:enabled:focus {
-  outline: 0 none;
-  outline-offset: 0;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-  border-color: #83878a;
-}

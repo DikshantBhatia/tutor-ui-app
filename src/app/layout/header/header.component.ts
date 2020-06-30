@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.userSub = this.authService.user.subscribe((user) => {
+    this.userSub = this.authService.userSubject.subscribe((user) => {
       this.isAuthenticated = !!user;
     });
   }
@@ -25,14 +25,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    this.authService.logout().subscribe(
-      (response) => {
-        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
-        this.router.navigate([returnUrl]);
-      },
-      (errRsp) => {
-        // handle error. Hopefully it will be handled in error interceptor
-      }
-    );
+    this.authService.logout();
   }
 }

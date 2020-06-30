@@ -8,12 +8,13 @@ export class HttpRequestInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    if (!this.authService.authToken) {
+    const token = this.authService.authToken || this.authService.getTokenFromStorage();
+    if (!token) {
       return next.handle(req);
     }
     const modifiedReq = req.clone({
       setHeaders: {
-        Authorization: `Bearer ${this.authService.authToken}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     return next.handle(modifiedReq);

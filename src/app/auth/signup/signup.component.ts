@@ -1,17 +1,19 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import PlaceResult = google.maps.places.PlaceResult;
+import { CreateTutorProfileService } from '../../create-tutor-profile/create-tutor-profile.service';
+import { User } from '../../core/models/user.model';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss'],
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('otpModal') otpModalTemplate;
   signUpForm: FormGroup;
   submitted = false;
@@ -25,7 +27,8 @@ export class SignupComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private createTutorProfileService: CreateTutorProfileService
   ) {}
 
   ngOnInit(): void {
@@ -38,7 +41,7 @@ export class SignupComponent implements OnInit {
       password: [''],
     });
 
-    if (this.route.snapshot.routeConfig.path === 'signup/tutor') {
+    if (this.route.snapshot.routeConfig.path === 'register/tutor') {
       this.isTutorSingup = true;
     }
   }
@@ -122,11 +125,18 @@ export class SignupComponent implements OnInit {
       }
 
       signUpObservable.subscribe(
-        (response) => {
+        (response : any) => {
           this.loadingOtpModal = false;
           this.error = '';
           this.modalService.dismissAll();
-          const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
+          let returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
+          if (this.isTutorSingup){
+              if(response.user.profileStatus === 'NOT_CREATED') {
+                this.createTutorProfileService.setCurrentStep('/create-profile/basic-details');
+                returnUrl = 'create-profile/basic-details';
+              }
+          }
+
           this.router.navigate([returnUrl]);
         },
         (errRsp) => {
@@ -137,6 +147,14 @@ export class SignupComponent implements OnInit {
     } else {
       return;
     }
+  }
+
+  ngAfterViewInit(): void {
+    document.querySelector('body').classList.add('bg-signup');
+  }
+
+  ngOnDestroy(): void {
+    document.querySelector('body').classList.remove('bg-signup');
   }
 
 }

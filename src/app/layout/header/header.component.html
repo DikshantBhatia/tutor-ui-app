@@ -28,15 +28,15 @@
             <a class="nav-link" href="#">How does it work?</a>
           </li>
           <li class="nav-item nav-border">
-            <a class="nav-link" routerLink="/tutors">For Tutors</a>
+            <a class="nav-link" routerLink="/home/tutors">For Tutors</a>
           </li>
         </ul>
         <ul class="navbar-nav mt-2 mt-lg-0">
           <li class="nav-item nav-border" *ngIf="!isAuthenticated">
-            <a class="nav-link" routerLink="/login">Log in</a>
+            <a class="nav-link" routerLink="/auth/identify">Log in</a>
           </li>
           <li class="nav-item register-header-btn" *ngIf="!isAuthenticated">
-            <a class="btn btn-md btn-primary" routerLink="/signup"><span>Get Started</span></a>
+            <a class="btn btn-md btn-primary" routerLink="/auth/register/student"><span>Get Started</span></a>
           </li>
           <li class="nav-item dropdown" *ngIf="isAuthenticated">
             <a

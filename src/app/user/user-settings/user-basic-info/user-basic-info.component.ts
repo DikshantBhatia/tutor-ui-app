@@ -35,7 +35,7 @@ export class UserBasicInfoComponent implements OnInit {
       locationPreference: [''],
     });
 
-    this.user = this.authService.user.pipe(
+    this.user = this.authService.userSubject.pipe(
       tap((userResponse) => userResponse && this.basicInfoForm.patchValue(userResponse))
     );
   }

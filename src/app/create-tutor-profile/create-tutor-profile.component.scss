@@ -1,0 +1,44 @@
+.navbar-light {
+ // border-bottom: 1px solid #e5e7e8;
+}
+
+.logo-text {
+  color: var(--primary-color);
+  font-family: Proxima Nova, sans-serif;
+  font-weight: 600;
+  margin-left: 10px;
+}
+
+.create-profile {
+  min-height: 100%;
+  margin-bottom : 40px;
+}
+
+.logout-link, .logout-link i {
+  font-weight: 600;
+  color: #484848;
+}
+
+.create-profile:after {
+  content: '';
+  display: block;
+  height: 60px;
+}
+
+.btn-md {
+  padding: 10px 25px;
+}
+
+.btn-light {
+  color: #212529;
+  border: 1px solid #212529;
+}
+
+.progress-bar {
+  background-color: #007bff;
+}
+
+.fixed-bottom-nav {
+  height: 60px;
+}
+

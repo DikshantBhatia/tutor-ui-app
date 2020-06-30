@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CreateTutorProfileService } from '../create-tutor-profile/create-tutor-profile.service';
 
 @Component({
   selector: 'app-home',
@@ -6,7 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor() {}
+  constructor(private createProfileService: CreateTutorProfileService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+     this.createProfileService.setCurrentStep('/create-profile/basic-details');
+  }
+
 }

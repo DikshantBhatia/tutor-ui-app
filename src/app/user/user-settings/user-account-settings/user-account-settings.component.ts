@@ -38,7 +38,7 @@ export class UserAccountSettingsComponent implements OnInit,OnDestroy {
 
   ngOnInit(): void {
     console.log('ng on init');
-    this.userSub = this.authService.user.subscribe( userResp => {
+    this.userSub = this.authService.userSubject.subscribe( userResp => {
         this.phoneNumber = userResp.phoneNumber;
         this.email = userResp.email;
       })

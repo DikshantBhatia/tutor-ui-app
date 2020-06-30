@@ -1,27 +1,32 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
 import { UserSettingsComponent } from './user/user-settings/user-settings.component';
 import { OtherPreferncesComponent } from './user/user-preferences/other-prefernces/other-prefernces.component';
 import { SubjectPreferencesComponent } from './user/user-preferences/subject-preferences/subject-preferences.component';
-import { HomeTutorsComponent } from './home-tutors/home-tutors.component';
-import { SignupComponent } from './auth/signup/signup.component';
-import { LoginContainerComponent } from './auth/login/login-container.component';
 import { NotificationPreferencesComponent } from './user/user-settings/notification-preferences/notification-preferences.component';
+import { RootComponent } from './root.component';
 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'tutors', component: HomeTutorsComponent },
-  { path: 'login', component: LoginContainerComponent },
+
+  { path: '', component: RootComponent},
+  { path: 'home',
+    loadChildren: () =>
+      import("./home/home.module").then(m => m.HomeModule)
+  },
+  { path: 'auth',
+    loadChildren: () =>
+      import("./auth/auth.module").then(m => m.AuthModule)
+  },
+  { path: 'create-profile',
+    loadChildren: () =>
+      import("./create-tutor-profile/create-tutor-profile.module").then(m => m.CreateTutorProfileModule)
+  },
   { path: 'me/settings', component: UserSettingsComponent },
   { path: 'me/preferences/subjects', component: SubjectPreferencesComponent },
   { path: 'me/preferences/other', component: OtherPreferncesComponent },
-  { path: 'me/preferences/notification',component:NotificationPreferencesComponent
-},
-  { path: 'signup', component: SignupComponent },
-  { path: 'signup/tutor', component: SignupComponent },
-  { path: '**', redirectTo: '' },
+  { path: 'me/preferences/notification', component: NotificationPreferencesComponent},
+  { path: '**', redirectTo: ''},
 ];
 
 @NgModule({
