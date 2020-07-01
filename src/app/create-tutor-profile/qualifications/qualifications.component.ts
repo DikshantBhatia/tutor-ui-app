@@ -27,7 +27,7 @@ export class QualificationsComponent implements OnInit {
     this.qualificationsForm = this.formBuilder.group({
       instituteName: ['', Validators.required],
       highestDegree: ['', Validators.required],
-      experienceInYears: ['', [Validators.required, Validators.pattern("[0-9]*")]],
+      experienceInYears: ['', [Validators.required, Validators.pattern('[0-9]*')]],
       experienceDetails: [''],
     });
 
@@ -44,15 +44,17 @@ export class QualificationsComponent implements OnInit {
 
   onNext() {
     this.submitted = true;
-    if(this.qualificationsForm.invalid) {
+    if (this.qualificationsForm.invalid) {
       return;
     }
     this.createProfileService.qualifications = this.qualificationsForm.value;
+    this.createProfileService.setCurrentStep(3);
     this.router.navigate(['subjects'], { relativeTo: this.route.parent });
   }
 
   onPrevious() {
     this.createProfileService.qualifications = this.qualificationsForm.value;
+    this.createProfileService.setCurrentStep(1);
     this.router.navigate(['basic-details'], { relativeTo: this.route.parent });
   }
 }

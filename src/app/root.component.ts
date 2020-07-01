@@ -9,33 +9,23 @@ export class RootComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
-    // redirect based on application state
-
     if (this.authService.isLoggedIn()) {
-        this.redirectToAppropriateHome();
+      this.redirectToAppropriateHome();
     } else {
-      //  getting token from localstorage
-      const token = this.authService.getTokenFromStorage();
-      // checking if token is empty,null,undefined or string with undefined value
-      if (!token || token === 'undefined') {
-        // guest user
-        this.router.navigate(['home']);
-      } else {
-        // checking if token is still valid, if invalid user is redirect to login page from error interceptor
-        this.authService.getCurrentUser().subscribe((user) => {
-          this.authService.authToken = token;
-          this.authService.createUser(user);
+      // try to autologin user from the available token
+      this.authService.autoLogin().subscribe((res) => {
+        if (res) {
           this.redirectToAppropriateHome();
-        });
-      }
+        } else {
+          this.router.navigate(['auth/identify']);
+        }
+      });
     }
   }
-
 
   // redirecting to root page based on user role and profile status
   private redirectToAppropriateHome() {
     const currentUser = this.authService.userSubject.getValue();
-    // @ts-ignore
     if (currentUser.roles[0] === 'Tutor') {
       if (currentUser.profileStatus === 'NOT_CREATED') {
         this.router.navigate(['create-profile/basic-details']);

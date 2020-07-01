@@ -14,16 +14,15 @@ export class CreateTutorProfileService {
   qualifications: any;
   subjects = [];
   private preferences: CreateProfilePreferencesModel;
-  private currentStep : string;
+  private currentStep = 1;
 
-  setCurrentStep(route){
-    this.currentStep =  route;
+  setCurrentStep(stepNumber) {
+    this.currentStep = stepNumber;
   }
 
-  getCurrentStep(){
+  getCurrentStep() {
     return this.currentStep;
   }
-
 
   initializePreferences() {
     const locationPrefs = this.contentService.getTeachingLocations();

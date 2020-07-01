@@ -19,6 +19,6 @@ export class User {
   gender: string;
   languagePreference: string;
   locationPreference: string;
-  roles: [] = [];
+  roles: any[];
   profileStatus: string;
 }

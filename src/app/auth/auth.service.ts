@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { User } from '../core/models/user.model';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -45,22 +45,24 @@ export class AuthService {
    *
    */
   logout() {
-    this.http.get('api/auth/signout').pipe(
-      tap((res) => {
-        this.removeUserContext();
-      })
-    ).subscribe(()=> {
-      this.router.navigate(['home']);
-    });
+    this.http
+      .get('api/auth/signout')
+      .pipe(
+        tap((res) => {
+          this.removeUserContext();
+        })
+      )
+      .subscribe(() => {
+        this.router.navigate(['home']);
+      });
   }
 
   // delete usercontext and token from the frontend
-  removeUserContext(){
+  removeUserContext() {
     this.userSubject.next(null);
     this.authToken = null;
     localStorage.removeItem('tf-token');
   }
-
 
   signup(userDetails: any) {
     return this.http
@@ -75,10 +77,9 @@ export class AuthService {
   }
 
   // make a call to backend to get user details(role etc). It will also verify if token is valid or not
-  getCurrentUser() : Observable<User> {
+  getCurrentUser(): Observable<User> {
     return this.http.get<User>('/api/users/me');
   }
-
 
   /**
    * Create the user from userResponse returned from backend.
@@ -95,18 +96,31 @@ export class AuthService {
     localStorage.removeItem('tf-token');
   }
 
-  isLoggedIn(){
-    if(this.authToken && this.userSubject.getValue()){
+  isLoggedIn() {
+    if (this.authToken && this.userSubject.getValue()) {
       return true;
     }
     return false;
   }
 
-
-  getTokenFromStorage(){
-    return localStorage.getItem('tf-token');
+  autoLogin(): Observable<any> {
+    //  getting token from localstorage
+    const token = this.getTokenFromStorage();
+    // checking if token is empty,null,undefined or string with undefined value
+    if (!token || token === 'undefined') {
+      return of(false);
+    }
+    return this.getCurrentUser().pipe(
+      tap((response) => {
+        this.authToken = token;
+        this.createUser(response);
+      })
+    );
   }
 
+  getTokenFromStorage() {
+    return localStorage.getItem('tf-token');
+  }
 
   // gets the token from response and stores it in localstorage
   private handleAuthentication(response) {
@@ -114,7 +128,4 @@ export class AuthService {
     localStorage.setItem('tf-token', this.authToken);
     this.createUser(response.user);
   }
-
-
-
 }

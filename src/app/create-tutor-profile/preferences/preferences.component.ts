@@ -32,6 +32,7 @@ export class PreferencesComponent implements OnInit {
 
   onPrevious() {
     this.createProfileService.setPreferences(this.preferences);
+    this.createProfileService.setCurrentStep(3);
     this.router.navigate(['subjects'], { relativeTo: this.route.parent });
   }
 

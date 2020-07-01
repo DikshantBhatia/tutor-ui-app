@@ -5,11 +5,11 @@ import { OtherPreferncesComponent } from './user/user-preferences/other-prefernc
 import { SubjectPreferencesComponent } from './user/user-preferences/subject-preferences/subject-preferences.component';
 import { NotificationPreferencesComponent } from './user/user-settings/notification-preferences/notification-preferences.component';
 import { RootComponent } from './root.component';
+import { CreateProfileGuard } from './create-tutor-profile/create-profile.guard';
 
 
 const routes: Routes = [
 
-  { path: '', component: RootComponent},
   { path: 'home',
     loadChildren: () =>
       import("./home/home.module").then(m => m.HomeModule)
@@ -19,6 +19,7 @@ const routes: Routes = [
       import("./auth/auth.module").then(m => m.AuthModule)
   },
   { path: 'create-profile',
+    canLoad : [CreateProfileGuard],
     loadChildren: () =>
       import("./create-tutor-profile/create-tutor-profile.module").then(m => m.CreateTutorProfileModule)
   },
@@ -26,7 +27,7 @@ const routes: Routes = [
   { path: 'me/preferences/subjects', component: SubjectPreferencesComponent },
   { path: 'me/preferences/other', component: OtherPreferncesComponent },
   { path: 'me/preferences/notification', component: NotificationPreferencesComponent},
-  { path: '**', redirectTo: ''},
+  { path: '**', component: RootComponent},
 ];
 
 @NgModule({

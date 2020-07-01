@@ -18,7 +18,12 @@ export class SubjectsComponent implements OnInit {
   subjectNotSelected: boolean;
   loading: boolean;
 
-  constructor(private router: Router, private route: ActivatedRoute, private contentService: ContentService, private createProfileService: CreateTutorProfileService) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private contentService: ContentService,
+    private createProfileService: CreateTutorProfileService
+  ) {}
 
   ngOnInit(): void {
     this.loading = true;
@@ -66,19 +71,19 @@ export class SubjectsComponent implements OnInit {
       )
     );
 
-
-
   onPrevious() {
     this.createProfileService.subjects = this.mySubjects;
+    this.createProfileService.setCurrentStep(2);
     this.router.navigate(['qualifications'], { relativeTo: this.route.parent });
   }
 
   onNext() {
-    if(!Array.isArray(this.mySubjects) || !this.mySubjects.length){
+    if (!Array.isArray(this.mySubjects) || !this.mySubjects.length) {
       this.subjectNotSelected = true;
       return;
     }
     this.createProfileService.subjects = this.mySubjects;
+    this.createProfileService.setCurrentStep(4);
     this.router.navigate(['preferences'], { relativeTo: this.route.parent });
   }
 }

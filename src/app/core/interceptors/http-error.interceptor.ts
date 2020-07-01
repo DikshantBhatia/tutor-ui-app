@@ -24,8 +24,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     if (errorResponse.status === 403 || errorResponse.status === 401) {
       this.authService.removeUserContext();
       this.router.navigateByUrl('auth/identify');
-      return of(errorResponse as any);
-
+      return of(false as any);
     } else {
       // temporary code TODO
       let errorMessage = 'An unknown error occurred!';

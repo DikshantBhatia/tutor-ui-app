@@ -125,16 +125,16 @@ export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
       }
 
       signUpObservable.subscribe(
-        (response : any) => {
+        (response: any) => {
           this.loadingOtpModal = false;
           this.error = '';
           this.modalService.dismissAll();
           let returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
-          if (this.isTutorSingup){
-              if(response.user.profileStatus === 'NOT_CREATED') {
-                this.createTutorProfileService.setCurrentStep('/create-profile/basic-details');
-                returnUrl = 'create-profile/basic-details';
-              }
+          if (this.isTutorSingup) {
+            if (response.user.profileStatus === 'NOT_CREATED') {
+              this.createTutorProfileService.setCurrentStep(1);
+              returnUrl = 'create-profile/basic-details';
+            }
           }
 
           this.router.navigate([returnUrl]);
@@ -156,5 +156,4 @@ export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     document.querySelector('body').classList.remove('bg-signup');
   }
-
 }
