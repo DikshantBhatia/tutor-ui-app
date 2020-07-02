@@ -3,11 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-settings',
-  templateUrl: './user-settings.component.html',
-  styleUrls: ['./user-settings.component.scss'],
+  selector: 'app-student-settings',
+  templateUrl: './student-settings.component.html',
+  styleUrls: ['./student-settings.component.scss'],
 })
-export class UserSettingsComponent implements OnInit, AfterContentInit {
+export class StudentSettingsComponent implements OnInit, AfterContentInit {
   activeItem = 1;
   public model: any;
   /*searching = false;

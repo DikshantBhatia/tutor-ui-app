@@ -2,17 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../../auth/auth.service';
-import { take, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { User } from '../../../core/models/user.model';
-import { Observable, pipe } from 'rxjs';
+import { Observable } from 'rxjs';
 import PlaceResult = google.maps.places.PlaceResult;
 
 @Component({
-  selector: 'app-user-basic-info',
-  templateUrl: './user-basic-info.component.html',
-  styleUrls: ['./user-basic-info.component.scss'],
+  selector: 'app-student-basic-info',
+  templateUrl: './student-basic-info.component.html',
+  styleUrls: ['./student-basic-info.component.scss'],
 })
-export class UserBasicInfoComponent implements OnInit {
+export class StudentBasicInfoComponent implements OnInit {
   basicInfoForm: FormGroup;
   submitted = false;
   user: Observable<User>;

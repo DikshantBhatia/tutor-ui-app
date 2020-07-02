@@ -1,9 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UserSettingsComponent } from './user/user-settings/user-settings.component';
-import { OtherPreferncesComponent } from './user/user-preferences/other-prefernces/other-prefernces.component';
-import { SubjectPreferencesComponent } from './user/user-preferences/subject-preferences/subject-preferences.component';
-import { NotificationPreferencesComponent } from './user/user-settings/notification-preferences/notification-preferences.component';
 import { RootComponent } from './root.component';
 import { CreateProfileGuard } from './create-tutor-profile/create-profile.guard';
 
@@ -23,10 +19,11 @@ const routes: Routes = [
     loadChildren: () =>
       import("./create-tutor-profile/create-tutor-profile.module").then(m => m.CreateTutorProfileModule)
   },
-  { path: 'me/settings', component: UserSettingsComponent },
-  { path: 'me/preferences/subjects', component: SubjectPreferencesComponent },
-  { path: 'me/preferences/other', component: OtherPreferncesComponent },
-  { path: 'me/preferences/notification', component: NotificationPreferencesComponent},
+  { path: 'student',
+    loadChildren: () =>
+      import("./student/student.module").then(m => m.StudentModule)
+  },
+
   { path: '**', component: RootComponent},
 ];
 

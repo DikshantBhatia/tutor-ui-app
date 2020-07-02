@@ -3,14 +3,13 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { UserService } from '../../services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { TfOtpInputComponent } from '../../../shared/components/tf-otp-input/tf-otp-input.component';
 
 @Component({
-  selector: 'app-user-account-settings',
-  templateUrl: './user-account-settings.component.html',
-  styleUrls: ['./user-account-settings.component.scss'],
+  selector: 'app-student-contact-info',
+  templateUrl: './student-contact-info.component.html',
+  styleUrls: ['./student-contact-info.component.scss'],
 })
-export class UserAccountSettingsComponent implements OnInit,OnDestroy {
+export class StudentContactInfoComponent implements OnInit,OnDestroy {
   error: any;
   phoneNumber: string;
   email: string;

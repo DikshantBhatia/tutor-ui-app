@@ -1,13 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { NotificationPreference } from './notification-perference.model';
+
 import { UserPreferencesService } from '../../services/user-preferences.service';
+import { NotificationPreference } from './student-notification-perference.model';
 
 @Component({
-  selector: 'app-notification-preferences',
-  templateUrl: './notification-preferences.component.html',
-  styleUrls: ['./notification-preferences.component.scss'],
+  selector: 'app-student-notification-preferences',
+  templateUrl: './student-notification-preferences.component.html',
+  styleUrls: ['./student-notification-preferences.component.scss'],
 })
-export class NotificationPreferencesComponent implements OnInit {
+export class StudentNotificationPreferencesComponent implements OnInit {
+
+
+  notifications:NotificationPreference[];
+  error: any;
+
   constructor(private userPreferenceService: UserPreferencesService) {}
 
   ngOnInit(): void {
@@ -22,8 +28,6 @@ export class NotificationPreferencesComponent implements OnInit {
     );
   }
 
-  notifications:NotificationPreference[];
-  error: any;
 
   savePreferences(){
     console.log(this.notifications);

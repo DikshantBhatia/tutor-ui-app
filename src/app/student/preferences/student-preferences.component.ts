@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+
 import PlaceResult = google.maps.places.PlaceResult;
-import { UserPreferencesService } from '../../services/user-preferences.service';
+import { UserPreferencesService } from '../services/user-preferences.service';
 
 @Component({
-  selector: 'app-other-prefernces',
-  templateUrl: './other-prefernces.component.html',
-  styleUrls: ['./other-prefernces.component.scss'],
+  selector: 'app-student-preferences',
+  templateUrl: './student-preferences.component.html',
+  styleUrls: ['./student-preferences.component.scss'],
 })
-export class OtherPreferncesComponent implements OnInit {
+export class StudentPreferencesComponent implements OnInit {
   loading;
   myPreferences: any;
 

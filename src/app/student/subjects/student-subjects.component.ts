@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ContentService } from '../../../core/services/content.service';
+import { ContentService } from '../../core/services/content.service';
 import { forkJoin } from 'rxjs';
-import { UserPreferencesService } from '../../services/user-preferences.service';
+import { UserPreferencesService } from '../services/user-preferences.service';
 import { FormBuilder } from '@angular/forms';
 
 @Component({
-  selector: 'app-learning-preferences',
-  templateUrl: './subject-preferences.component.html',
-  styleUrls: ['./subject-preferences.component.scss'],
+  selector: 'app-student-subjects',
+  templateUrl: './student-subjects.component.html',
+  styleUrls: ['./student-subjects.component.scss'],
 })
-export class SubjectPreferencesComponent implements OnInit {
+export class StudentSubjectsComponent implements OnInit {
   categories: any = [];
   selectedSubCategories = [];
   loading;

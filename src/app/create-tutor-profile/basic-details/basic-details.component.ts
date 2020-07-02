@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CreateTutorProfileService } from '../create-tutor-profile.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserService } from '../../user/services/user.service';
+import { UserService } from '../../student/services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import PlaceResult = google.maps.places.PlaceResult;
 
