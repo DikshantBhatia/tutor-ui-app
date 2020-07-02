@@ -13,6 +13,7 @@
   --list-group-bg: var(--white);
   --list-group-item-color: #83878a;
   --list-group-border: 1px solid rgba(0, 0, 0, 0.125);
+  --text-muted-color : #83878A;
 }
 
 html {
@@ -126,7 +127,7 @@ a.disabled:hover {
 }
 
 .tf-text-muted {
-  color: #83878A;
+  color: var(--text-muted-color);
 }
 
 input:enabled:focus, select:enabled:focus, textarea:enabled:focus, .was-validated .form-control:invalid:focus, .form-control.is-invalid:focus{

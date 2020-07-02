@@ -7,7 +7,8 @@ import { BasicDetailsComponent } from './basic-details/basic-details.component';
 import { QualificationsComponent } from './qualifications/qualifications.component';
 import { SubjectsComponent } from './subjects/subjects.component';
 import { PreferencesComponent } from './preferences/preferences.component';
-import { CreateProfileChildGuard } from './create-profile-child.guard';
+import { CreateProfileGuard } from './create-profile.guard';
+
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { CreateProfileChildGuard } from './create-profile-child.guard';
       {
         path: '',
         component: CreateTutorProfileComponent,
-        canActivateChild: [CreateProfileChildGuard],
+        canActivateChild: [CreateProfileGuard],
         children: [
           { path: 'basic-details', component: BasicDetailsComponent, data: { step: 1 } },
           { path: 'qualifications', component: QualificationsComponent, data: { step: 2 } },

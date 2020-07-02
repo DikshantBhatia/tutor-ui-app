@@ -3,6 +3,7 @@ import { ContentService } from '../../core/services/content.service';
 import { forkJoin } from 'rxjs';
 import { UserPreferencesService } from '../services/user-preferences.service';
 import { FormBuilder } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-student-subjects',
@@ -15,7 +16,7 @@ export class StudentSubjectsComponent implements OnInit {
   loading;
 
 
-  constructor(private contentService: ContentService, private userPreferenceService: UserPreferencesService, private formBuilder: FormBuilder) {
+  constructor(private contentService: ContentService, private userPreferenceService: UserPreferencesService, private router : Router, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
@@ -48,6 +49,10 @@ export class StudentSubjectsComponent implements OnInit {
     } else {
       this.userPreferenceService.unSaveSubject(subCategory.id);
     }
+  }
+
+  navigateTo(url) {
+    this.router.navigate([url], { relativeTo: this.route.parent });
   }
 
 }

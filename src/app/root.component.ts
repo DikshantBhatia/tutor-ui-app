@@ -27,7 +27,7 @@ export class RootComponent implements OnInit {
   private redirectToAppropriateHome() {
     const currentUser = this.authService.userSubject.getValue();
     if (currentUser.roles[0] === 'Tutor') {
-      if (currentUser.profileStatus === 'NOT_CREATED') {
+      if (!currentUser.profileCreated) {
         this.router.navigate(['create-profile/basic-details']);
       } else {
         // root page for tutor

@@ -9,6 +9,7 @@ import { StudentNotificationPreferencesComponent } from './settings/notification
 import { StudentSubjectsComponent } from './subjects/student-subjects.component';
 import { StudentHomeComponent } from './student-home.component';
 import { RouterModule } from '@angular/router';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -28,12 +29,13 @@ import { RouterModule } from '@angular/router';
 
         children: [
           { path: 'settings', component: StudentSettingsComponent },
-          { path: 'preferences/subjects', component: StudentSubjectsComponent },
-          { path: 'preferences/other', component: StudentPreferencesComponent },
+          { path: 'subjects', component: StudentSubjectsComponent },
+          { path: 'preferences', component: StudentPreferencesComponent },
         ],
       },
     ]),
     SharedModule,
+    NgbDropdownModule,
   ],
 })
 export class StudentModule {}

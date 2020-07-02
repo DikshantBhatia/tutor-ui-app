@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RootComponent } from './root.component';
-import { CreateProfileGuard } from './create-tutor-profile/create-profile.guard';
+
+import { StudentGuard } from './core/guards/student.guard';
+import { TutorGuard } from './core/guards/tutor.guard';
 
 
 const routes: Routes = [
@@ -15,11 +17,19 @@ const routes: Routes = [
       import("./auth/auth.module").then(m => m.AuthModule)
   },
   { path: 'create-profile',
-    canLoad : [CreateProfileGuard],
+    canLoad : [TutorGuard],
+    data: {
+      role : 'Tutor',
+      profileCreated: false
+    },
     loadChildren: () =>
       import("./create-tutor-profile/create-tutor-profile.module").then(m => m.CreateTutorProfileModule)
   },
   { path: 'student',
+    canLoad: [StudentGuard],
+    data: {
+      role : 'Student'
+    },
     loadChildren: () =>
       import("./student/student.module").then(m => m.StudentModule)
   },

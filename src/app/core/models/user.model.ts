@@ -20,5 +20,5 @@ export class User {
   languagePreference: string;
   locationPreference: string;
   roles: any[];
-  profileStatus: string;
+  profileCreated: boolean;
 }
