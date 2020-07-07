@@ -20,7 +20,7 @@ export class StudentGuard implements CanLoad {
 
   private validatePermissions(data: Data) {
     const user = this.authService.userSubject.getValue();
-    if (user.roles[0] === data.role) {
+    if (user.type === data.role) {
       return true;
     }
     this.router.navigate(['notfound']);

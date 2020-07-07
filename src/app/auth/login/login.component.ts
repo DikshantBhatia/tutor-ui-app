@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { UserType } from '../../shared/models/user-type';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
-  @Input() loginType: 'student' | 'tutor';
+  @Input() userType: UserType;
   @ViewChild('otpModal') otpModalTemplate;
   loginForm: FormGroup;
   error;
@@ -66,14 +67,14 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
   onLogin(otp: number) {
     if (this.loginForm.valid) {
 
-      const loginObservable =  this.loginType === 'student' ? this.authService.loginStudent(this.loginForm.value.phoneNumber, otp)
+      const loginObservable =  this.userType === UserType.STUDENT ? this.authService.loginStudent(this.loginForm.value.phoneNumber, otp)
           : this.authService.loginTutor(this.loginForm.value.phoneNumber, otp);
 
       this.loadingOtpModal = true;
 
       loginObservable.subscribe(
         (response) => {
-          const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
+          const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '';
           this.loadingOtpModal = false;
           this.modalService.dismissAll();
           this.router.navigate([returnUrl]);

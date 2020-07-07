@@ -33,7 +33,7 @@ export class AuthService {
   }
 
   loginTutor(phone, otp) {
-    return this.http.post('/api/auth/signin', { phoneNumber: phone, password: otp }).pipe(
+    return this.http.post('/api/auth/signin/tutor', { phoneNumber: phone, password: otp }).pipe(
       tap((response) => {
         this.handleAuthentication(response);
       })

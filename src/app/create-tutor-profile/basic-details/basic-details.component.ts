@@ -31,7 +31,7 @@ export class BasicDetailsComponent implements OnInit {
       lastName: ['', Validators.required],
       address: this.formBuilder.group({
         googlePlaceId: ['', Validators.required],
-        locationDescription: ['', Validators.required],
+        locationDescription: ['', Validators.required]
       }),
       profilePicture: [null, Validators.required],
       aboutMe: [''],

@@ -20,6 +20,7 @@ export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
   loading = false;
   loadingOtpModal = false;
   isTutorSingup = false;
+  selectedCity: PlaceResult;
   error: any;
 
   constructor(
@@ -35,8 +36,11 @@ export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
     this.signUpForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      address: [''],
-      googlePlaceId: [''],
+      address: this.formBuilder.group({
+        googlePlaceId: ['', Validators.required],
+        description: ['', Validators.required],
+        type: 'CITY'
+      }),
       phoneNumber: ['', Validators.required],
       password: [''],
     });
@@ -68,9 +72,12 @@ export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   updateAddress(place: PlaceResult) {
+    this.selectedCity = place;
     this.signUpForm.patchValue({
-      address: place.formatted_address,
-      googlePlaceId: place.place_id,
+      address:  {
+         description : place.formatted_address,
+         googlePlaceId: place.place_id
+      }
     });
   }
 
@@ -155,5 +162,16 @@ export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     document.querySelector('body').classList.remove('bg-signup');
+  }
+
+  checkPlace() {
+    if (this.selectedCity && this.selectedCity.formatted_address !== this.f.address.value.description) {
+      this.signUpForm.patchValue({
+        address: {
+          googlePlaceId: '',
+          description: '',
+        },
+      });
+    }
   }
 }

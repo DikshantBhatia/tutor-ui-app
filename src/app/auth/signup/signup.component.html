@@ -81,23 +81,24 @@
             </small>
           </div>
 
-          <div class="form-group mb-4">
+          <div class="form-group mb-4" formGroupName="address">
             <label for="address">Where do you live ?</label>
             <input
               type="text"
               class="form-control"
               id="address"
               aria-describedby="addressHelpBlock"
-              formControlName="address"
-              [ngClass]="{ 'is-invalid': submitted && f.address.errors }"
+              formControlName="description"
+              [ngClass]="{ 'is-invalid': submitted && (f.address.get('description').errors || f.address.get('googlePlaceId').errors) }"
               appGooglePlaces
               [addressType]="'(cities)'"
+              (focusout)="checkPlace()"
               (onPlaceSelect)="updateAddress($event)"
               placeholder="Search your city"
               required
             />
             <div class="invalid-feedback">
-              City is required
+              Select a valid city
             </div>
             <small id="addressHelpBlock" class="form-text text-muted">
               {{ getCityInfoText() }}

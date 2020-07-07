@@ -6,13 +6,13 @@
                 <li ngbNavItem>
                     <a ngbNavLink>For Students</a>
                     <ng-template ngbNavContent>
-                        <app-login [loginType]="'student'"></app-login>
+                        <app-login [userType]="userType.STUDENT"></app-login>
                     </ng-template>
                 </li>
                 <li ngbNavItem>
                     <a ngbNavLink>For Tutors</a>
                     <ng-template ngbNavContent>
-                        <app-login [loginType]="'tutor'"></app-login>
+                        <app-login [userType]="userType.TUTOR"></app-login>
                     </ng-template>
                 </li>
             </ul>

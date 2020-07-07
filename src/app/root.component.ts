@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './auth/auth.service';
 import { Router } from '@angular/router';
+import { UserType } from './shared/models/user-type';
 
 @Component({
   template: '',
@@ -26,7 +27,7 @@ export class RootComponent implements OnInit {
   // redirecting to root page based on user role and profile status
   private redirectToAppropriateHome() {
     const currentUser = this.authService.userSubject.getValue();
-    if (currentUser.roles[0] === 'Tutor') {
+    if (currentUser.type === UserType.TUTOR) {
       if (!currentUser.profileCreated) {
         this.router.navigate(['create-profile/basic-details']);
       } else {

@@ -1,0 +1,42 @@
+.logo-text {
+  color: var(--primary-color);
+  font-family: Proxima Nova, sans-serif;
+  font-weight: 600;
+  margin-left: 10px;
+}
+
+.avatar {
+  font-size: 1.2em;
+}
+
+.dropdown-menu-arrow:before {
+  content: '';
+  right: 1rem;
+  position: absolute;
+  bottom: 94%;
+  z-index: -5;
+  width: 15px;
+  height: 15px;
+  background: #ffffff;
+  border-left: var(--dropdown-border-width) var(--dropdown-border-color);
+  border-top: var(--dropdown-border-width) var(--dropdown-border-color);
+  -moz-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+.dropdown-menu {
+  top: 42px;
+  line-height: 24px;
+}
+
+a.dropdown-item:hover {
+  background-color: whitesmoke;
+  color: var(--body-color);
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+a.dropdown-item {
+  color: var(--text-muted-color);
+}

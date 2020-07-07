@@ -12,7 +12,6 @@ import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from './shared/shared.module';
 import { RootComponent } from './root.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,

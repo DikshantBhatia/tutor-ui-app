@@ -4,6 +4,7 @@ import { RootComponent } from './root.component';
 
 import { StudentGuard } from './core/guards/student.guard';
 import { TutorGuard } from './core/guards/tutor.guard';
+import { UserType } from './shared/models/user-type';
 
 
 const routes: Routes = [
@@ -19,7 +20,7 @@ const routes: Routes = [
   { path: 'create-profile',
     canLoad : [TutorGuard],
     data: {
-      role : 'Tutor',
+      role : UserType.TUTOR,
       profileCreated: false
     },
     loadChildren: () =>
@@ -28,12 +29,20 @@ const routes: Routes = [
   { path: 'student',
     canLoad: [StudentGuard],
     data: {
-      role : 'Student'
+      role : UserType.STUDENT
     },
     loadChildren: () =>
       import("./student/student.module").then(m => m.StudentModule)
   },
-
+  { path: 'tutor',
+    canLoad: [TutorGuard],
+    data: {
+      role : UserType.TUTOR,
+      profileCreated: true
+    },
+    loadChildren: () =>
+      import("./tutor/tutor.module").then(m => m.TutorModule)
+  },
   { path: '**', component: RootComponent},
 ];
 

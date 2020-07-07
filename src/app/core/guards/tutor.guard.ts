@@ -20,7 +20,7 @@ export class TutorGuard implements CanLoad {
 
   private validatePermissions(data: Data) {
     const user = this.authService.userSubject.getValue();
-    if (user.roles[0] === data.role && data.profileCreated === user.profileCreated) {
+    if (user.type === data.role && data.profileCreated === user.profileCreated) {
       return true;
     }
     this.router.navigate(['notfound']);
