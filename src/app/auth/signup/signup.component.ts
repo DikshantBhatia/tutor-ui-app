@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import PlaceResult = google.maps.places.PlaceResult;
 import { CreateTutorProfileService } from '../../create-tutor-profile/create-tutor-profile.service';
 import { User } from '../../core/models/user.model';
+import { GoogleAddressType } from '../../shared/models/types';
 
 @Component({
   selector: 'app-signup',
@@ -138,9 +139,9 @@ export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
           this.modalService.dismissAll();
           let returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
           if (this.isTutorSingup) {
-            if (response.user.profileStatus === 'NOT_CREATED') {
-              this.createTutorProfileService.setCurrentStep(1);
-              returnUrl = 'create-profile/basic-details';
+            if (!response.user.profileCreated) {
+                this.createTutorProfileService.setCurrentStep(1);
+                returnUrl = 'create-profile/basic-details';
             }
           }
 

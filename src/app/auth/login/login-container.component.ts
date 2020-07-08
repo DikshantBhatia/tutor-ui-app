@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserType } from '../../shared/models/user-type';
+import { UserType } from '../../shared/models/types';
+
 
 
 @Component({

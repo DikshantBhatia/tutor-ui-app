@@ -1,24 +1,25 @@
 <nav class="navbar fixed-bottom navbar-light bg-white fixed-bottom-nav shadow">
-    <div class="container-fluid container-sm">
-        <div class="col-6  d-none d-sm-block">
-            <span style="color: #83878a; font-size: 0.95rem;">Step {{currentStep}} of {{totalSteps}}</span>
-            <div class="progress">
-                <div
-                        class="progress-bar {{getWIdth()}}"
-                        role="progressbar"
-                        aria-valuenow="100"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                ></div>
-            </div>
-        </div>
-        <div class="col-12 col-sm-6">
-            <div class="float-sm-right  d-flex justify-content-center">
-                <button class="btn btn-light btn-md mr-4" *ngIf="hasPreviousBtn" (click)="onPrevious()">Previous</button>
-                <button class="btn btn-primary btn-md" *ngIf="hasNextBtn" (click)="onNext()">Next</button>
-                <button class="btn btn-primary btn-md" *ngIf="hasFinishBtn" (click)="onFinish()">Finish</button>
-            </div>
-        </div>
-
+  <div class="container-fluid container-sm">
+    <div class="col-6 d-none d-sm-block">
+      <span style="color: #83878a; font-size: 0.95rem;">Step {{ currentStep }} of {{ totalSteps }}</span>
+      <div class="progress">
+        <div
+          class="progress-bar {{ getWIdth() }}"
+          role="progressbar"
+          aria-valuenow="100"
+          aria-valuemin="0"
+          aria-valuemax="100"
+        ></div>
+      </div>
     </div>
+    <div class="col-12 col-sm-6">
+      <div class="float-sm-right d-flex justify-content-center">
+        <button type="button" class="btn btn-light btn-md mr-4" *ngIf="hasPreviousBtn" (click)="onPrevious()">
+          Previous
+        </button>
+        <button type="button" class="btn btn-primary btn-md" *ngIf="hasNextBtn" (click)="onNext()">Next</button>
+        <button type="button" class="btn btn-primary btn-md" *ngIf="hasFinishBtn" (click)="onFinish()">Finish</button>
+      </div>
+    </div>
+  </div>
 </nav>

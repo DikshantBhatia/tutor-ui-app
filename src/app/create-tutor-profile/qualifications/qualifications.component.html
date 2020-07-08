@@ -9,37 +9,46 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-12 col-sm-6 offset-sm-3">
-        <div class="form-group mb-4">
-          <label for="institute-name">Insitution name</label>
-          <input
-            type="text"
-            class="form-control"
-            id="institute-name"
-            formControlName="instituteName"
-            placeholder="Enter the official instituion name"
-            [ngClass]="{ 'is-invalid': submitted && f.instituteName.errors }"
-            required
-          />
-          <div class="invalid-feedback">
-            Institution name is required
+    <ng-container formGroupName="education">
+      <div class="row">
+        <div class="col-12 col-sm-6 offset-sm-3">
+          <div class="form-group mb-4">
+            <label for="institute-name">Insitution name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="institute-name"
+              formControlName="instituteName"
+              placeholder="Enter the official instituion name"
+              [ngClass]="{ 'is-invalid': submitted && f.instituteName.errors }"
+              required
+            />
+            <div class="invalid-feedback">
+              Institution name is required
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="col-12 col-sm-6 offset-sm-3">
-        <label for="degree">Degree</label>
-        <select id="degree" class="form-control" placeholder="Pick a degree level" formControlName="highestDegree" [ngClass]="{ 'is-invalid': submitted && f.highestDegree.errors }" required>
-          <option *ngFor="let degree of degrees" [value]="degree.value">{{ degree.label }}</option>
-        </select>
-        <div class="invalid-feedback">
-          Degree is required
+      <div class="row">
+        <div class="col-12 col-sm-6 offset-sm-3">
+          <label for="degree">Degree</label>
+          <select
+            id="degree"
+            class="form-control"
+            placeholder="Pick a degree level"
+            formControlName="degree"
+            [ngClass]="{ 'is-invalid': submitted && f.highestDegree.errors }"
+            required
+          >
+            <option *ngFor="let degree of degrees" [value]="degree.value">{{ degree.label }}</option>
+          </select>
+          <div class="invalid-feedback">
+            Degree is required
+          </div>
         </div>
       </div>
-    </div>
+    </ng-container>
 
     <div class="row mt-3 mb-3">
       <div class="col-12 col-sm-6 offset-sm-3">
@@ -56,40 +65,42 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-12 col-sm-6 offset-sm-3">
-        <div class="form-group mb-4">
-          <label for="experience-years">Experience in years</label>
-          <input
-            type="text"
-            class="form-control"
-            id="experience-years"
-            formControlName="experienceInYears"
-            appNumberOnly
-            maxlength="2"
-            inputmode="numeric"
-            autocomplete="off"
-            required
-            [ngClass]="{ 'is-invalid': submitted && f.experienceInYears.errors }"
-          />
-          <div class="invalid-feedback">
-            Experience in years is required
+    <ng-container formGroupName="workExperience">
+      <div class="row">
+        <div class="col-12 col-sm-6 offset-sm-3">
+          <div class="form-group mb-4">
+            <label for="experience-years">Experience in years</label>
+            <input
+              type="text"
+              class="form-control"
+              id="experience-years"
+              formControlName="experienceInYears"
+              appNumberOnly
+              maxlength="2"
+              inputmode="numeric"
+              autocomplete="off"
+              required
+              [ngClass]="{ 'is-invalid': submitted && f.experienceInYears.errors }"
+            />
+            <div class="invalid-feedback">
+              Experience in years is required
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="col-12 col-sm-6 offset-sm-3">
-        <div class="form-group mb-4">
-          <label for="aboutMe">Details about your experience</label>
-          <textarea id="aboutMe" class="form-control" rows="4" formControlName="experienceDetails"> </textarea>
-          <small class="form-text tf-text-muted">
-            Write a small description about your work experience.
-          </small>
+      <div class="row">
+        <div class="col-12 col-sm-6 offset-sm-3">
+          <div class="form-group mb-4">
+            <label for="aboutMe">Details about your experience</label>
+            <textarea id="aboutMe" class="form-control" rows="4" formControlName="experienceDescription"> </textarea>
+            <small class="form-text tf-text-muted">
+              Write a small description about your work experience.
+            </small>
+          </div>
         </div>
       </div>
-    </div>
+    </ng-container>
   </div>
 
   <app-fixed-bottom-stepper

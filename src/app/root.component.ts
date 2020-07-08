@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './auth/auth.service';
 import { Router } from '@angular/router';
-import { UserType } from './shared/models/user-type';
+import { UserType } from './shared/models/types';
+
 
 @Component({
   template: '',

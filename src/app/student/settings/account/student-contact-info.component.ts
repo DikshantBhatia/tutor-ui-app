@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './student-contact-info.component.html',
   styleUrls: ['./student-contact-info.component.scss'],
 })
-export class StudentContactInfoComponent implements OnInit,OnDestroy {
+export class StudentContactInfoComponent implements OnInit{
   error: any;
   phoneNumber: string;
   email: string;
@@ -26,7 +26,6 @@ export class StudentContactInfoComponent implements OnInit,OnDestroy {
   @ViewChild("phoneOtpInput") phoneOtpInputComponent;
   @ViewChild("emailOtpInput") emailOtpInputComponent;
 
-  private userSub: Subscription;
 
   constructor(
     private userService: UserService,
@@ -37,10 +36,9 @@ export class StudentContactInfoComponent implements OnInit,OnDestroy {
 
   ngOnInit(): void {
     console.log('ng on init');
-    this.userSub = this.authService.userSubject.subscribe( userResp => {
-        this.phoneNumber = userResp.phoneNumber;
-        this.email = userResp.email;
-      })
+    const contactInfo =  this.authService.userSubject.getValue().contactInfo;
+    this.phoneNumber = contactInfo.phoneNumber;
+    this.email = contactInfo.email;
   }
 
   onSendPhoneOtp(phone) {
@@ -136,7 +134,4 @@ export class StudentContactInfoComponent implements OnInit,OnDestroy {
     );
   }
 
-  ngOnDestroy() {
-    this.userSub.unsubscribe();
-  }
 }

@@ -1,6 +1,5 @@
 export interface CheckboxModel {
-  label : string;
-  code : string;
+  value : any;
   selected: boolean;
 
 }

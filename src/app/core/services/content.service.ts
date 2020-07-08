@@ -3,40 +3,37 @@ import { HttpClient } from '@angular/common/http';
 import { CheckboxModel } from '../../shared/models/checkbox.model';
 import { SelectItemModel } from '../../shared/models/select-item.model';
 import { of } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { Audience, Language, TeachingLocation, TutorTeachingLocation } from '../../shared/models/types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ContentService {
-  private subjects: any[];
+  private categories: any[];
 
   constructor(private http: HttpClient) {}
 
   getCategories() {
-    if (Array.isArray(this.subjects) && this.subjects.length) {
-      return of(this.subjects);
+    if (Array.isArray(this.categories) && this.categories.length) {
+      return of(this.categories);
     }
-    return this.http.get('/api/cms/categories');
-  }
-
-  setCategoriesInMemory(subjects) {
-    this.subjects = subjects;
+    return this.http.get('/api/cms/categories').pipe(tap((res) => this.setCategoriesInMemory(res)));
   }
 
   getTeachingLocations() {
     const teachingLocations: CheckboxModel[] = [];
     teachingLocations.push(
-      { label: 'My Home', code: 'my-home', selected: false },
-      { label: 'Student Home', code: 'student-home', selected: false },
-      { label: 'Online', code: 'online', selected: false }
+      { value: TeachingLocation.MY_HOME, selected: false },
+      { value: TeachingLocation.STUDENT_HOME, selected: false },
+      { value: TeachingLocation.ONLINE, selected: false }
     );
-
     return teachingLocations;
   }
 
   getLanguages() {
     const languages: CheckboxModel[] = [];
-    languages.push({ label: 'English', code: 'en', selected: false }, { label: 'Hindi', code: 'hi', selected: false });
+    languages.push({ value: Language.EN, selected: false }, { value: Language.HI, selected: false });
 
     return languages;
   }
@@ -44,11 +41,11 @@ export class ContentService {
   getAudience() {
     const audience: CheckboxModel[] = [];
     audience.push(
-      { label: 'Class 1 to 5', code: '1-5', selected: false },
-      { label: 'Class 6 to 8', code: '6-8', selected: false },
-      { label: 'Class 9 to 10', code: '9-10', selected: false },
-      { label: 'Class 11 to 12', code: '11-12', selected: false },
-      { label: 'Other', code: 'other', selected: false }
+      { value: Audience.ONE_TO_FIVE, selected: false },
+      { value: Audience.SIX_TO_EIGHT, selected: false },
+      { value: Audience.NINE_TO_TEN, selected: false },
+      { value: Audience.ELEVEN_TO_TWELVE, selected: false },
+      { value: Audience.OTHER, selected: false }
     );
 
     return audience;
@@ -64,5 +61,9 @@ export class ContentService {
       { label: 'Others', value: 'other' }
     );
     return degrees;
+  }
+
+  private setCategoriesInMemory(subjects) {
+    this.categories = subjects;
   }
 }

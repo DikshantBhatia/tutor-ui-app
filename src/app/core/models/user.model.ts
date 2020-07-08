@@ -5,22 +5,38 @@
  *  The default value can be given to fields if required in future
  *
  */
+import {
+  Address, Audience, ContactInfo, Education, Language,
+  Subject, TeachingLocation, TutorAudience,
+  TutorStatus,
+  TutorTeachingLanguage, TutorTeachingLocation,
+  UserType,
+  WorkExperience,
+} from '../../shared/models/types';
+
 export class User {
   public constructor(init?: Partial<User>) {
     Object.assign(this, init);
   }
 
-  phoneNumber: string;
-  email: string;
+  type: UserType;
   firstName: string;
   lastName: string;
-  address: string;
-  googlePlaceId: string;
-  gender: string;
-  languagePreference: string;
-  locationPreference: string;
-  roles: any[];
-  type: string;
+  address : Address;
+  contactInfo: ContactInfo;
+  aboutMe: string;
+  tagLine: string;
+  education: Education;
+  workExperience: WorkExperience;
+  subjects: Subject[];
+  tutorStatus: TutorStatus;
+  profileVerified: boolean;
   profileCreated: boolean;
+  tutorTeachingLanguages: TutorTeachingLanguage[];
+  tutorTeachingLocations: TutorTeachingLocation[];
+  tutorAudiences: TutorAudience[];
+  feePerHour: number;
+
+  // profilePicture
 
 }

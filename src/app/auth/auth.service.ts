@@ -78,7 +78,7 @@ export class AuthService {
 
   // make a call to backend to get user details(role etc). It will also verify if token is valid or not
   getCurrentUser(): Observable<User> {
-    return this.http.get<User>('/api/users/me');
+    return this.http.get<User>('/api/auth/me');
   }
 
   /**

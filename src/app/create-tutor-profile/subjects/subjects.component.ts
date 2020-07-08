@@ -5,6 +5,7 @@ import { ContentService } from '../../core/services/content.service';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 import { CreateTutorProfileService } from '../create-tutor-profile.service';
+import { Subject } from '../../shared/models/types';
 
 @Component({
   selector: 'app-subjects',
@@ -14,7 +15,7 @@ import { CreateTutorProfileService } from '../create-tutor-profile.service';
 export class SubjectsComponent implements OnInit {
   @ViewChild('searchInput') searchInput: ElementRef;
   categories: any = [];
-  mySubjects;
+  mySubjects: Subject[];
   subjectNotSelected: boolean;
   loading: boolean;
 
@@ -29,8 +30,7 @@ export class SubjectsComponent implements OnInit {
     this.loading = true;
     this.contentService.getCategories().subscribe((response) => {
       this.categories = response;
-      this.contentService.setCategoriesInMemory(response);
-      this.mySubjects = this.createProfileService.subjects;
+      this.mySubjects = this.createProfileService.getProfile().subjects || [];
       this.loading = false;
     });
   }
@@ -72,7 +72,7 @@ export class SubjectsComponent implements OnInit {
     );
 
   onPrevious() {
-    this.createProfileService.subjects = this.mySubjects;
+    this.createProfileService.updateProfile({subjects: this.mySubjects });
     this.createProfileService.setCurrentStep(2);
     this.router.navigate(['qualifications'], { relativeTo: this.route.parent });
   }
@@ -82,7 +82,7 @@ export class SubjectsComponent implements OnInit {
       this.subjectNotSelected = true;
       return;
     }
-    this.createProfileService.subjects = this.mySubjects;
+    this.createProfileService.updateProfile({subjects: this.mySubjects });
     this.createProfileService.setCurrentStep(4);
     this.router.navigate(['preferences'], { relativeTo: this.route.parent });
   }

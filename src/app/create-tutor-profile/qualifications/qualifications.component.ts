@@ -25,16 +25,20 @@ export class QualificationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.qualificationsForm = this.formBuilder.group({
-      instituteName: ['', Validators.required],
-      highestDegree: ['', Validators.required],
-      experienceInYears: ['', [Validators.required, Validators.pattern('[0-9]*')]],
-      experienceDetails: [''],
+      education: this.formBuilder.group({
+        instituteName: ['', Validators.required],
+        degree: ['', Validators.required]
+      }),
+      workExperience: this.formBuilder.group({
+        experienceInYears: ['', [Validators.required, Validators.pattern('[0-9]*')]],
+        experienceDescription: ['']
+      })
     });
 
     this.degrees = this.contentService.getEducationDegrees();
 
-    if (this.createProfileService.qualifications) {
-      this.qualificationsForm.patchValue(this.createProfileService.qualifications);
+    if (this.createProfileService.getProfile()) {
+      this.qualificationsForm.patchValue(this.createProfileService.getProfile());
     }
   }
 
@@ -47,13 +51,13 @@ export class QualificationsComponent implements OnInit {
     if (this.qualificationsForm.invalid) {
       return;
     }
-    this.createProfileService.qualifications = this.qualificationsForm.value;
+    this.createProfileService.updateProfile(this.qualificationsForm.value);
     this.createProfileService.setCurrentStep(3);
     this.router.navigate(['subjects'], { relativeTo: this.route.parent });
   }
 
   onPrevious() {
-    this.createProfileService.qualifications = this.qualificationsForm.value;
+    this.createProfileService.updateProfile(this.qualificationsForm.value);
     this.createProfileService.setCurrentStep(1);
     this.router.navigate(['basic-details'], { relativeTo: this.route.parent });
   }

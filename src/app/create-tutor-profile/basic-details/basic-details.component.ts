@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../student/services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import PlaceResult = google.maps.places.PlaceResult;
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-basic-details',
@@ -20,6 +21,7 @@ export class BasicDetailsComponent implements OnInit {
     private createTutorProfileService: CreateTutorProfileService,
     private formBuilder: FormBuilder,
     private userService: UserService,
+    private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
@@ -31,20 +33,19 @@ export class BasicDetailsComponent implements OnInit {
       lastName: ['', Validators.required],
       address: this.formBuilder.group({
         googlePlaceId: ['', Validators.required],
-        locationDescription: ['', Validators.required]
+        description: ['', Validators.required],
+        type: 'CITY'
       }),
-      profilePicture: [null, Validators.required],
+      profilePicture: [null],
       aboutMe: [''],
       tagline: ['', Validators.required],
     });
 
-    if (!this.createTutorProfileService.basicDetails) {
-      this.userService.getCurrentUser().subscribe((user) => {
-        this.basicDetailsForm.patchValue(user);
-        this.loading = false;
-      });
+    if (!this.createTutorProfileService.getProfile()) {
+      this.basicDetailsForm.patchValue(this.authService.userSubject.getValue());
+      this.loading = false;
     } else {
-      this.basicDetailsForm.patchValue(this.createTutorProfileService.basicDetails);
+      this.basicDetailsForm.patchValue(this.createTutorProfileService.getProfile());
       this.loading = false;
     }
   }
@@ -58,7 +59,7 @@ export class BasicDetailsComponent implements OnInit {
     this.basicDetailsForm.patchValue({
       address: {
         googlePlaceId: place.place_id,
-        locationDescription: place.formatted_address,
+        description: place.formatted_address,
       },
     });
   }
@@ -68,7 +69,7 @@ export class BasicDetailsComponent implements OnInit {
     if (this.basicDetailsForm.invalid) {
       return;
     }
-    this.createTutorProfileService.basicDetails = this.basicDetailsForm.value;
+    this.createTutorProfileService.updateProfile(this.basicDetailsForm.value);
     console.log(this.basicDetailsForm.value);
     this.createTutorProfileService.setCurrentStep(2);
     this.router.navigate(['qualifications'], { relativeTo: this.route.parent });
@@ -84,11 +85,11 @@ export class BasicDetailsComponent implements OnInit {
   }
 
   checkPlace() {
-    if (this.selectedCity && this.selectedCity.formatted_address !== this.f.address.value.locationDescription) {
+    if (this.selectedCity && this.selectedCity.formatted_address !== this.f.address.value.description) {
       this.basicDetailsForm.patchValue({
         address: {
           googlePlaceId: '',
-          locationDescription: '',
+          description: '',
         },
       });
     }

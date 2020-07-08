@@ -3,7 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { UserType } from '../../shared/models/user-type';
+import { UserType } from '../../shared/models/types';
+
 
 @Component({
   selector: 'app-login',

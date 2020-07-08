@@ -4,7 +4,8 @@ import { RootComponent } from './root.component';
 
 import { StudentGuard } from './core/guards/student.guard';
 import { TutorGuard } from './core/guards/tutor.guard';
-import { UserType } from './shared/models/user-type';
+import { UserType } from './shared/models/types';
+
 
 
 const routes: Routes = [

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CreateTutorProfileService } from '../create-tutor-profile.service';
-import { CreateProfilePreferencesModel } from './create-profile-preferences.model';
 import { NgForm } from '@angular/forms';
-import { CheckboxModel } from '../../shared/models/checkbox.model';
+import { User } from '../../core/models/user.model';
+import { Audience, Language, TeachingLocation } from '../../shared/models/types';
 
 @Component({
   selector: 'app-preferences',
@@ -11,27 +11,26 @@ import { CheckboxModel } from '../../shared/models/checkbox.model';
   styleUrls: ['./preferences.component.scss'],
 })
 export class PreferencesComponent implements OnInit {
-  preferences: CreateProfilePreferencesModel;
+  tutor: User;
   submitted: boolean;
-  isLocationSelected: boolean;
-  isAudienceSelected: boolean;
+  isLocationSelected = true;
+  isAudienceSelected = true;
+  TeachingLocation = TeachingLocation;
+  Audience = Audience;
+  Language = Language
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private createProfileService: CreateTutorProfileService
+    private createProfileService: CreateTutorProfileService,
   ) {}
 
   ngOnInit(): void {
-    if (this.createProfileService.getPreferences()) {
-      this.preferences = this.createProfileService.getPreferences();
-    } else {
-      this.preferences = this.createProfileService.initializePreferences();
-    }
+    this.tutor = this.createProfileService.getProfile();
   }
 
   onPrevious() {
-    this.createProfileService.setPreferences(this.preferences);
+    this.createProfileService.updateProfile(this.tutor);
     this.createProfileService.setCurrentStep(3);
     this.router.navigate(['subjects'], { relativeTo: this.route.parent });
   }
@@ -41,22 +40,26 @@ export class PreferencesComponent implements OnInit {
     if (f.invalid || !this.isLocationSelected || !this.isAudienceSelected) {
       return;
     }
-    this.createProfileService.setPreferences(this.preferences);
+    this.createProfileService.updateProfile(this.tutor);
+    this.createProfileService.createProfile().subscribe(() => {
+        this.router.navigate(['tutor/me']);
+    });
   }
 
   onChange(type: string) {
     if (type === 'location-change') {
-      this.isLocationSelected = this.isAtleastOneCheckboxSelected(this.preferences.locationPreferences);
+      this.isLocationSelected = this.isAtleastOneCheckboxSelected(this.tutor.tutorTeachingLocations);
     } else if (type === 'audience-change') {
-      this.isAudienceSelected = this.isAtleastOneCheckboxSelected(this.preferences.audiences);
+      this.isAudienceSelected = this.isAtleastOneCheckboxSelected(this.tutor.tutorAudiences);
     }
   }
 
-  private isAtleastOneCheckboxSelected(checboxes: CheckboxModel[]) {
-    const index = checboxes.findIndex((checkbox) => checkbox.selected === true);
+  private isAtleastOneCheckboxSelected(field: any[]) {
+    const index = field.findIndex((checkbox) => checkbox.selected === true);
     if (index === -1) {
       return false;
     }
     return true;
   }
+
 }

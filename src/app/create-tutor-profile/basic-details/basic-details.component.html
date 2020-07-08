@@ -56,13 +56,13 @@
             aria-describedby="addressHelpBlock"
             appGooglePlaces
             [addressType]="'(cities)'"
-            formControlName="locationDescription"
+            formControlName="description"
             (focusout)="checkPlace()"
             (onPlaceSelect)="updateAddress($event)"
             placeholder="Type your city"
             [ngClass]="{
               'is-invalid':
-                submitted && (f.address.get('locationDescription').errors || f.address.get('googlePlaceId').errors)
+                submitted && (f.address.get('description').errors || f.address.get('googlePlaceId').errors)
             }"
             required
           />
@@ -86,7 +86,6 @@
                 type="file"
                 class="custom-file-input"
                 id="profilePic"
-                required
                 [ngClass]="{ 'is-invalid': submitted && f.profilePicture.errors }"
                 (change)="handleFileInput($event)"
                 accept="image/jpeg, image/png"

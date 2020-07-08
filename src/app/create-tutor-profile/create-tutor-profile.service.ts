@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
 import { ContentService } from '../core/services/content.service';
 import { CreateProfilePreferencesModel } from './preferences/create-profile-preferences.model';
+import { User } from '../core/models/user.model';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -10,10 +12,9 @@ import { CreateProfilePreferencesModel } from './preferences/create-profile-pref
 export class CreateTutorProfileService {
   constructor(private http: HttpClient, private authService: AuthService, private contentService: ContentService) {}
 
-  basicDetails: any;
-  qualifications: any;
-  subjects = [];
-  private preferences: CreateProfilePreferencesModel;
+  private profile: User;
+
+   // private preferences: CreateProfilePreferencesModel;
   private currentStep = 1;
 
   setCurrentStep(stepNumber) {
@@ -24,22 +25,27 @@ export class CreateTutorProfileService {
     return this.currentStep;
   }
 
-  initializePreferences() {
-    const locationPrefs = this.contentService.getTeachingLocations();
-    const languages = this.contentService.getLanguages();
-    const audience = this.contentService.getAudience();
-    return new CreateProfilePreferencesModel({
-      locationPreferences: locationPrefs,
-      languagePreferences: languages,
-      audiences: audience,
-    });
+  getProfile(): User {
+    return this.profile;
   }
 
-  setPreferences(prefs: CreateProfilePreferencesModel) {
-    this.preferences = prefs;
+  updateProfile(details) {
+    if (!this.profile) {
+      this.initializeProfile();
+    }
+    Object.assign(this.profile, details);
+    console.log(this.profile);
   }
 
-  getPreferences() {
-    return this.preferences;
+
+  createProfile() {
+    return this.http
+      .put('/api/tutors/me', this.profile)
+      .pipe(tap((tutor) => this.authService.createUser(tutor)));
+  }
+
+
+  private initializeProfile() {
+    this.profile = this.authService.userSubject.getValue();
   }
 }
