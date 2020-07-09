@@ -33,11 +33,11 @@ export class RootComponent implements OnInit {
         this.router.navigate(['create-profile/basic-details']);
       } else {
         // root page for tutor
-        this.router.navigate(['home']);
+        this.router.navigate(['tutor/me/profile']);
       }
     } else {
       // root page for student
-      this.router.navigate(['home']);
+      this.router.navigate(['student/me/settings']);
     }
   }
 }
