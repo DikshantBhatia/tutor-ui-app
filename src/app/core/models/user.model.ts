@@ -6,10 +6,14 @@
  *
  */
 import {
-  Address, Audience, ContactInfo, Education, Language,
-  Subject, TeachingLocation, TutorAudience,
+  Address,
+  Audience,
+  ContactInfo,
+  Education,
+  Language,
+  Subject,
+  TeachingLocation,
   TutorStatus,
-  TutorTeachingLanguage, TutorTeachingLocation,
   UserType,
   WorkExperience,
 } from '../../shared/models/types';
@@ -32,9 +36,9 @@ export class User {
   tutorStatus: TutorStatus;
   profileVerified: boolean;
   profileCreated: boolean;
-  tutorTeachingLanguages: TutorTeachingLanguage[];
-  tutorTeachingLocations: TutorTeachingLocation[];
-  tutorAudiences: TutorAudience[];
+  teachingLanguages: Language[];
+  teachingLocations : TeachingLocation[];
+  audiences: Audience[];
   feePerHour: number;
 
   // profilePicture

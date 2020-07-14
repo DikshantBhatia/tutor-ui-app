@@ -8,6 +8,7 @@ import { QualificationsComponent } from './qualifications/qualifications.compone
 import { SubjectsComponent } from './subjects/subjects.component';
 import { PreferencesComponent } from './preferences/preferences.component';
 import { CreateProfileGuard } from './create-profile.guard';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { CreateProfileGuard } from './create-profile.guard';
       },
     ]),
     SharedModule,
+    NgMultiSelectDropDownModule,
   ],
 })
 export class CreateTutorProfileModule {}

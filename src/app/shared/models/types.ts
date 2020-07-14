@@ -33,6 +33,14 @@ export enum Language {
   HI = 'Hindi',
 }
 
+export enum Degree {
+  SECONDARY = 'Secondary(10th)',
+  HIGHER_SECONDARY = 'Higher Secondary(12th)',
+  BACHELORS = 'Bachelors',
+  MASTERS = 'Masters',
+  OTHER = 'Other',
+}
+
 export interface Address {
   googlePlaceId: string;
   description: string;
@@ -54,24 +62,43 @@ export interface Subject {
   description: string;
 }
 
-export interface TutorAudience {
-  audience: Audience;
-  selected: boolean;
-}
-
-export interface TutorTeachingLocation {
-  teachingLocation: TeachingLocation;
-  selected: boolean;
-}
-
-export interface TutorTeachingLanguage {
-  teachingLanguage: Language;
-  selected: boolean;
-}
-
 export interface ContactInfo {
   email: string;
   phoneNumber: string;
   emailVerified: boolean;
   phoneNumberVerified: boolean;
 }
+
+export interface Tag {
+  id : any;
+  description: any;
+  selected? : boolean;
+}
+
+export const DEGREES = Object.keys(Degree).map(key => {
+  return {
+    id: key,
+    description : Degree[key]
+  }
+})
+
+export const TEACHING_LOCATION_TAGS = Object.keys(TeachingLocation).map(key => {
+  return {
+    id: key,
+    description: TeachingLocation[key]
+  };
+});
+
+export const LANGUAGE_TAGS = Object.keys(Language).map(key => {
+  return {
+    id: key,
+    description: Language[key]
+  };
+});
+
+export const AUDIENCE_TAGS = Object.keys(Audience).map(key => {
+  return {
+    id: key,
+    description: Audience[key]
+  };
+});

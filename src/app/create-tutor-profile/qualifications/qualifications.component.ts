@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CreateTutorProfileService } from '../create-tutor-profile.service';
 import { SelectItemModel } from '../../shared/models/select-item.model';
 import { ContentService } from '../../core/services/content.service';
+import { DEGREES } from '../../shared/models/types';
 
 @Component({
   selector: 'app-qualifications',
@@ -12,7 +13,7 @@ import { ContentService } from '../../core/services/content.service';
 })
 export class QualificationsComponent implements OnInit {
   qualificationsForm: FormGroup;
-  degrees: SelectItemModel[];
+  degrees = DEGREES;
   submitted = false;
 
   constructor(
@@ -34,8 +35,6 @@ export class QualificationsComponent implements OnInit {
         experienceDescription: ['']
       })
     });
-
-    this.degrees = this.contentService.getEducationDegrees();
 
     if (this.createProfileService.getProfile()) {
       this.qualificationsForm.patchValue(this.createProfileService.getProfile());

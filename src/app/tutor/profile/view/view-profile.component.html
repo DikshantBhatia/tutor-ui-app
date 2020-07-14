@@ -1,0 +1,153 @@
+<section class="view-profile">
+  <div class="container">
+    <div class="row mb-sm-3">
+      <div class="col-12">
+        <h5>My Profile</h5>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-2 mb-4">
+        <img src="../../../../assets/img/me.jpg" alt="Image not loaded" width="170" height="170" />
+      </div>
+      <div class="col-12 col-sm-10 mb-4">
+        <div class="card">
+          <div class="card-body">
+              <div>
+            <h6>{{me.firstName}} {{me.lastName}}</h6>
+                  <span class="float-right">
+                <i class="fas fa-edit"></i></span>
+              </div>
+            <small class="tf-text-muted d-block">{{me.address.description}}</small>
+            <span class="tf-text-muted">{{me.tagLine}}</span>
+            <hr />
+            <div class="info-text"><span>{{me.feePerHour}} rs per hour</span> <span class="float-right">
+                <i class="fas fa-edit"></i></span></div>
+            <div class="info-text"><span>{{getSubjectsDisplayableText()}}</span> <span class="float-right">
+                <i class="fas fa-edit"></i></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-sm-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h6 class="card-title">
+              Education
+            </h6>
+            <div>
+              <span class="card-text"> {{me.education.degree}} from {{me.education.instituteName}}</span>
+              <span class="float-right">
+                <button class="btn btn-sm btn-light" (click)="onEditEducation()">
+                  Edit
+                </button></span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h6 class="card-title">
+              Experience
+            </h6>
+            <div>
+              <span class="card-text"> {{me.workExperience.experienceInYears}} years</span>
+              <span class="float-right">
+                <button class="btn btn-sm btn-light">
+                  Edit
+                </button></span
+              >
+            </div>
+            <div>
+                <span>{{me.workExperience.experienceDescription}}</span>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <div class="row">
+          <div class="col-12 col-sm-6 mb-4">
+              <div class="card">
+                  <div class="card-body">
+                      <h6 class="card-title">
+                          Languages
+                      </h6>
+                      <div>
+                          <span class="card-text"> English, Hindi</span>
+                          <span class="float-right">
+                <button class="btn btn-sm btn-light">
+                  Edit
+                </button></span
+                          >
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-12 col-sm-6 mb-4">
+              <div class="card">
+                  <div class="card-body">
+                      <h6 class="card-title">
+                          Audiences
+                      </h6>
+                      <div>
+                          <span class="card-text"> Class 1-5, Class 6-8, Class 10-12</span>
+                          <span class="float-right">
+                <button class="btn btn-sm btn-light">
+                  Edit
+                </button></span
+                          >
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <div class="row">
+          <div class="col-12 mb-4">
+              <div class="card">
+                  <div class="card-body">
+                      <h6 class="card-title">
+                          Teaching Location
+                      </h6>
+                      <div>
+                          <span class="card-text"> Tutor's Home, Online</span>
+                          <span class="float-right">
+                <button class="btn btn-sm btn-light">
+                  Edit
+                </button></span
+                          >
+                      </div>
+                  </div>
+              </div>
+          </div>
+    </div>
+
+      <div class="row">
+          <div class="col-12">
+              <div class="card">
+                  <div class="card-body">
+                      <h6 class="card-title">
+                          Interests
+                      </h6>
+                      <div>
+                          <span class="card-text"> </span>
+                          <span class="float-right">
+                <button class="btn btn-sm btn-light">
+                  Add
+                </button></span
+                          >
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+
+  </div>
+</section>

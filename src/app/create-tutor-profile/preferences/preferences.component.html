@@ -11,18 +11,8 @@
         <div class="form-group">
           <label>Where do you want to teach ?</label>
           <br />
-          <div class="form-check form-check-inline" *ngFor="let item of tutor.tutorTeachingLocations;">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="{{ item.teachingLocation }}-location"
-              [(ngModel)]="item.selected"
-              [ngModelOptions]="{ standalone: true }"
-              (change)="onChange('location-change')"
-            />
-            <label class="form-check-label" for="{{ item.teachingLocation }}-location">{{TeachingLocation[item.teachingLocation]}}</label>
-          </div>
-          <div class="invalid-feedback d-block" *ngIf="submitted && !isLocationSelected">
+          <app-tf-tag-list [tags]="teachingLocations" [selectedTagIds]="tutor.teachingLanguages" (selectTag)="onTagSelect($event, 'Location')" (removeTag)="onTagRemove($event, 'Location')"></app-tf-tag-list>
+          <div class="invalid-feedback d-block" *ngIf="submitted && locationError">
             Select atleast one
           </div>
         </div>
@@ -34,15 +24,9 @@
         <div class="form-group">
           <label>Which language do your prefer while teaching ?</label>
           <br />
-          <div class="form-check form-check-inline" *ngFor="let item of tutor.tutorTeachingLanguages">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="{{ item.teachingLanguage }}-language"
-              [(ngModel)]="item.selected"
-              [ngModelOptions]="{ standalone: true }"
-            />
-            <label class="form-check-label" for="{{ item.teachingLanguage }}-language">{{ Language[item.teachingLanguage]}}</label>
+          <app-tf-tag-list [tags]="languages" [selectedTagIds]="tutor.teachingLanguages" (selectTag)="onTagSelect($event, 'Language')" (removeTag)="onTagRemove($event, 'Language')"></app-tf-tag-list>
+          <div class="invalid-feedback d-block" *ngIf="submitted && languageError">
+            Select atleast one
           </div>
         </div>
       </div>
@@ -67,18 +51,8 @@
     <div class="row">
       <div class="col-12 col-sm-6 offset-sm-3">
         <div class="form-group">
-          <div class="form-check" *ngFor="let item of tutor.tutorAudiences">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="{{ item.audience }}-audienceCheck"
-              [(ngModel)]="item.selected"
-              [ngModelOptions]="{ standalone: true }"
-              (change)="onChange('audience-change')"
-            />
-            <label class="form-check-label" for="{{ item.audience }}-audienceCheck">{{Audience[item.audience]}}</label>
-          </div>
-          <div class="invalid-feedback d-block" *ngIf="submitted && !isAudienceSelected">
+          <app-tf-tag-list [tags]="audiences" [selectedTagIds]="tutor.audiences" (selectTag)="onTagSelect($event, 'Audience')" (removeTag)="onTagRemove($event, 'Audience')"></app-tf-tag-list>
+          <div class="invalid-feedback d-block" *ngIf="submitted && audienceError">
             Select atleast one
           </div>
         </div>

@@ -9,9 +9,11 @@ import { CommonModule } from '@angular/common';
 import { FixedBottomStepperComponent } from './components/fixed-bottom-stepper/fixed-bottom-stepper.component';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { NumberOnlyDirective } from './directives/number-only.directive';
+import { TfModalComponent } from './components/tf-modal/tf-modal.component';
+import { TfTagListComponent } from './components/tf-tag-list/tf-tag-list.component';
 
 @NgModule({
-  declarations: [TfOtpInputComponent, TfSpinnerComponent, TfVerifyAccountComponent, GooglePlacesDirective, FixedBottomStepperComponent, NumberOnlyDirective],
+  declarations: [TfOtpInputComponent, TfSpinnerComponent, TfVerifyAccountComponent, GooglePlacesDirective, FixedBottomStepperComponent, NumberOnlyDirective, TfModalComponent, TfTagListComponent],
   imports: [FormsModule, ReactiveFormsModule, BlockUIModule, CommonModule, NgbTypeaheadModule],
   exports: [
     TfOtpInputComponent,
@@ -24,7 +26,9 @@ import { NumberOnlyDirective } from './directives/number-only.directive';
     FormsModule,
     ReactiveFormsModule,
     NgbTypeaheadModule,
-    FixedBottomStepperComponent
+    FixedBottomStepperComponent,
+    TfModalComponent,
+    TfTagListComponent,
   ],
 })
 export class SharedModule {}

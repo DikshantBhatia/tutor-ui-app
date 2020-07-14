@@ -41,7 +41,7 @@
             [ngClass]="{ 'is-invalid': submitted && f.highestDegree.errors }"
             required
           >
-            <option *ngFor="let degree of degrees" [value]="degree.value">{{ degree.label }}</option>
+            <option *ngFor="let degree of degrees" [value]="degree.id">{{ degree.description }}</option>
           </select>
           <div class="invalid-feedback">
             Degree is required

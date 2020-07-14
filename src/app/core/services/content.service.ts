@@ -4,7 +4,7 @@ import { CheckboxModel } from '../../shared/models/checkbox.model';
 import { SelectItemModel } from '../../shared/models/select-item.model';
 import { of } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { Audience, Language, TeachingLocation, TutorTeachingLocation } from '../../shared/models/types';
+import { Audience, Language, TeachingLocation } from '../../shared/models/types';
 
 @Injectable({
   providedIn: 'root',

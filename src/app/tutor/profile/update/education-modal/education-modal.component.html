@@ -1,0 +1,45 @@
+<app-tf-modal (save)="onSave()" title="Education">
+  <form #educationForm="ngForm">
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group mb-4">
+          <label for="institute-name">Insitution name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="institute-name"
+            placeholder="Enter the official instituion name"
+            [ngModel]="education.instituteName"
+            name="instituteName"
+            #instituteName="ngModel"
+            [ngClass]="{ 'is-invalid': instituteName.invalid && (instituteName.touched || instituteName.dirty) }"
+            required
+          />
+          <div class="invalid-feedback">
+            Institution name is required
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <label for="degree">Degree</label>
+        <select
+          id="degree"
+          class="form-control"
+          placeholder="Pick a degree level"
+          [ngModel]="education.degree"
+          name="degree"
+          #degree="ngModel"
+          [ngClass]="{ 'is-invalid': degree.invalid && (degree.touched || degree.dirty) }"
+          required
+        >
+          <option *ngFor="let degree of degrees" [value]="degree.value">{{ degree.label }}</option>
+        </select>
+        <div class="invalid-feedback">
+          Degree is required
+        </div>
+      </div>
+    </div>
+  </form>
+</app-tf-modal>

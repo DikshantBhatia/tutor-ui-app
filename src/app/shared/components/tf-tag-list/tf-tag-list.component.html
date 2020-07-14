@@ -1,0 +1,10 @@
+<div class="wrapper-tag" *ngFor="let tag of tags">
+    <button type="button" class="btn subcategory-tag  mb-1"  [ngClass]="{ 'tag-selected': tag.selected, 'tag-default': !tag.selected }" (click)="onToggle(tag)">
+        <span style="float: left; padding-left: 8px; padding-right: 8px;">{{ tag.description }}</span>
+        <span style="float: right;">
+
+            <i class="fa fa-plus" *ngIf="!tag.selected"></i>
+                    <i class="fa fa-check" *ngIf="tag.selected"></i>
+            </span>
+    </button>
+</div>

@@ -47,5 +47,8 @@ export class CreateTutorProfileService {
 
   private initializeProfile() {
     this.profile = this.authService.userSubject.getValue();
+    this.profile.audiences = [];
+    this.profile.teachingLanguages = [];
+    this.profile.teachingLocations = [];
   }
 }

@@ -3,7 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CreateTutorProfileService } from '../create-tutor-profile.service';
 import { NgForm } from '@angular/forms';
 import { User } from '../../core/models/user.model';
-import { Audience, Language, TeachingLocation } from '../../shared/models/types';
+import { AUDIENCE_TAGS, Language, LANGUAGE_TAGS, Tag, TEACHING_LOCATION_TAGS } from '../../shared/models/types';
+
 
 @Component({
   selector: 'app-preferences',
@@ -13,11 +14,13 @@ import { Audience, Language, TeachingLocation } from '../../shared/models/types'
 export class PreferencesComponent implements OnInit {
   tutor: User;
   submitted: boolean;
-  isLocationSelected = true;
-  isAudienceSelected = true;
-  TeachingLocation = TeachingLocation;
-  Audience = Audience;
-  Language = Language
+  locationError = false;
+  languageError = false;
+  audienceError = false;
+
+  teachingLocations  = TEACHING_LOCATION_TAGS;
+  languages = LANGUAGE_TAGS;
+  audiences = AUDIENCE_TAGS;
 
   constructor(
     private router: Router,
@@ -27,6 +30,7 @@ export class PreferencesComponent implements OnInit {
 
   ngOnInit(): void {
     this.tutor = this.createProfileService.getProfile();
+
   }
 
   onPrevious() {
@@ -37,7 +41,7 @@ export class PreferencesComponent implements OnInit {
 
   onFinish(f: NgForm) {
     this.submitted = true;
-    if (f.invalid || !this.isLocationSelected || !this.isAudienceSelected) {
+    if (f.invalid || !this.isValid()) {
       return;
     }
     this.createProfileService.updateProfile(this.tutor);
@@ -46,20 +50,53 @@ export class PreferencesComponent implements OnInit {
     });
   }
 
-  onChange(type: string) {
-    if (type === 'location-change') {
-      this.isLocationSelected = this.isAtleastOneCheckboxSelected(this.tutor.tutorTeachingLocations);
-    } else if (type === 'audience-change') {
-      this.isAudienceSelected = this.isAtleastOneCheckboxSelected(this.tutor.tutorAudiences);
+
+  private isValid() {
+    let isValid = true;
+    if(!this.tutor.teachingLocations || !this.tutor.teachingLocations.length) {
+      isValid = false;
+      this.locationError = true;
+    }
+    if(!this.tutor.teachingLanguages || !this.tutor.teachingLanguages.length) {
+      isValid = false;
+      this.languageError = true;
+    }
+    if(!this.tutor.audiences || !this.tutor.audiences.length) {
+      isValid = false;
+      this.audienceError = true;
+    }
+    return isValid;
+  }
+
+  onTagSelect(item: Tag, type:string) {
+
+    switch (type) {
+      case 'Location' :
+        this.tutor.teachingLocations.push(item.id);
+        break;
+      case 'Language' :
+        this.tutor.teachingLanguages.push(item.id);
+        break;
+      case 'Audience' :
+        this.tutor.audiences.push(item.id);
+        break;
     }
   }
 
-  private isAtleastOneCheckboxSelected(field: any[]) {
-    const index = field.findIndex((checkbox) => checkbox.selected === true);
-    if (index === -1) {
-      return false;
+  onTagRemove(tag: Tag, type:string) {
+
+    switch (type) {
+      case 'Location' :
+        this.tutor.teachingLocations =  this.tutor.teachingLocations.filter(item => item !== tag.id);
+        break;
+      case 'Language' :
+        this.tutor.teachingLanguages =  this.tutor.teachingLanguages.filter(item => item !== tag.id);
+        break;
+      case 'Audience' :
+        this.tutor.audiences =  this.tutor.audiences.filter(item => item !== tag.id);
+        break;
     }
-    return true;
   }
+
 
 }

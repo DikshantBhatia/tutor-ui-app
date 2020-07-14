@@ -11,6 +11,7 @@ import { HttpRequestInterceptor } from './core/interceptors/http-request.interce
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from './shared/shared.module';
 import { RootComponent } from './root.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { RootComponent } from './root.component';
     AppRoutingModule,
     HttpClientModule,
     NgbNavModule,
-    SharedModule
+    SharedModule,
+    NgMultiSelectDropDownModule.forRoot()
   ],
   providers: [
     {
