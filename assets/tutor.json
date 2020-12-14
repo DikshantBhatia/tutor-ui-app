@@ -1,0 +1,15 @@
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "contactInfo": {
+    "phoneNumber": "123456789 ",
+    "email": "abc@test.com"
+  },
+  "address": {
+    "googlePlaceId": "",
+    "description": "",
+    "type": ""
+  },
+  "type": "TUTOR",
+  "profileCreated" : false
+}

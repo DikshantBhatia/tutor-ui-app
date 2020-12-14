@@ -1,0 +1,14 @@
+{
+  "firstName": "Dikshant",
+  "lastName": "Bhatia",
+  "contactInfo": {
+    "phoneNumber": "123456789 ",
+    "email": "abc@test.com"
+  },
+  "address": {
+    "googlePlaceId": "",
+    "description": "",
+    "type": ""
+  },
+  "type": "STUDENT"
+}
