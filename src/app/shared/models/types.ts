@@ -63,10 +63,10 @@ export interface Subject {
 }
 
 export interface ContactInfo {
-  email: string;
+  email?: string;
   phoneNumber: string;
-  emailVerified: boolean;
-  phoneNumberVerified: boolean;
+  emailVerified?: boolean;
+  phoneNumberVerified?: boolean;
 }
 
 export interface Tag {

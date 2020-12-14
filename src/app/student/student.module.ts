@@ -10,6 +10,7 @@ import { StudentSubjectsComponent } from './subjects/student-subjects.component'
 import { StudentHomeComponent } from './student-home.component';
 import { RouterModule } from '@angular/router';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { LayoutModule } from '../layout/layout.module';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
     ]),
     SharedModule,
     NgbDropdownModule,
+    LayoutModule
   ],
 })
 export class StudentModule {}

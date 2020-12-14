@@ -7,6 +7,7 @@ import { TutorHomeComponent } from './tutor-home.component';
 import { ViewProfileComponent } from './profile/view/view-profile.component';
 
 import { EducationModalComponent } from './profile/update/education-modal/education-modal.component';
+import { LayoutModule } from '../layout/layout.module';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { EducationModalComponent } from './profile/update/education-modal/educat
     ]),
     SharedModule,
     NgbDropdownModule,
+    LayoutModule
   ],
 })
 export class TutorModule {}

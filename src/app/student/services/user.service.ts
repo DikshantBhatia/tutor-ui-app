@@ -12,17 +12,19 @@ export class UserService {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
 
-  getCurrentUser(): Observable<User> {
+  /*getCurrentUser(): Observable<User> {
     return this.http
       .get<User>('/api/users/me')
       .pipe(tap((userResponse) => this.authService.createUser(userResponse)));
-  }
+  }*/
 
 
-  updateUser(user): Observable<User> {
-    return this.http
+  updateUser(user) {
+    /*return this.http
       .put<User>('/api/users/me', user)
       .pipe(tap((userResponse) => this.authService.createUser(userResponse)));
+    */
+    this.authService.createUser(user)
   }
 
   phoneOtp(authDto: any): Observable<any> {

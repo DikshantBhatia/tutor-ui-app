@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 
 @Injectable({
@@ -10,11 +10,12 @@ export class UserPreferencesService {
   constructor(private http: HttpClient) {}
 
   getMySubjects() {
-    return this.http.get('/api/users/me/preferences/subjects');
+    // return this.http.get('/api/users/me/preferences/subjects');
+    return of([]);
   }
 
   getMyOtherPreference() {
-    return this.http.get('/api/users/me/preferences/other');
+    return this.http.get('assets/user-pref.json');
   }
 
   saveSubject(subjectId) {

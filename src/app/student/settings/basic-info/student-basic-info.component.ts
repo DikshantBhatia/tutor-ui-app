@@ -28,8 +28,11 @@ export class StudentBasicInfoComponent implements OnInit {
     this.basicInfoForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      address: [''],
-      googlePlaceId: [''],
+      address: this.formBuilder.group({
+        googlePlaceId: ['', Validators.required],
+        description: ['', Validators.required],
+        type: 'CITY'
+      }),
       gender: [''],
       languagePreference: [''],
       locationPreference: [''],
@@ -46,15 +49,16 @@ export class StudentBasicInfoComponent implements OnInit {
       return;
     }
     // display form values on success
-    this.userService.updateUser(this.basicInfoForm.value).subscribe((response) => {
-      alert('user saved');
-    });
+    this.userService.updateUser(this.basicInfoForm.value);
+
   }
 
   updateAddress(place: PlaceResult) {
     this.basicInfoForm.patchValue({
-      address: place.formatted_address,
-      googlePlaceId: place.place_id,
+      address:  {
+        description : place.formatted_address,
+        googlePlaceId: place.place_id
+      }
     });
   }
 }

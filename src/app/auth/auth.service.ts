@@ -4,6 +4,8 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { User } from '../core/models/user.model';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { MockDataService } from '../core/services/mock.data.service';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -12,28 +14,46 @@ export class AuthService {
   userSubject = new BehaviorSubject<User>(null);
   authToken;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private mockDataService: MockDataService) {}
 
   // request to generate otp for login
   sendOtp(phone) {
-    return this.http.post('/api/auth/otp', phone);
+    // return this.http.post('/api/auth/otp', phone);
+
+    return of(true);
   }
 
   // request to generate otp for signup
   sendOtpForSignup(authDto: any) {
-    return this.http.post('/api/auth/signupotp', authDto);
+    // return this.http.post('/api/auth/signupotp', authDto);
+
+    return of(true);
   }
 
   loginStudent(phone, otp) {
-    return this.http.post('/api/auth/signin', { phoneNumber: phone, password: otp }).pipe(
+
+    /*return this.http.post('/api/auth/signin', { phoneNumber: phone, password: otp }).pipe(
+      tap((response) => {
+        this.handleAuthentication(response);
+      })
+    );*/
+   return this.http.get<User>( 'assets/student.json').pipe(
       tap((response) => {
         this.handleAuthentication(response);
       })
     );
+
+
   }
 
   loginTutor(phone, otp) {
-    return this.http.post('/api/auth/signin/tutor', { phoneNumber: phone, password: otp }).pipe(
+
+    /*return this.http.post('/api/auth/signin/tutor', { phoneNumber: phone, password: otp }).pipe(
+      tap((response) => {
+        this.handleAuthentication(response);
+      })
+    );*/
+    return this.http.get<User>('assets/tutor.json').pipe(
       tap((response) => {
         this.handleAuthentication(response);
       })
@@ -45,7 +65,7 @@ export class AuthService {
    *
    */
   logout() {
-    this.http
+    /*this.http
       .get('api/auth/signout')
       .pipe(
         tap((res) => {
@@ -54,7 +74,10 @@ export class AuthService {
       )
       .subscribe(() => {
         this.router.navigate(['home']);
-      });
+      });*/
+
+    this.removeUserContext();
+    this.router.navigate(['home']);
   }
 
   // delete usercontext and token from the frontend
@@ -65,20 +88,27 @@ export class AuthService {
   }
 
   signup(userDetails: any) {
-    return this.http
+    /*return this.http
       .post('/api/auth/signup', userDetails)
-      .pipe(tap((responseData) => this.handleAuthentication(responseData)));
+      .pipe(tap((responseData) => this.handleAuthentication(responseData)));*/
+    return this.mockDataService
+      .signupStudent(userDetails)
+      .pipe(tap((responseData) => this.handleAuthentication(responseData)))
   }
 
   signupTutor(userDetails: any) {
-    return this.http
+    /*return this.http
       .post('/api/auth/signup/tutor', userDetails)
-      .pipe(tap((responseData) => this.handleAuthentication(responseData)));
+      .pipe(tap((responseData) => this.handleAuthentication(responseData)));*/
+
+    return this.mockDataService
+      .signupTutor(userDetails)
+      .pipe(tap((responseData) => this.handleAuthentication(responseData)))
   }
 
   // make a call to backend to get user details(role etc). It will also verify if token is valid or not
   getCurrentUser(): Observable<User> {
-    return this.http.get<User>('/api/auth/me');
+    return this.http.get<User>('assets/student.json');
   }
 
   /**
@@ -110,6 +140,7 @@ export class AuthService {
     if (!token || token === 'undefined') {
       return of(false);
     }
+
     return this.getCurrentUser().pipe(
       tap((response) => {
         this.authToken = token;
@@ -124,8 +155,14 @@ export class AuthService {
 
   // gets the token from response and stores it in localstorage
   private handleAuthentication(response) {
-    this.authToken = response.tft;
+    this.authToken = response.tft ? response.tft : "abde";
     localStorage.setItem('tf-token', this.authToken);
     this.createUser(response.user);
   }
+
+
+
+
+
+
 }

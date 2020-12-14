@@ -45,9 +45,12 @@ export class PreferencesComponent implements OnInit {
       return;
     }
     this.createProfileService.updateProfile(this.tutor);
-    this.createProfileService.createProfile().subscribe(() => {
+    this.createProfileService.createProfile();
+    this.router.navigate(['tutor/me/profile']);
+
+    /*this.createProfileService.createProfile().subscribe(() => {
         this.router.navigate(['tutor/me/profile']);
-    });
+    });*/
   }
 
 

@@ -18,7 +18,7 @@ export class ContentService {
     if (Array.isArray(this.categories) && this.categories.length) {
       return of(this.categories);
     }
-    return this.http.get('/api/cms/categories').pipe(tap((res) => this.setCategoriesInMemory(res)));
+    return this.http.get('assets/subjects.json').pipe(tap((res) => this.setCategoriesInMemory(res)));
   }
 
   getTeachingLocations() {

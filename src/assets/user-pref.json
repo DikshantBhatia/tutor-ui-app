@@ -1,0 +1,19 @@
+{
+  "languagePreferences" : [{
+    "description" : "English",
+    "code": "EN" ,
+    "selected" : "true"
+  },
+    {
+      "description" : "Hindi",
+      "code": "HI" ,
+      "selected" : "false"
+    }
+  ],
+  "address" :   {
+    "googlePlaceId": "",
+    "description": "",
+    "type": ""
+  },
+  "interestedInOnlineClasses" : false
+}

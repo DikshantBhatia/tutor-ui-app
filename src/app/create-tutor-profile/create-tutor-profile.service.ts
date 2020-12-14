@@ -39,9 +39,11 @@ export class CreateTutorProfileService {
 
 
   createProfile() {
-    return this.http
+    /*return this.http
       .put('/api/tutors/me', this.profile)
       .pipe(tap((tutor) => this.authService.createUser(tutor)));
+    */
+    this.authService.createUser(this.profile);
   }
 
 

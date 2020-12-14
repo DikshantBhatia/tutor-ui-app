@@ -1,0 +1,38 @@
+[
+{
+  "id" : 1,
+  "description" : "Programming",
+  "subcategories" : [
+    {
+      "id" : 2,
+      "description" : "Java"
+    },
+    {
+      "id" : 3,
+      "description" : "Python"
+    },
+    {
+      "id" : 4,
+      "description" : "JavaScript"
+    }
+  ]
+},
+{
+  "id" : 5,
+  "description" : "Music",
+  "subcategories" : [
+    {
+      "id" : 6,
+      "description" : "Guitar"
+    },
+    {
+      "id" : 7,
+      "description" : "Drums"
+    },
+    {
+      "id" : 8,
+      "description" : "Piano"
+    }
+  ]
+}
+]
