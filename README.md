@@ -1,6 +1,6 @@
 # TutorUiApp
 
-The frontend code of tutor.find.
+The app is designed to connect  students and tutors and make them find each other. The goal is that students can easily find tutors and tutor can create their profile which will make them stand out of the crowd. 
 
 ## Version
 
