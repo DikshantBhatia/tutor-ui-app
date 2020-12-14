@@ -49,13 +49,9 @@
       class="form-control"
       id="address"
       aria-describedby="addressHelpBlock"
-      formControlName="address"
       [ngClass]="{ 'is-invalid': submitted && f.address.errors }"
-      appGooglePlaces
-      [addressType]="'(cities)'"
       (onPlaceSelect)="updateAddress($event)"
       placeholder="Search your city"
-      required
     />
 
     <div class="invalid-feedback">

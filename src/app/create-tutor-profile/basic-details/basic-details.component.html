@@ -54,9 +54,6 @@
             class="form-control"
             id="address"
             aria-describedby="addressHelpBlock"
-            appGooglePlaces
-            [addressType]="'(cities)'"
-            formControlName="description"
             (focusout)="checkPlace()"
             (onPlaceSelect)="updateAddress($event)"
             placeholder="Type your city"
@@ -64,7 +61,6 @@
               'is-invalid':
                 submitted && (f.address.get('description').errors || f.address.get('googlePlaceId').errors)
             }"
-            required
           />
           <div class="invalid-feedback">
             Select a valid city

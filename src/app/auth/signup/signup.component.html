@@ -88,14 +88,10 @@
               class="form-control"
               id="address"
               aria-describedby="addressHelpBlock"
-              formControlName="description"
               [ngClass]="{ 'is-invalid': submitted && (f.address.get('description').errors || f.address.get('googlePlaceId').errors) }"
-              appGooglePlaces
-              [addressType]="'(cities)'"
               (focusout)="checkPlace()"
               (onPlaceSelect)="updateAddress($event)"
               placeholder="Search your city"
-              required
             />
             <div class="invalid-feedback">
               Select a valid city

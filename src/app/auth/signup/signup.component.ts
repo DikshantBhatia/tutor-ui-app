@@ -38,8 +38,8 @@ export class SignupComponent implements OnInit, AfterViewInit, OnDestroy {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       address: this.formBuilder.group({
-        googlePlaceId: ['', Validators.required],
-        description: ['', Validators.required],
+        googlePlaceId: [''],
+        description: [''],
         type: 'CITY'
       }),
       phoneNumber: ['', Validators.required],
